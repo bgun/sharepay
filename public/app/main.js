@@ -3,15 +3,15 @@ var App = App || {
   Models: {},
   Views: {},
   Utils: {},
-  songs: {},
   settings: {
-    GRID_SIZE: 16,
-    DEFAULT_BPM: 100,
-    MAX_SELECTIONS_PER_TRACK: 16
+
   }
 };
 
+// send-order
+
 $(function() {
+
   templateManager.loadTemplates();
   // App.songs = new App.Collections.SongCollection();
   // App.song = new App.Models.SongModel(); // change this to load all the songs
@@ -19,13 +19,9 @@ $(function() {
   var AppRouter = Backbone.Router.extend({
 
     routes: {
-      "song/create"             : "createSong",
-      "song/:song"              : "songLanding",
-      "song/:song/listen"       : "songListen",
-      "song/:song/track"        : "track",
-      // "song/:song/conductor"    : "conductor",
-      // "song/conductor"          : "conductor",
-      "*path"                   : "defaultRoute"
+      //'/vendors' : 'vendorRender',
+      'cart/:cartId'     : 'cart',
+      '*path'    : 'defaultRoute'
     },
 
     // createSong: App.SongViewController.createSong,
@@ -37,12 +33,26 @@ $(function() {
     //   console.log('conductor', songId);
     // },
 
+    cart: function(cartId) {
+      console.log('in cart', cartId);
+      // TODO: lookup cart from db
+      var myCart = new App.Models.CartModel({
+        vendor: 'Seamless',
+        items: new Backbone.Collection(),
+        users: ['ben', 'greg', 'raj', 'pavel', 'micah', 'moshe'],
+        processors: ['dowalla','venmo'],
+        deadline: "2013-11-10T21:15:41.010Z",
+      });
+      var cartView = new App.Views.CartView({model:myCart});
+      cartView.render();
+    },
+
     defaultRoute: function(path) {
       console.log('main');
       if (path) {
         console.log('unkown path:', path);
       }
-      App.main = new App.Views.MainView().render();
+      App.main = new App.Views.MainView({ el: '#content' }).render();
     }
 
   });

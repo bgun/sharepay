@@ -12,18 +12,42 @@
   <link rel="stylesheet" href="css/grid.css" />
 </head>
 <body>
+  <h1>
+    SharePay
+  </h1>
   <div id="content"></div>
 
+  <!-- libraries -->
   <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js'></script>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js'></script>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js'></script>
+  <script src='app/lib/moment.min.js'></script>
 
+  <!-- main & helpers -->
   <script src='app/templateManager.js'></script>
   <script src='app/main.js'></script>
   <script src='app/util.js'></script>
   <script src='app/views/MainView.js'></script>
 
+  <!-- vendor -->
+  <script src='app/models/VendorModel.js'></script>
+  <script src='app/collections/VendorCollection.js'></script>
+  <script src='app/views/VendorPickerView.js'></script>
+  <script src='app/data/vendor-list.js'></script>
+
+  <!-- cart -->
+  <script src='app/models/CartModel.js'></script>
+  <script src='app/views/CartView.js'></script>
+
+  <!-- processor -->
+  <script src='app/models/ProcessorModel.js'></script>
+  <script src='app/collections/ProcessorCollection.js'></script>
+  <script src='app/views/ProcessorPickerView.js'></script>
+  <script src='app/data/processor-list.js'></script>
+
+  <!-- controllers -->
   <script src="app/controllers/SetupViewController.js"></script>
 
+  <!-- data -->
 </body>
 </html>

@@ -2,22 +2,25 @@ App.Views.MainView = Backbone.View.extend({
 
 	el: '#content',
 
+	viewsToRender: [
+		//new App.Views.VendorPickerView({ collection: App.vendors })
+	],
+
 	events: {
-		'click .submit-funders': 'renderVendors'/*,
-		'click .send-order': function() {
-			console.log('sending an order');
-			App.router.navigate('');
-		}*/
+		'click .invite-funders': 'sendInvites'
 	},
 
 	initialize: function(options) {
 		var self = this;
+		var viewsToRender = [];
 
-		/*this.collection = new App.Collections.VendorCollection();
+		var what = new App.Views.VendorPickerView({ collection: App.vendors });
 
-		_(this.collection.models).each(function(item) {
-			self.renderVendor(item);
-		}, this);*/
+		viewsToRender.push(what); 
+
+		_(viewsToRender).each(function(view) {
+			view.render();
+		}, this);
 
 		this.render();
 	},
@@ -25,17 +28,10 @@ App.Views.MainView = Backbone.View.extend({
 	render: function() {
 		var t = templateManager.getTemplate('main');
 		this.$el.html(t);
-		//this.songListView = new App.Views.SongListView();
-		//this.songListView.render();
 	},
 
-	renderVendors: function() {
-		var vendors = new App.Collection.VendorCollection();
-
-		_(this.collection.models).each(function(item) {
-			self.renderVendor(item);
-		}, this);
-		//this.$el.find('.vendor-list-container').show();
+	sendInvites: function() {
+		
 	}
 
 });

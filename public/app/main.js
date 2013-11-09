@@ -20,6 +20,7 @@ $(function() {
 
     routes: {
       //'/vendors' : 'vendorRender',
+      'cart/:cartId'     : 'cart',
       '*path'    : 'defaultRoute'
     },
 
@@ -34,7 +35,16 @@ $(function() {
 
     cart: function(cartId) {
       console.log('in cart', cartId);
-      var cartView = new App.Views.CartView(cartId).render();
+      // TODO: lookup cart from db
+      var myCart = new App.Models.CartModel({
+        vendor: 'Seamless',
+        items: new Backbone.Collection(),
+        users: ['ben', 'greg', 'raj', 'pavel', 'micah', 'moshe'],
+        processors: ['dowalla','venmo'],
+        deadline: "2013-11-10T21:15:41.010Z",
+      });
+      var cartView = new App.Views.CartView({model:myCart});
+      cartView.render();
     },
 
     defaultRoute: function(path) {

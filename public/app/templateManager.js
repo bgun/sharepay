@@ -1,6 +1,6 @@
 var templateManager = (function($, _) {
   var templates = {},
-      templateKeys = ['main', 'order-options', ''];
+      templateKeys = ['main', 'cart'];
 
   var getTemplate = function(key) {
     if (!templates[key]) {

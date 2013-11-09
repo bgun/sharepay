@@ -9,9 +9,10 @@ App.Views.ProcessorsPickerView = Backbone.View.extend({
 	},
 
 	render: function() {
-		var html = this.options.collection.pluck('name').join(', ');
-		this.$el.html(html);
-		this.options.parentView.$el.append(this.$el);
+		var processors = this.options.collection.pluck('name'); //.join(', ');
+		console.log(processors);
+		//this.$el.html(html);
+		//this.options.parentView.$el.append(this.$el);
 	}
 
 });

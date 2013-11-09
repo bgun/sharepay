@@ -5,13 +5,14 @@ var App = App || {
   Utils: {},
   songs: {},
   settings: {
-    GRID_SIZE: 16,
-    DEFAULT_BPM: 100,
-    MAX_SELECTIONS_PER_TRACK: 16
+
   }
 };
 
+// send-order
+
 $(function() {
+
   templateManager.loadTemplates();
   // App.songs = new App.Collections.SongCollection();
   // App.song = new App.Models.SongModel(); // change this to load all the songs
@@ -19,13 +20,9 @@ $(function() {
   var AppRouter = Backbone.Router.extend({
 
     routes: {
-      "song/create"             : "createSong",
-      "song/:song"              : "songLanding",
-      "song/:song/listen"       : "songListen",
-      "song/:song/track"        : "track",
-      // "song/:song/conductor"    : "conductor",
-      // "song/conductor"          : "conductor",
-      "*path"                   : "defaultRoute"
+      //"song/create" : "createSong",
+      //"song/:song"  : "songLanding",
+      "*path"         : "defaultRoute"
     },
 
     // createSong: App.SongViewController.createSong,

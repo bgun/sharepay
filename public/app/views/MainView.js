@@ -2,25 +2,20 @@ App.Views.MainView = Backbone.View.extend({
 
 	el: '#content',
 
-	viewsToRender: [
-		//new App.Views.VendorPickerView({ collection: App.vendors })
-	],
-
 	events: {
 		'click .invite-funders': 'sendInvites'
 	},
 
 	initialize: function(options) {
-		var self = this;
-		var viewsToRender = [];
+		var _this = this;
 
-		var what = new App.Views.VendorPickerView({ collection: App.vendors });
+		this.childViews = {};
+		this.vendorPicker = new App.Views.VendorPickerView({ collection: App.vendors });
+		this.childViews[this.vendorPicker.cid] = this.vendorPicker;
 
-		viewsToRender.push(what); 
-
-		_(viewsToRender).each(function(view) {
-			view.render();
-		}, this);
+		_.each(this.childViews, function(view, cid){
+			this.$('[data-view-cid="' + cid + '"]').replaceWith(view.el);
+		});
 
 		this.render();
 	},

@@ -1,0 +1,60 @@
+#grid {
+  box-sizing: border-box;
+  font-size: 2rem; /* 20px; */
+  margin: 0 auto;
+  padding: 0.5rem;
+  width: 100%;
+}
+#grid .cell {
+  box-sizing: border-box;
+  float: left;
+  line-height: 2rem;
+  position: relative;
+  text-align: center;
+}
+#grid .cell .content {
+  background: #555;
+  border-radius: 1rem;
+  box-sizing: border-box;
+  height: 50%;
+  margin: 25%;
+  position: absolute;
+    top: 0;
+    left: 0;
+  width: 50%;
+}
+#grid .cell.selected .content {
+  /*z-index: 2;*/
+}
+.clear {
+  clear: both;
+}
+#grid .cell.selected.player-0 .content,
+#grid .cell.selected.player-1 .content,
+#grid .cell.selected.player-2 .content,
+#grid .cell.selected.player-3 .content,
+#grid .cell.selected.player-4 .content,
+#grid .cell.selected.player-5 .content,
+#grid .cell.selected.player-6 .content,
+#grid .cell.selected.player-7 .content {
+  background: #1A1A1A;
+}
+#grid .cell.selected .content {
+  border: 2px solid #fff; /* default */
+}
+
+/* IMPORTANT: any colors that are added here also need to be added to the #legend section of styles.css */
+#grid .cell.selected.player-0 .content { border: 2px solid #3FA9F5; }
+#grid .cell.selected.player-1 .content { border: 2px solid #7AC943; }
+#grid .cell.selected.player-2 .content { border: 2px solid #FF931E; }
+#grid .cell.selected.player-3 .content { border: 2px solid #FF1D25; }
+#grid .cell.selected.player-4 .content { border: 2px solid #00FFFF; }
+#grid .cell.selected.player-5 .content { border: 2px solid #8592F9; }
+#grid .cell.selected.player-6 .content { border: 2px solid #93278F; }
+#grid .cell.selected.player-7 .content { border: 2px solid #FFFF00; }
+
+#grid .cell.playing.selected .content {
+  background: #FFF;
+  border: none;
+  box-shadow: 0 0 3.5rem rgba(255,255,255,1);
+}

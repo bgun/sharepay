@@ -1,42 +1,47 @@
-<div class="cart page">
 
-	<section class="item-list">
-		[if vendor]
-		<section class="individual">
-			<h3>Individual Items</h3>
-				[each contributor]
-					<div class="item-group">
-						<div class="contributor-name">[contributor]</div>
-						[each item]
-						<div class="item">
-							<span class="item-name">[item name]</span>
-							<span class="item-price">[item price]</span>
-						</div>
-						[/each item]
+
+	<section class="group-cart">
+		<span class="remaining-time"><%= remainingTime %></span>
+		<section class="item-list">
+			<% if (vendor) { %>
+				<section class="individual">
+					<h3>Individual Items</h3>
+						[each contributor]
+							<div class="item-group">
+								<div class="contributor-name">[contributor]</div>
+								[each item]
+								<div class="item">
+									<span class="item-name">[item name]</span>
+									<span class="item-price">[item price]</span>
+								</div>
+								[/each item]
+							</div>
+							[if !host]
+							<button>Pay with Venmo</button>
+							[/if !host]
+						[/each contributor]
+				</section>
+			<% } %>
+
+			<section class="shared">
+				<h3>Shared Items</h3>
+				<form class="shared-item-form">
+					<input name="item-name" placeholder="item" />
+					<input name="item-price" placeholder="price" />
+					<button>add</button>
+				</form>
+				<div class="item-group">
+					[each item]
+					<div class="item">
+						<span class="item-name">[item name]</span>
+						<span class="item-price">[item price]</span>
 					</div>
-				[/each contributor]
-			[/if vendor]
-		</section>
-
-		<section class="shared">
-			<h3>Shared Items</h3>
-			<form class="shared-item-form">
-				<input name="item-name" />
-				<input name="item-price" />
-				<button>add</button>
-			</form>
-			<div class="item-group">
-				[each item]
-				<div class="item">
-					<span class="item-name">[item name]</span>
-					<span class="item-price">[item price]</span>
+					[/each item]
 				</div>
-				[/each item]
-			</div>
+			</section>
 		</section>
-	</section>
 
-	[if host]
-	<button class="send-order">Send Order</button>
-	[/if host]
-</div>
+		[if host]
+		<button class="send-order">Send Order</button>
+		[/if host]
+	</section>

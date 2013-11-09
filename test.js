@@ -20,8 +20,11 @@ app.use(express.static(__dirname + "/public"));
 
 app.listen(8080);
 
+app.get("/",function(req, res) {
+  res.send("<h1>SharePay</h1>");
+});
 app.get("/test",function(req, res) {
-  console.log(req);
+  //console.log(req);
   getStaticFile("anim.gif",function(f) {
     res.set("Content-Type","image/gif");
     res.send(f);

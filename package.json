@@ -1,11 +1,16 @@
 {
   "name" : "SharePay",
   "version" : "0.0.1",
+  "repository" : {
+    "type": "git",
+    "url" : "http://github.com/bgun/sharepay.git"
+  },
   "dependencies" : {
-    "express"  : "3.3.x",
-    "mongoose" : "3.8.x",
-    "less"     : "1.5.x",
-    "backbone" : "1.1.0"
+    "underscore": "1.5.x",
+    "express"   : "3.3.x",
+    "mongoose"  : "3.8.x",
+    "less"      : "1.5.x",
+    "backbone"  : "1.1.0"
   },
   "engines": {
     "node": "0.10.x",

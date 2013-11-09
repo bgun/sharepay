@@ -10,8 +10,17 @@ App.Views.MainView = Backbone.View.extend({
 
 	initialize: function(options) {
 		this.childViews = [];
-		this.childViews.push( new App.Views.VendorPickerView({ parentView: this, collection: App.vendors }) );
-		this.childViews.push( new App.Views.ProcessorsPickerView({ parentView: this, collection: App.processors }) );
+		//var myVendor = new App.Models.VendorModel();
+		this.childViews.push(new App.Views.VendorPickerView({
+			model: new App.Models.VendorModel(),
+			parentView: this,
+			collection: App.vendors
+		}));
+		this.childViews.push(new App.Views.ProcessorsPickerView({
+			model: new App.Models.ProcessorModel(),
+			parentView: this,
+			collection: App.processors
+		}));
 	},
 
 	render: function() {

@@ -9,9 +9,13 @@ App.Views.VendorPickerView = Backbone.View.extend({
 	},
 
 	render: function() {
-		var html = this.options.collection.pluck('name').join(', ');
+		var templateFn = _.template(templateManager.getTemplate('vendor')),
+			obj = this.model.toJSON(),
+			html = templateFn(obj);
+
 		this.$el.html(html);
 		this.options.parentView.$el.append(this.$el);
+		return this;
 	}
 
 });

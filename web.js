@@ -34,6 +34,28 @@ app.get('/api/vendors',function(req, res) {
   });
 });
 
+app.post('/api/cart/new',function(req, res) {
+  var obj = JSON.stringify(req.body.cart);
+  api.makeCart(obj,function(cart) {
+    res.set("Content-Type","text/json");
+    res.send({
+      success: true,
+      cart: cart
+    });
+  });
+});
+
+app.get('/api/cart/:id',function(req, res) {
+  api.getCart(req.params.id,function(cart) {
+    res.set("Content-Type","text/json");
+    res.send({
+      success: true,
+      id: req.params.id,
+      cart: cart
+    });
+  });
+});
+
 
 // start listening on port 5000
 
@@ -41,13 +63,3 @@ var port = process.env.PORT || 5000;
 app.listen(port, function() {
   console.log("Listening on " + port);
 });
-
-/*
-var Cat = mongoose.model('test', { name: String });
-
-var kitty = new Cat({ name: 'Zildjian' });
-kitty.save(function (err) {
-  if (err) // ...
-  console.log('meow');
-});
-*/

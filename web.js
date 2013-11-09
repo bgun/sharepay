@@ -21,18 +21,29 @@ app.get('/', function(request, response) {
 app.get('/test',function(req, res) {
   var parts = url.parse(req.url, true);
   var query = parts.query;
-  res.send(query);//.join(","));
+  res.send(query);
 });
 
-app.get('/api/vendors',function(req, res) {
-  api.getVendors(function(vendors) {
-    res.set("Content-Type","text/json");
-    res.send({
-      count: vendors.length,
-      vendors: vendors
+var capitalize = function(word) {
+  return word[0].toUpperCase() + word.substr(1,word.length);
+};
+
+var makeReadApis = function(nouns) {
+  _.each(nouns,function(n) {
+    console.log("creating /api/"+n+" endpoint");
+    app.get('/api/'+n,function(req, res) {
+      api["get"+capitalize(n)](function(r) {
+        res.set("Content-Type","text/json");
+        res.send({
+          count: r.length,
+          vendors: r
+        });
+      });
     });
   });
-});
+};
+makeReadApis(["processors","users","vendors"]);
+
 
 app.post('/api/cart/new',function(req, res) {
   var obj = JSON.stringify(req.body.cart);
@@ -54,6 +65,24 @@ app.get('/api/cart/:id',function(req, res) {
       cart: cart
     });
   });
+});
+
+app.get('/api/user',function(req, res) {
+  res.set("Content-Type","text/json");
+  var parts = url.parse(req.url, true);
+  var query = parts.query;
+  if(query.email) {
+    api.getOrCreateUser(query.email,function(user) {
+      res.send({
+        success: true,
+        user: user
+      });
+    });
+  } else {
+    res.send({
+      error: "Must specify an email"
+    });
+  }
 });
 
 

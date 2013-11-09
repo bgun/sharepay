@@ -12,31 +12,15 @@ var Schema = mongoose.Schema,
     ObjectId = Schema.ObjectId;
 
 
-/* Vendor */
-
-var vendorSchema = new Schema({
-  _id: Schema.ObjectId,
-  name: String
-});
-var Vendor = mongoose.model('Vendor', vendorSchema);
-
-exports.getVendors = function(callback) {
-  Vendor.find(function(err, vendors) {
-    callback.call(null, vendors);
-  });
-};
-
-
 /* Cart */
 
-var cartSchema = mongoose.Schema({
+var cartSchema = Schema({
   _id: Schema.ObjectId,
   deadline: String,
   vendor: String,
   items: Array
 });
 var Cart = mongoose.model('Cart', cartSchema);
-
 exports.makeCart = function(obj, callback) {
   var cart = new Cart(obj);
   cart.save(function(err, cart) {
@@ -49,5 +33,64 @@ exports.getCart = function(id,callback) {
   Cart.findById(id,function(err, cart) {
     console.log(err, cart);
     callback.call(null, cart);
+  });
+};
+
+
+/* Processor */
+
+var processorSchema = new Schema({
+  _id: Schema.ObjectId,
+  name: String
+});
+var Processor = mongoose.model('Processor', processorSchema);
+exports.getProcessors = function(callback) {
+  Processor.find(function(err, procs) {
+    callback.call(null, procs);
+  });
+};
+
+
+/* User */
+
+var userSchema = new Schema({
+  name: String,
+  email: String
+});
+var User = mongoose.model('User', userSchema);
+exports.getUsers = function(callback) {
+  User.find(function(err, users) {
+    callback.call(null, users);
+  });
+};
+exports.getOrCreateUser = function(eaddr,callback) {
+  User.findOne({email: eaddr}, function(err, user) {
+    if(user) {
+      console.log("FOUND USER",user);
+      callback.call(null,user);
+    } else {
+      var u = new User({
+        name: "",
+        email: eaddr
+      });
+      u.save(function(err, newuser) {
+        console.log("NEW USER",newuser);
+        callback.call(null, newuser);
+      });
+    }
+  });
+};
+
+
+/* Vendor */
+
+var vendorSchema = new Schema({
+  _id: Schema.ObjectId,
+  name: String
+});
+var Vendor = mongoose.model('Vendor', vendorSchema);
+exports.getVendors = function(callback) {
+  Vendor.find(function(err, vendors) {
+    callback.call(null, vendors);
   });
 };

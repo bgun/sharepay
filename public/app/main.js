@@ -42,7 +42,7 @@ $(function() {
       if (path) {
         console.log('unkown path:', path);
       }
-      App.main = new App.Views.MainView().render();
+      App.main = new App.Views.MainView({ el: '#content' }).render();
     }
 
   });

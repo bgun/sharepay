@@ -13,6 +13,8 @@ var app   = express();
 app.use(express.logger());
 app.use(express.static(__dirname + "/public"));
 
+require("./app/oauth/processors")(app);
+
 app.get('/', function(request, response) {
   response.send('<h1>SharePay</h1>');
 });
@@ -26,7 +28,7 @@ app.get('/test',function(req, res) {
 
 app.get('/api/vendors',function(req, res) {
   api.getVendors(function(vendors) {
-    res.set("Content-Type","text/json");
+    res.set("Content-Type","application/json");
     res.send({
       count: vendors.length,
       vendors: vendors

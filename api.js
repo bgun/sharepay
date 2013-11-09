@@ -1,4 +1,5 @@
 var mongoose = require("mongoose");
+var _        = require("underscore");
 
 mongoose.connect('mongodb://sharepay:456Fintech@paulo.mongohq.com:10085/app19320139');
 
@@ -73,9 +74,9 @@ exports.getOrCreateUser = function(eaddr,callback) {
         name: "",
         email: eaddr
       });
+      console.log("NEW USER",u);
       u.save(function(err, newuser) {
-        console.log("NEW USER",newuser);
-        callback.call(null, newuser);
+        callback.call(null, newuser, true);
       });
     }
   });

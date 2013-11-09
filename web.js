@@ -72,10 +72,11 @@ app.get('/api/user',function(req, res) {
   var parts = url.parse(req.url, true);
   var query = parts.query;
   if(query.email) {
-    api.getOrCreateUser(query.email,function(user) {
+    api.getOrCreateUser(query.email,function(user, newuser) {
       res.send({
         success: true,
-        user: user
+        user: user,
+        newuser: newuser ? true : false
       });
     });
   } else {

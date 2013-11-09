@@ -1,8 +1,8 @@
-App.Views.VendorPickerView = Backbone.View.extend({
+App.Views.ProcessorsPickerView = Backbone.View.extend({
 
 	tagName: 'section',
 
-	className: 'vendor-list-container',
+	className: 'payment-options',
 
 	initialize: function(options) {
 		this.options = options;

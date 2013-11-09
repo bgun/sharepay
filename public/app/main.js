@@ -32,6 +32,11 @@ $(function() {
     //   console.log('conductor', songId);
     // },
 
+    cart: function(cartId) {
+      console.log('in cart', cartId);
+      var cartView = new App.Views.CartView(cartId).render();
+    },
+
     defaultRoute: function(path) {
       console.log('main');
       if (path) {

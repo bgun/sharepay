@@ -3,7 +3,6 @@ var App = App || {
   Models: {},
   Views: {},
   Utils: {},
-  songs: {},
   settings: {
 
   }

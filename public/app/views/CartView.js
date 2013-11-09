@@ -3,7 +3,7 @@ App.Views.CartView = Backbone.View.extend({
 	el: '#content',
 
 	events: {
-		'click .invite-funders': 'sendInvites'
+		'click .venmo-btn': 'makeVenmoPayment'
 	},
 
 	// initialize: function(options) {
@@ -17,16 +17,13 @@ App.Views.CartView = Backbone.View.extend({
 		var html = templateFn(obj);
 		this.$el.html(html);
 		return this;
-
-
-
-
-		// var t = templateManager.getTemplate('cart');
-		// var tfn = _.template(t);
 	},
 
-	sendInvites: function() {
-		
+
+
+
+	makeVenmoPayment: function() {
+		console.log('venmo!');
 	}
 
 });

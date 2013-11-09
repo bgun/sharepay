@@ -20,8 +20,8 @@ $(function() {
   var AppRouter = Backbone.Router.extend({
 
     routes: {
-      '/order' : '',
-      '*path'  : 'defaultRoute'
+      //'/vendors' : 'vendorRender',
+      '*path'    : 'defaultRoute'
     },
 
     // createSong: App.SongViewController.createSong,

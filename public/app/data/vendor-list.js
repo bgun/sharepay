@@ -7,13 +7,22 @@ App.vendors = new App.Collections.VendorCollection([
 	{
 		name: 'Seamless',
 		logoCode: 'seamless',
-		optionsModel: App.Models.SeamlessOptionsModel,
-		optionsView: App.Models.SeamlessOptionsView
+		optionsView: App.Models.RestaurantPickerView
 	},
 	{
 		name: 'Fresh Direct',
 		logoCode: 'freshdirect',
-		optionsModel: App.Models.SeamlessOptionsModel,
-		optionsView: App.Models.SeamlessOptionsView
+	},
+	{
+		name: 'Drugstore.com',
+		logoCode: 'drugstore',
+	},
+	{
+		name: 'Best Buy',
+		logoCode: 'bestbuy'
+	},
+	{
+		name: 'Fresh Direct',
+		logoCode: 'freshdirect'
 	}
 ]);

@@ -21,9 +21,7 @@ $(function() {
       "song/create"             : "createSong",
       "song/:song"              : "songLanding",
       "song/:song/listen"       : "songListen",
-      "song/:song/track"        : "track",
-      // "song/:song/conductor"    : "conductor",
-      // "song/conductor"          : "conductor",
+      "cart/:cart"              : "cart",
       "*path"                   : "defaultRoute"
     },
 
@@ -35,6 +33,11 @@ $(function() {
     // conductor: function(songId) {
     //   console.log('conductor', songId);
     // },
+
+    cart: function(cartId) {
+      console.log('in cart', cartId);
+      var cartView = new App.Views.CartView(cartId).render();
+    },
 
     defaultRoute: function(path) {
       console.log('main');

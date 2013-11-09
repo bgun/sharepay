@@ -20,9 +20,8 @@ $(function() {
   var AppRouter = Backbone.Router.extend({
 
     routes: {
-      //"song/create" : "createSong",
-      //"song/:song"  : "songLanding",
-      "*path"         : "defaultRoute"
+      '/order' : '',
+      '*path'  : 'defaultRoute'
     },
 
     // createSong: App.SongViewController.createSong,

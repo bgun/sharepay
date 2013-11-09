@@ -8,9 +8,11 @@ var server  = email.server.connect({
 });
 
 // send the message and get a callback with an error or details of the message that was sent
-server.send({
-   text:    "This was too easy", 
-   from:    "SharePay <sharepay1@gmail.com>", 
-   to:      "Post Versichern <postversichern@gmail.com>",
-   subject: "testing emailjs"
-}, function(err, message) { console.log(err || message); });
+exports.sendMail = function(toName, toEmail, subject, body) {
+  server.send({
+    text:    body, 
+    from:    "SharePay <sharepay1@gmail.com>", 
+    to:      toName+" <"+toEmail+">",
+    subject: subject
+  }, function(err, message) { console.log(err || message); });
+};

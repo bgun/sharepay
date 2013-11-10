@@ -1,62 +1,35 @@
 App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
-	Mod.MainView = Backbone.View.extend({
-
-		id: 'content',
-
+	Mod.MainView = Marionette.Layout.extend({
+		template: 'main',
+		regions: {
+			vendors:'#vendorList',
+			processors:'#processorList'
+		},
 		className: 'main-view',
-
 		events: {
-			'click .invite-btn': 'sendInvites'
+			'click .vendor': 'updateVendor'
 		},
-
-		initialize: function(options) {
+		onRender: function(options) {
 			var that = this,
-				url = 'http://sharepay.herokuapp.com',
-				vendorAjax = $.ajax({
-					type: 'GET',
-					url: url + '/api/vendors'
-				}),
-				processorAjax = $.ajax({
-					type: 'GET',
-					url: url + '/api/processors'
-				});
+				vendorColl,
+				processorColl;
 
-			this.childViews = [];
-			$.when(vendorAjax, processorAjax).done(function(vendors, processors) {
-				that.childViews.push(new App.Views.VendorPickerView({
-					parentView: that,
-					collection: new App.Collections.VendorCollection( vendors[0].vendors )
+			vendorColl = new App.Collections.VendorCollection();
+			vendorColl.fetch().done(function(){
+				that.vendors.show(new App.Views.VendorPickerCollectionView({
+					collection: vendorColl
 				}));
-				that.childViews.push(new App.Views.ProcessorsPickerView({
-					parentView: that,
-					collection: new App.Collections.ProcessorCollection( processors[0].processors )
+			});
+
+			processorColl = new App.Collections.ProcessorCollection();
+			processorColl.fetch().done(function(){
+				that.processors.show(new App.Views.ProcessorPickerCollectionView({
+					collection: processorColl
 				}));
-				renderCb(that.childViews);
 			});
 		},
-
-		render: function(childViews) {
-			_.each(childViews, function(view) {
-				view.render();
-			});
-		},
-
-		sendInvites: function() {
-			alert('send invites');
-		},
-
 		updateVendor: function(evt) {
-			var vendorId = $(evt.target);
-
-
-	            //cell = this.model.cells.get(cellId);
-			console.log(vendorId);
-			$(evt.currentTarget).toggleClass('selected');
-			this.cart.set({
-				//vendor: evt
-			});
+			console.log(evt);
 		}
-
-
 	});
 });

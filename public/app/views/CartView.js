@@ -16,6 +16,31 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 			this.model.on('change', function(){
 				self.render();
 			});
+			// for oAuth
+			window.addEventListener('message', function(event) {
+				console.log('received response: ',event.data);
+				var url = 'http://sharepay.herokuapp.com';
+				$.ajax({
+					type: 'POST',
+					url: url + '/api/user/token',
+					processData: false,
+					data: JSON.stringify({
+						email: App.user.get('email'),
+						type : event.data.type,
+						token : event.data.token
+					})
+				});
+				var tokens = App.user.get('tokens');
+				tokens = tokens || {};
+				tokens[event.data.type] = event.data.token;
+				App.user.set('tokens', tokens);
+				if(event.data.type == "dwolla"){
+					makeDwollaPayment();
+				} else if(event.data.type == "venmo"){
+					makeVenmoPayment();
+				}
+			},false);
+			
 		},
 
 		render: function() {
@@ -27,11 +52,11 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 
 			obj.timeLeft = this.model.getTimeLeft();
 			obj.sharedTotal = App.Utils.hashSum(this.model.get('groupedItems').shared, 'price');
-			obj.sharedShare = (obj.sharedTotal / this.model.get('users').length).toFixed(2);
+			obj.sharedShare = obj.sharedTotal / this.model.get('users').length;
+			obj.currentUserId = App.user.get('_id');
+			obj.isHost = App.user.get('isHost');
 			html = templateFn(obj);
 			this.$el.html(html);
-
-			this.delegateEvents();
 
 			this.intervalId = setInterval(function(){
 				self.updateCountdown();
@@ -64,28 +89,20 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 
 		makeDwollaPayment: function() {
 			console.log('dwolla!');
-			window.addEventListener('message', function(event) {
-				console.log('received response: ',event.data);
-				var url = 'http://sharepay.herokuapp.com';
-				$.ajax({
-					type: 'POST',
-					url: url + '/api/user/token',
-					processData: false,
-					data: JSON.stringify({
-						email: "test@test.com",
-						type : event.data.type,
-						token : event.data.token
-					})
-				});
-			},false);
-			window.open("https://www.dwolla.com/oauth/v2/authenticate"+
-				"?redirect_uri="+encodeURIComponent("http://sharepay.herokuapp.com/auth/dwolla_callback")+
-				"&client_id=hpNV9Yq75n5EwQiRcT4zlX2imU82tR44OSNlzbzU2X9JnptjQo"+
-				"&response_type=code&scope=send%7Crequest","_blank");
+			var tokens = App.user.get('tokens') || {};
+			if(typeof tokens.dwolla != "undefined"){
+				// make dwolla payment here
+				console.log("make dwolla payment here... token "+tokens.dwolla);
+			} else {
+				window.open("https://www.dwolla.com/oauth/v2/authenticate"+
+					"?redirect_uri="+encodeURIComponent("http://sharepay.herokuapp.com/auth/dwolla_callback")+
+					"&client_id=hpNV9Yq75n5EwQiRcT4zlX2imU82tR44OSNlzbzU2X9JnptjQo"+
+					"&response_type=code&scope=send%7Crequest","_blank");
+			}
 		},
 
 		makeVenmoPayment: function() {
-
+			console.log('venmo!...?');
 		}
 	});
 });

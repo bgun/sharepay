@@ -55,12 +55,12 @@ var makeReadApis = function(nouns) {
     console.log("creating /api/"+n+" endpoint");
     app.get('/api/'+n,function(req, res) {
       api["get"+capitalize(n)](function(r) {
+        var resp = {};
         res.set("Content-Type","text/json");
         res.set("Access-Control-Allow-Origin","*");
-        res.send({
-          count: r.length,
-          vendors: r
-        });
+        resp[n] = r;
+        resp.success = true;
+        res.send(resp);
       });
     });
   });

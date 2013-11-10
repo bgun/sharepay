@@ -2,7 +2,9 @@
 
 App = new Backbone.Marionette.Application();
 $(function() {
-
+  App.addRegions({
+    content: '#content'
+  });
   templateManager.loadTemplates();
 
   // TODO instantiate this properly, either based on url or login
@@ -11,9 +13,8 @@ $(function() {
   var AppRouter = Backbone.Router.extend({
 
     routes: {
-      'cart/:cartId'                : 'cart',
       'cart/:cartId/email/:userEmail' : 'cart',
-      '*path'                       : 'defaultRoute'
+      '*path'                         : 'defaultRoute'
     },
 
     cart: function(cartId, userEmail) {
@@ -21,11 +22,12 @@ $(function() {
 
       // TODO: use $.when
       App.user.set('currentUser', true);
-      App.user.url = 'http://sharepay.herokuapp.com/api/user?email=' + userEmail;
+      App.user.url = '/api/user?email=' + userEmail;
       App.user.fetch({success:function(){
         App.cart = new App.Models.CartModel();
-        App.cart.url = 'http://sharepay.herokuapp.com/api/cart/' + cartId;
+        App.cart.url = '/api/cart/' + cartId;
         App.cart.fetch({success:function(){
+          App.cart.groupItems();
           var cartView = new App.Views.CartView({model:App.cart});
           cartView.render();
         }});
@@ -36,7 +38,7 @@ $(function() {
       if (path) {
         console.log('unkown path:', path);
       }
-      App.main = new App.Views.MainView({ el: '#content' });
+      App.content.show(new App.Views.MainView());
     }
 
   });
@@ -45,7 +47,7 @@ $(function() {
   Marionette.TemplateCache.prototype.loadTemplate = function(key){
     var template;
     if(key.indexOf('#') !== 0){
-      template = getTemplates[key];
+      template = templateManager.getTemplate(key);
     } else {
       template = defaultTemplateLoadingMechanism(val);
     }

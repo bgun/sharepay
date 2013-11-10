@@ -1,6 +1,6 @@
 var templateManager = (function($, _) {
   var templates = {},
-      templateKeys = ['main', 'cart', 'vendor'];
+      templateKeys = ['main', 'cart', 'vendor', 'processor'];
 
   var getTemplate = function(key) {
     if (!templates[key]) {
@@ -25,6 +25,3 @@ var templateManager = (function($, _) {
     templates: templates
   };
 })(jQuery, _);
-
-
-  

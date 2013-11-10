@@ -1,27 +1,9 @@
 App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
-	Mod.ProcessorsPickerView = Backbone.View.extend({
-
+	var ProcessorPicker = Marionette.ItemView.extend({
+		template: 'processor'
+	});
+	Mod.ProcessorPickerCollectionView = Marionette.CollectionView.extend({
 		tagName: 'section',
-
-		className: 'payment-options',
-
-		initialize: function(options) {
-			this.options = options;
-		},
-
-		render: function() {
-			var that = this,
-				templateFn = _.template(templateManager.getTemplate('vendor'));
-
-	    	_.each(this.collection.models, function(processorView) {
-	    		var obj = processorView.toJSON(),
-	    			html = templateFn(obj);
-
-				that.options.parentView.$el.append(html);
-			});
-
-			return this;
-		}
-
+		itemView: ProcessorPicker
 	});
 });

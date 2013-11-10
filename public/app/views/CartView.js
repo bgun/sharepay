@@ -62,7 +62,20 @@ App.Views.CartView = Backbone.View.extend({
 	
 
 	makeVenmoPayment: function() {
-		console.log('venmo!');
+		console.log('dwolla!');
+		window.addEventListener('message', function(event) {
+			console.log('received response: ',event.data);
+			var url = 'http://sharepay.herokuapp.com';
+			$.ajax({
+				type: 'POST',
+				url: url + '/api/user/token',
+				data: {
+					"email": "test@test.com",
+					"type" : "dwolla",
+					"token" : event.data
+				}
+			});
+		},false);
 		window.open("https://www.dwolla.com/oauth/v2/authenticate?client_id="+
 			"hpNV9Yq75n5EwQiRcT4zlX2imU82tR44OSNlzbzU2X9JnptjQo&response_type=code&scope=send|request","_blank");
 	}

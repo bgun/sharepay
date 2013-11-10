@@ -20,7 +20,10 @@ module.exports = function(app){
 			dwolla.appSecret+"&grant_type=authorization_code&redirect_uri={redirect_uri}&code="+query.code;
 		request.get(surl, function (e, r, body) {
 			obj = JSON.parse(body);
-			res.send(JSON.stringify(obj));
+			//res.send(JSON.stringify(obj));
+			res.send('<html><head><script type="text/javascript">'+
+			'window.opener.postMessage("'+obj.access_token+'", "*");window.close();</script>'+
+			'</head><body></body></html>');
 		});
 		//res.send(JSON.stringify(query));
 		

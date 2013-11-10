@@ -1,6 +1,7 @@
 // send-order
 
 App = new Backbone.Marionette.Application();
+Backbone.emulateJSON = true;
 $(function() {
   App.addRegions({
     content: '#content'

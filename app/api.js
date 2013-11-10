@@ -40,10 +40,6 @@ module.exports = function(app) {
         "\n\nAccess the SharePay: "+(uri+eml));
       */
     _.each(obj.emails,function(em) {
-      var subj = obj.host.name+ " invited you to SharePay!";
-      var body = obj.host.name+" wants to split the bill with you on "+obj.vendor.name+
-      	"\n\nAccess the SharePay: http://sharepay.herokuapp.com/#cart/"+obj.vendor._id+"/email/"+em;
-      email.sendMail(null, em, subj,body);
       orm.getOrCreateUser(em,function(newuser) {
         newusers.push(newuser);
         if(newusers.length == obj.emails.length) {
@@ -55,7 +51,14 @@ module.exports = function(app) {
               success: true,
               cart: cart
             });
+            _.each(obj.emails,function(em) {
+            	var subj = obj.host.name+ " invited you to SharePay!";
+                var body = obj.host.name+" wants to split the bill with you on "+obj.vendor.name+
+                	"\n\nAccess the SharePay: http://sharepay.herokuapp.com/#cart/"+cart._id+"/email/"+em;
+                email.sendMail(null, em, subj,body);
+            });
           });
+          
         }
       });
     });

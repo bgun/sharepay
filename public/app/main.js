@@ -1,16 +1,11 @@
-var App = App || {
-  Collections: {},
-  Models: {},
-  Views: {},
-  Utils: {},
-  settings: {
+// send-order
 
-  }
-};
-
+App = new Backbone.Marionette.Application();
 $(function() {
 
   templateManager.loadTemplates();
+  // App.songs = new App.Collections.SongCollection();
+  // App.song = new App.Models.SongModel(); // change this to load all the songs
 
   var AppRouter = Backbone.Router.extend({
 
@@ -20,9 +15,18 @@ $(function() {
       '*path'    : 'defaultRoute'
     },
 
+    // createSong: App.SongViewController.createSong,
+    // songLanding: App.SongViewController.showSongLandingView,
+    // songListen: App.SongViewController.showSongListenView,
+    // track: App.TrackViewController.showTrackView,
+
+    // conductor: function(songId) {
+    //   console.log('conductor', songId);
+    // },
+
     cart: function(cartId) {
       console.log('in cart', cartId);
-      // TODO: lookup cart from db (or use the just created one?)
+      // TODO: lookup cart from db
       var d = new Date();
       d.setTime(d.getTime() + (8 * 60 * 1000)); // for testing, set the deadline to 8 mins from now
       App.cart = new App.Models.CartModel({
@@ -56,8 +60,11 @@ $(function() {
     }
 
   });
-
-  App.router = new AppRouter();
-  Backbone.history.start();
+  
+  App.addInitializer(function(){
+    App.router = new AppRouter();
+    Backbone.history.start();
+  });
+  App.start();
 
 });

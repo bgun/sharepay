@@ -1,24 +1,26 @@
-App.Views.VendorPickerView = Backbone.View.extend({
+App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
+	Mod.VendorPickerView = Backbone.View.extend({
 
-	tagName: 'section',
+		tagName: 'section',
 
-	className: 'vendor-list-container',
+		className: 'vendor-list-container',
 
-	initialize: function(options) {
-		this.options = options;
-		this.parentEl = this.options.parentView.$el;
-	},
+		initialize: function(options) {
+			this.options = options;
+			this.parentEl = this.options.parentView.$el;
+		},
 
-	// `render` renders the HTML container, `vendor-list-container`.
-	render: function() {
-		var that = this,
-			templateFn = _.template(templateManager.getTemplate('vendors'));
+		// `render` renders the HTML container, `vendor-list-container`.
+		render: function() {
+			var that = this,
+				templateFn = _.template(templateManager.getTemplate('vendors'));
 
-		var html = templateFn({
-			vendors: this.collection.models
-		});
+			var html = templateFn({
+				vendors: this.collection.models
+			});
 
-		this.parentEl.append(html);
-	}
+			this.parentEl.append(html);
+		}
 
+	});
 });

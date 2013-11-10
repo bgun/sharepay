@@ -51,8 +51,7 @@ exports.getOrCreateUser = function(eaddr,callback) {
 /* Item */
 var itemSchema = Schema({
   name: String,
-  price: Number,
-  user: String
+  price: Number
 });
 var Item = mongoose.model('Item', itemSchema);
 
@@ -62,8 +61,8 @@ var Item = mongoose.model('Item', itemSchema);
 var cartSchema = Schema({
   deadline: String,
   vendor: String,
-  items: [Item],
-  users: [User]
+  items: [],
+  users: []
 });
 var Cart = mongoose.model('Cart', cartSchema);
 exports.makeCart = function(obj, callback) {
@@ -95,7 +94,7 @@ exports.addItemToCart = function(id, item) {
 exports.getCart = function(id,callback) {
   console.log("getCart id: ",id);
   Cart.findById(id,function(err, cart) {
-    console.log(err, cart);
+    console.log("GETTING CART",cart);
     callback.call(null, cart);
   });
 };

@@ -25,16 +25,16 @@ require("./app/oauth/processors")(app);
 
 
 io.sockets.on('connection', function(socket) {
-  socket.emit('news', { hello: 'world' });
   socket.emit('identify', { clientId: socket.id });
-  console.log("SOCKET ID:",socket.id);
+  console.log("CONNECTED SOCKET ID:",socket.id);
   socket.on('cart:item-add', function (data) {
     console.log("ITEM RECEIVED",data);
-    api.addItemToCart(data.cartId, data.item);
+    api.addItemToCart(data.cartId, data.item, function() {
+      socket.broadcast.emit('db:item-added',data);
+      console.log("Emitted db:item-added",data);
+    });
   });
 });
-
-
 
 
 
@@ -68,7 +68,7 @@ var makeReadApis = function(nouns) {
 makeReadApis(["carts","processors","users","vendors"]);
 
 
-app.post('/api/cart/new',function(req, res) {
+app.post('/api/cart',function(req, res) {
   console.log(req.body);
   var obj = JSON.parse(req.body.cart);
   api.makeCart(obj,function(cart) {

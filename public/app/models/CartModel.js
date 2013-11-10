@@ -19,8 +19,9 @@ App.module("Models", function(Mod, App, Backbone, Marionette, $, _) {
       if (options && options.items && options.items.length) {
         this.groupItems();
       }
-      App.socket.on('cart:item-add',function(cartItem) {
-        if(cartItem.clientId !== App.clientId) {
+      App.socket.on('db:item-added',function(cartItem) {
+        console.log("FINGERPRINTS",cartItem.fingerprints);
+        if(!_.contains(cartItem.fingerprints, App.clientId)) {
           that.addItem(cartItem.item);
         }
       });
@@ -44,9 +45,10 @@ App.module("Models", function(Mod, App, Backbone, Marionette, $, _) {
       this.get('items').push(item);
       this.groupItems();
       this.trigger('change');
+      console.log("Adding item: ",item);
       App.socket.emit('cart:item-add',{
         cartId: this.get('_id'),
-        clientId: App.clientId,
+        fingerprints: _.union(item.fingerprints || [],[App.clientId]),
         item: item
       });
     }

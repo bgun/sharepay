@@ -42,14 +42,12 @@ exports.updateUser = function(id, obj, callback) {
 exports.getOrCreateUser = function(eaddr,callback) {
   User.findOne({email: eaddr}, function(err, user) {
     if(user) {
-      console.log("FOUND USER",user);
       callback.call(null,user);
     } else {
       var u = new User({
         name: "",
         email: eaddr
       });
-      console.log("NEW USER",u);
       u.save(function(err, newuser) {
         callback.call(null, newuser, true);
       });
@@ -92,19 +90,19 @@ exports.updateCart = function(id, obj, callback) {
     callback.call(null, obj);
   });
 };
-exports.addItemToCart = function(id, item) {
+exports.addItemToCart = function(id, item, callback) {
   console.log("Adding item to cart:",id,item);
   Cart.update({_id:id},{$push: {"items":item}},function(err, num) {
     if(err) {
       console.log(err);
     }
     console.log("Added item",item);
+    callback();
   });
 };
 exports.getCart = function(id,callback) {
   console.log("getCart id: ",id);
   Cart.findById(id,function(err, cart) {
-    console.log("GETTING CART",cart);
     callback.call(null, cart);
   });
 };

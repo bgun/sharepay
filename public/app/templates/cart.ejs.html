@@ -32,7 +32,7 @@
 				<h2>Individual Items</h2>
 					<% _.each(users, function(user) { %>
 						<% var groupItems = groupedItems[user._id]; %>
-						<div class="item-group">
+						<div class="item-group <%= user._id === currentUserId ? 'mine' : '' %>">
 							<h3><%= user.name %></h3>
 							<table>
 							<% _.each(groupItems, function(item){ %>
@@ -53,20 +53,19 @@
 								<td class="shared-total"><%= groupItems ? App.Utils.formatCurrency(groupItems.totalCost + sharedShare) : App.Utils.formatCurrency(sharedShare) %></td>
 							</tr>
 							</table>
+							<% if (user._id === currentUserId && !isHost) { %>
+							<div class="user-payment">
+								Pay with:
+								<button class="dwolla-btn">Dwolla</button>
+								<button class="venmo-btn">Venmo</button>
+							</div>
+							<% } %>
 						</div>
-						<% if (user._id === currentUserId && !isHost) { %>
-						Pay with:
-						<button class="dwolla-btn">Dwolla</button>
-						<button class="venmo-btn">Venmo</button>
-						<% } %>
 					<% }); %>
 			</section>
 		<% } %>
 
-		<section class="item-list summary">
-			<h2>Summary</h2>
-			<% if (isHost) { %>
+		<% if (isHost) { %>
 			<button class="send-order">Send Order</button>
-			<% } %>
-		</section>
+		<% } %>
 	</section>

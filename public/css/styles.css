@@ -19,6 +19,7 @@ body {
   padding: 10px;
   border: 1px solid #ccc;
   max-width: 350px;
+  border-radius: 5px;
 }
 
 .group-cart .item-list h2 {
@@ -41,6 +42,7 @@ body {
 }
 
 .group-cart th {
+  font-weight: normal;
   text-align: left;
 }
 
@@ -53,7 +55,26 @@ body {
   border-top: 1px solid #ccc;
   margin-top: 5px;
   padding-top: 5px;
+  font-weight: bold;
 }
+
+.group-cart .item-group {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.group-cart .item-group.mine {
+  background: #caefc5;
+}
+
+.group-cart .item-group.mine .item:nth-child(odd) {
+  background: #a2c89c;
+}
+
+
 
 .group-cart .item-group h3 {
   margin-bottom: 0;
@@ -61,3 +82,10 @@ body {
   text-transform: uppercase;
   font-weight: normal;
 }
+
+.group-cart .user-payment {
+  border-top: 1px solid #ddd;
+  margin-top: 5px;
+  padding: 5px;
+}
+

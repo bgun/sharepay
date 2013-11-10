@@ -1,13 +1,14 @@
 App.module("Models", function(Mod, App, Backbone, Marionette, $, _) {
   Mod.CartModel = Backbone.Model.extend({
-    defaults: {
-      vendor: null,
-      items: [],
-      groupedItems: [],
-      users: [],
-      processors: [],
-      deadline: null,
-    },
+		defaults: {
+			vendor: null,
+			items: [],
+			groupedItems: [],
+			users: [],
+			processors: new App.Collections.ProcessorCollection(),
+			deadline: null,
+		},
+		url:'/api/cart',
     parse: function(r) {
       return r.cart;
     },

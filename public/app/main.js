@@ -44,7 +44,7 @@ $(function() {
           App.user.set('currentUser', true);
           App.user.url = '/api/user?email=' + userEmail;
           App.user.fetch({success:function(){
-            App.router.navigate('/cart/',{trigger:true});
+            App.router.navigate('/setup',{trigger:true});
           }});
         }
 

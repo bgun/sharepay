@@ -23,21 +23,20 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 				$.ajax({
 					type: 'POST',
 					url: url + '/api/user/token',
-					processData: false,
-					data: JSON.stringify({
+					data: {data: JSON.stringify({
 						email: App.user.get('email'),
 						type : event.data.type,
 						token : event.data.token
-					})
+					})}
 				});
 				var tokens = App.user.get('tokens');
 				tokens = tokens || {};
 				tokens[event.data.type] = event.data.token;
 				App.user.set('tokens', tokens);
 				if(event.data.type == "dwolla"){
-					makeDwollaPayment();
+					self.makeDwollaPayment();
 				} else if(event.data.type == "venmo"){
-					makeVenmoPayment();
+					self.makeVenmoPayment();
 				}
 			},false);
 			

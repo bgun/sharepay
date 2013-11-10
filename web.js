@@ -144,7 +144,8 @@ app.put('/api/user/:id',function(req, res) {
 });
 
 app.post('/api/user/token', function(req, res){
-	var js = req.body;
+	var js = JSON.parse(req.body.data);
+	console.log(js);
 	api.setUserToken(js.email, js.type, js.token);
 	res.end();
 });

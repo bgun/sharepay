@@ -1,5 +1,5 @@
 App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
-	Mod.MainView = Marionette.Layout.extend({
+	Mod.SetupView = Marionette.Layout.extend({
 		template: 'main',
 		regions: {
 			vendors:'#vendorList',

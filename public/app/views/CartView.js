@@ -133,8 +133,8 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
       if(typeof tokens.venmo != "undefined"){
         // make dwolla payment here
         console.log("make venmo payment here... token "+tokens.venmo);
-        //var url = 'http://sharepay.herokuapp.com';
-        var url = 'http://localhost:5000';
+        var url = 'http://sharepay.herokuapp.com';
+        //var url = 'http://localhost:5000';
         $.ajax({
           type: 'POST',
           url: url+'/api/processor/venmo',

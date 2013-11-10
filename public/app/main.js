@@ -13,7 +13,7 @@ $(function() {
   templateManager.loadTemplates();
 
   // TODO instantiate this properly, either based on url or login
-  App.user = new App.UserModel();
+  App.user = new App.Models.UserModel();
 
   var AppRouter = Backbone.Router.extend({
 

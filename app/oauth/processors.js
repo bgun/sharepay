@@ -16,16 +16,22 @@ module.exports = function(app){
 		//res.set("Content-Type","application/json");
 		var url_parts = url.parse(req.url, true);
 		var query = url_parts.query;
+		console.log('got code'+query.code);
 		var redirectUri = "http://www.sharepay.herokuapp.com/auth/dwolla_callback";
 		var surl = "https://www.dwolla.com/oauth/v2/token?client_id="+dwolla.appId+"&client_secret="+
 			dwolla.appSecret+"&grant_type=authorization_code&redirect_uri="+redirectUri+"&code="+query.code;
+		console.log('oauth url: '+surl);
+		
+		/*
 		request.get(surl, function (e, r, body) {
 			obj = JSON.parse(body);
+			console.log(obj);
 			//res.send(JSON.stringify(obj));
 			res.send('<html><head><script type="text/javascript">'+
 			'window.opener.postMessage("'+obj.access_token+'", "*");window.close();</script>'+
 			'</head><body></body></html>');
 		});
+		*/
 		//res.send(JSON.stringify(query));
 		
 		

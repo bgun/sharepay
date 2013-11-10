@@ -5,8 +5,10 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 
 		events: {
 			'click .add-shared-item-btn': 'addSharedItem',
+			'click .dwolla-btn': 'makeDwollaPayment',
 			'click .venmo-btn': 'makeVenmoPayment'
 		},
+
 
 		initialize: function(options) {
 			var self = this;
@@ -37,12 +39,11 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 			return this;
 		},
 
+
 		addSharedItem: function(e) {
 			var name = this.$el.find('.item-name-input').val(),
 				price = this.$el.find('.item-price-input').val(),
-				errors = [],
-				newItem;
-
+				errors = [];
 			e.preventDefault();
 			if (!name) { errors.push('Item Name is required.'); }
 			if (!price) { errors.push('Price is required.'); }
@@ -61,10 +62,7 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 			this.$el.find('.time-left').html(this.model.getTimeLeft());
 		},
 
-
-		
-
-		makeVenmoPayment: function() {
+		makeDwollaPayment: function() {
 			console.log('dwolla!');
 			window.addEventListener('message', function(event) {
 				console.log('received response: ',event.data);
@@ -79,9 +77,14 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 					}
 				});
 			},false);
-			window.open("https://www.dwolla.com/oauth/v2/authenticate?client_id="+
-				"hpNV9Yq75n5EwQiRcT4zlX2imU82tR44OSNlzbzU2X9JnptjQo&response_type=code&scope=send|request","_blank");
-		}
+			window.open("https://www.dwolla.com/oauth/v2/authenticate"+
+				"?redirect_uri="+encodeURIComponent("http://sharepay.herokuapp.com/auth/dwolla_callback")+
+				"&client_id=hpNV9Yq75n5EwQiRcT4zlX2imU82tR44OSNlzbzU2X9JnptjQo"+
+				"&response_type=code&scope=send|request","_blank");
+		},
 
+		makeVenmoPayment: function() {
+
+		}
 	});
 });

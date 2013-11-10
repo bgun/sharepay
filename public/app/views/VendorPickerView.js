@@ -19,19 +19,6 @@ App.Views.VendorPickerView = Backbone.View.extend({
 		});
 
 		this.parentEl.append(html);
-	},
-
-	// `renderVendors` renders the individual models in the collection.
-	renderVendors: function() {
-		/*var that = this,
-			templateFn = _.template(templateManager.getTemplate('vendor'));
-
-		_.each(this.collection.models, function(vendorView) {
-			var obj = vendorView.toJSON(),
-				html = templateFn(obj);
-
-			that.parentEl.append(html);
-		});*/
 	}
 
 });

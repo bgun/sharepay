@@ -3,7 +3,7 @@
 	<% _.each(vendors, function(vendor) { var v = vendor.attributes; %>
 		<div class="vendor-container">
 			<a href="">
-				<img src="">
+				<img src="<%= v.vendorUrl %>">
 				<span><%= v.name %></span>
 			</a>
 		</div>

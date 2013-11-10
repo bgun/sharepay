@@ -67,13 +67,14 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 			window.addEventListener('message', function(event) {
 				console.log('received response: ',event.data);
 				var url = 'http://sharepay.herokuapp.com';
+				var evData = JSON.parse(event.data);
 				$.ajax({
 					type: 'POST',
 					url: url + '/api/user/token',
 					data: {
 						"email": "test@test.com",
-						"type" : "dwolla",
-						"token" : event.data
+						"type" : evData.type,
+						"token" : evData.token
 					}
 				});
 			},false);

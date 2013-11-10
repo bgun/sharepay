@@ -5,10 +5,22 @@ App.Views.MainView = Backbone.View.extend({
 	className: 'main-view',
 
 	events: {
-		'click .invite-btn': 'sendInvites'
+		'click .invite-btn': 'sendInvites',
+		'click .vendor-container': 'updateVendor'
 	},
 
-	initialize: function(options) {
+	initialize: function() {
+		this.fetchData( this.render );
+		this.cart = new App.Models.CartModel({
+			vendor: '',
+			items: [],
+			users: [],
+			processors: [],
+			deadline: '',
+		});
+	},
+
+	fetchData: function(renderCb) {
 		var that = this,
 			url = 'http://sharepay.herokuapp.com',
 			vendorAjax = $.ajax({
@@ -21,7 +33,6 @@ App.Views.MainView = Backbone.View.extend({
 			});
 
 		this.childViews = [];
-
 		$.when(vendorAjax, processorAjax).done(function(vendors, processors) {
 			that.childViews.push(new App.Views.VendorPickerView({
 				parentView: that,
@@ -31,12 +42,12 @@ App.Views.MainView = Backbone.View.extend({
 				parentView: that,
 				collection: new App.Collections.ProcessorCollection( processors[0].processors )
 			}));
-			that.render();
+			renderCb(that.childViews);
 		});
 	},
 
-	render: function() {
-		_.each(this.childViews, function(view) {
+	render: function(childViews) {
+		_.each(childViews, function(view) {
 			view.render();
 		});
 	},
@@ -45,8 +56,16 @@ App.Views.MainView = Backbone.View.extend({
 		alert('send invites');
 	},
 
-	updateVendor: function() {
+	updateVendor: function(evt) {
+		var vendorId = $(evt.target);
 
+
+            //cell = this.model.cells.get(cellId);
+		console.log(vendorId);
+		$(evt.currentTarget).toggleClass('selected');
+		this.cart.set({
+			//vendor: evt
+		});
 	}
 
 });

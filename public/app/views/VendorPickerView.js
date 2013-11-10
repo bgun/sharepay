@@ -4,10 +4,6 @@ App.Views.VendorPickerView = Backbone.View.extend({
 
 	className: 'vendor-list-container',
 
-	events: {
-		'click .vendor-container': 'updateVendor'
-	},
-
 	initialize: function(options) {
 		this.options = options;
 		this.parentEl = this.options.parentView.$el;
@@ -18,16 +14,17 @@ App.Views.VendorPickerView = Backbone.View.extend({
 			that = this,
 			templateFn = _.template(templateManager.getTemplate('vendors'));
 
-		html = templateFn({
-			vendors: this.collection.models
+		_.each(this.collection.models, function(vendor) {
+			var v = new App.Views.VendorView({
+				model: vendor,
+				parentView: that
+			});
+			var html = v.render();
+			that.$el.append(html);
 		});
 
-		this.$el.html(html);
-		this.parentEl.html(this.$el);
-	},
-
-	updateVendor: function(evt) {
-		$(evt.currentTarget).toggleClass('selected');
+		//this.$el.html(html);
+		//this.parentEl.html(this.$el);
 	}
 
 });

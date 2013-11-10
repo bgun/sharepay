@@ -1,10 +1,8 @@
 <h2>Choose a Vendor</h2>
-<% _.each(vendors, function(vendor) { %>
-	<div class="vendor-container left">
-		<!--<img src="<%= vendor.attributes.vendorUrl %>">-->
-		<img class="left" src="http://placehold.it/150x150">
-		<span class="name left">
-			<a href="<%= vendor.attributes.vendorUrl %>"><%= vendor.attributes.name %></a>
-		</span>
-	</div>
-<% }); %>
+_.each(vendors, function(vendor) {
+	
+	new App.Views.VendorView({
+		model: vendor
+	});
+
+});

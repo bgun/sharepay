@@ -1,12 +1,5 @@
-<div class="vendor">
-	<div class="">
-		<a href="<%= vendorUrl %>">
-			<% if (logoImgPath) { %>
-				<img src="<%= logoImgPath %>" class="vendorLogo"/>
-			<% } %>
-		</a>
-	</div>
-	<span>
-		<a href="<%= vendorUrl %>"><%= name %></a>
-	</span>
-</div>
+<!--<img src="<%= vendor.attributes.vendorUrl %>">-->
+<img class="left" src="http://placehold.it/150x150">
+<span class="name left">
+	<a href="<%= vendor.vendorUrl %>"><%= vendor.name %></a>
+</span>

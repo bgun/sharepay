@@ -7,7 +7,7 @@ module.exports = function(app){
 		appSecret: 'Jy5ZexkIFj4lNUnyJJtCzF8/VYoeTikMFwm7mtYK132PoLr7xA'
 	};
 	var venmo = {
-		appId: 'ErheST43pgbsELXRagREYdhAq7E25tyj',
+		appId: '1488',
 		appSecret: 'U5DkVMPQYHmpZj7SNxWdHqRb65d4ApNK'
 	};
 	

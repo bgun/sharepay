@@ -12,7 +12,6 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
       'click .send-order': 'sendOrder'
     },
 
-
     initialize: function(options) {
       var self = this;
       this.model = options.model;

@@ -70,7 +70,8 @@ makeReadApis(["carts","processors","users","vendors"]);
 
 app.post('/api/cart',function(req, res) {
   console.log(req.body);
-  var obj = req.body.model;
+  var obj = JSON.parse(req.body.model);
+  console.log("NEW CART",obj);
   api.makeCart(obj,function(cart) {
     res.set("Content-Type","application/json");
     res.set("Access-Control-Allow-Origin","*");

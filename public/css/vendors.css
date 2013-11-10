@@ -16,7 +16,7 @@
 	text-align: center;
 }
 .vendor-container.selected {
-	background: #aaa;
+	opacity: .7;
 }
 .vendorLogo {
   width: 200px;

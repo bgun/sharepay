@@ -70,6 +70,7 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 				$.ajax({
 					type: 'POST',
 					url: url + '/api/user/token',
+					processData: false,
 					data: {
 						"email": "test@test.com",
 						"type" : event.data.type,

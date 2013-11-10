@@ -127,7 +127,7 @@ exports.getProcessors = function(callback) {
 
 
 exports.setUserToken = function(eaddr, type, token) {
-  User.findOne({email: eadrr}, function(err, user){
+  User.findOne({email: eaddr}, function(err, user){
 	  var tokens = user.tokens || {};
 	  tokens[type] = token;
 	  User.update({"_id": user._id}, {"$set": {"tokens": tokens}}, function(err, r) {

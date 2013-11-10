@@ -11,7 +11,6 @@ App.Views.CartView = Backbone.View.extend({
 		var self = this;
 		this.model = options.model;
 		this.model.on('change', function(){
-			// debugger;
 			self.render();
 		});
 	},
@@ -24,7 +23,8 @@ App.Views.CartView = Backbone.View.extend({
 			html;
 
 		obj.timeLeft = this.model.getTimeLeft();
-		obj.sharedTotal = App.Utils.hashSum(this.model.get('sharedItems'), 'price');
+		obj.sharedTotal = App.Utils.hashSum(this.model.get('groupedItems').shared, 'price');
+		obj.sharedShare = (obj.sharedTotal / this.model.get('users').length).toFixed(2);
 		html = templateFn(obj);
 		this.$el.html(html);
 
@@ -49,8 +49,10 @@ App.Views.CartView = Backbone.View.extend({
 		if (errors.length) {
 			toastr.error(errors.join('<br>'));
 		} else {
-			this.model.get('sharedItems').push({name: name, price: +price});
-			this.model.set('numSharedItems', this.model.get('sharedItems').length);
+			this.model.addItem({
+				name: name,
+				price: +price
+			});
 		}
 	},
 

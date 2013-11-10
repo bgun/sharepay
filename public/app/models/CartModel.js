@@ -11,10 +11,7 @@ App.Models.CartModel = Backbone.Model.extend({
 			this.set('deadline', new Date(options.deadline));
 		}
 		if (options.items && options.items.length) {
-			var shared = _(options.items).filter(function(item) {
-				return !item.user;
-			});
-			this.set('sharedItems', shared);
+			this.groupItems();
 		}
 	}, 
 	getTimeLeft: function() {
@@ -23,5 +20,14 @@ App.Models.CartModel = Backbone.Model.extend({
 
 		// console.log('cart time left', millis, friendly);
 		return friendly;
+	},
+	groupItems: function() {
+		var grouped = _(this.get('items')).groupBy(function(item){ return item.user || 'shared'; });
+		this.set('groupedItems', grouped);
+	},
+	addItem: function(item) {
+		this.get('items').push(item);
+		this.groupItems();
+		this.trigger('change');
 	}
 });

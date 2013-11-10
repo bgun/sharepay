@@ -2,6 +2,8 @@ var _        = require("underscore");
 var url      = require("url");
 var orm      = require("./orm.js");
 
+var email    = require("./email.js");
+
 var capitalize = function(word) {
   return word[0].toUpperCase() + word.substr(1,word.length);
 };
@@ -32,7 +34,16 @@ module.exports = function(app) {
     var obj = JSON.parse(req.body.model);
     var newusers = [];
     console.log("NEW CART",obj);
+    /*
+      email.sendMail(null, eml, req.body.host+" invited you to SharePay!", 
+        req.body.host+" wants to split the bill with you on "+req.body.vendor+
+        "\n\nAccess the SharePay: "+(uri+eml));
+      */
     _.each(obj.emails,function(em) {
+      var subj = obj.host.name+ " invited you to SharePay!";
+      var body = obj.host.name+" wants to split the bill with you on "+obj.vendor.name+
+      	"\n\nAccess the SharePay: http://sharepay.herokuapp.com/#cart/"+obj.vendor._id+"/email/"+em;
+      email.sendMail(null, em, subj,body);
       orm.getOrCreateUser(em,function(newuser) {
         newusers.push(newuser);
         if(newusers.length == obj.emails.length) {

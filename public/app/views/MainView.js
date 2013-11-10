@@ -54,7 +54,7 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 				inputText = $('#emailInput').val(),
 				userEmails = inputText.split(',');
 
-			console.lo
+			console.log(userEmails);
 
 			this.model.set('users', userEmails);
 		}

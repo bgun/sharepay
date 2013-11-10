@@ -9,7 +9,7 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 		},
 		updateVendor: function() {
 			this.trigger('vendorselected', this.model);
-			console.log(this.$el.toggleClass('selected'));
+			this.$el.toggleClass('selected');
 		}
 	});
 

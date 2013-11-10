@@ -16,7 +16,6 @@ var Schema = mongoose.Schema,
 /* Cart */
 
 var cartSchema = Schema({
-  _id: Schema.ObjectId,
   deadline: String,
   vendor: String,
   items: Array
@@ -26,6 +25,17 @@ exports.makeCart = function(obj, callback) {
   var cart = new Cart(obj);
   cart.save(function(err, cart) {
     callback.call(null, cart);
+  });
+};
+exports.updateCart = function(id, obj, callback) {
+  var _id = mongoose.Types.ObjectId(id);
+  console.log("Updating cart:",obj);
+  Cart.update({_id:_id},_.omit(obj,"_id"),function(err, cart) {
+    if(err) {
+      console.log(err);
+    }
+    console.log("Updated cart:"+cart);
+    callback.call(null, obj);
   });
 };
 exports.getCart = function(id,callback) {
@@ -41,7 +51,6 @@ exports.getCart = function(id,callback) {
 /* Processor */
 
 var processorSchema = new Schema({
-  _id: Schema.ObjectId,
   name: String
 });
 var Processor = mongoose.model('Processor', processorSchema);
@@ -86,7 +95,6 @@ exports.getOrCreateUser = function(eaddr,callback) {
 /* Vendor */
 
 var vendorSchema = new Schema({
-  _id: Schema.ObjectId,
   name: String
 });
 var Vendor = mongoose.model('Vendor', vendorSchema);

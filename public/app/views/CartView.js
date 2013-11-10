@@ -20,17 +20,17 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 			// for oAuth
 			window.addEventListener('message', function(event) {
 				console.log('received response: ',event.data);
-				var url = 'http://sharepay.herokuapp.com';
-				$.ajax({
-					type: 'POST',
-					url: url + '/api/user/token',
-					data: {data: JSON.stringify({
-						email: App.user.get('email'),
-						type : event.data.type,
-						token : event.data.token
-					})}
-				});
-				if(typeof event.data.token != "undefined"){
+				if(typeof event.data.token != "undefined" || event.data.token == "undefined"){
+					var url = 'http://sharepay.herokuapp.com';
+					$.ajax({
+						type: 'POST',
+						url: url + '/api/user/token',
+						data: {data: JSON.stringify({
+							email: App.user.get('email'),
+							type : event.data.type,
+							token : event.data.token
+						})}
+					});
 					var tokens = App.user.get('tokens');
 					tokens = tokens || {};
 					tokens[event.data.type] = event.data.token;

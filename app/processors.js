@@ -46,4 +46,9 @@ module.exports = function(app){
 		});
 		
 	});
+	
+	app.post('/api/processor/dwolla',function(req, res){
+		var js = JSON.parse(req.body.data);
+		console.log(js);
+	});
 };

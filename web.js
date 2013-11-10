@@ -38,6 +38,7 @@ var makeReadApis = function(nouns) {
     app.get('/api/'+n,function(req, res) {
       api["get"+capitalize(n)](function(r) {
         res.set("Content-Type","text/json");
+        res.set("Access-Control-Allow-Origin","*");
         res.send({
           count: r.length,
           vendors: r
@@ -54,6 +55,7 @@ app.put('/api/cart/new',function(req, res) {
   var obj = JSON.parse(req.body.cart);
   api.makeCart(obj,function(cart) {
     res.set("Content-Type","application/json");
+    res.set("Access-Control-Allow-Origin","*");
     res.send({
       success: true,
       cart: cart
@@ -68,6 +70,7 @@ app.post('/api/cart/:id',function(req, res) {
   console.log("UPDATING CART TO:",obj);
   api.updateCart(id,obj,function(cart) {
     res.set("Content-Type","text/json");
+    res.set("Access-Control-Allow-Origin","*");
     res.send({
       success: true,
       cart: cart
@@ -78,6 +81,7 @@ app.post('/api/cart/:id',function(req, res) {
 app.get('/api/cart/:id',function(req, res) {
   api.getCart(req.params.id,function(cart) {
     res.set("Content-Type","text/json");
+    res.set("Access-Control-Allow-Origin","*");
     res.send({
       success: true,
       id: req.params.id,
@@ -88,6 +92,7 @@ app.get('/api/cart/:id',function(req, res) {
 
 app.get('/api/user',function(req, res) {
   res.set("Content-Type","text/json");
+  res.set("Access-Control-Allow-Origin","*");
   var parts = url.parse(req.url, true);
   var query = parts.query;
   if(query.email) {

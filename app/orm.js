@@ -69,10 +69,10 @@ var Item = mongoose.model('Item', itemSchema);
 var cartSchema = Schema({
   deadline: String,
   host: {},
-  items: Array,
+  items: [],
   processors: Array,
   vendor: Object,
-  users: Array
+  users: []
 });
 var Cart = mongoose.model('Cart', cartSchema);
 exports.makeCart = function(obj, callback) {

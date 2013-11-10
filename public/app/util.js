@@ -11,6 +11,7 @@ App.module("Utils", function(Mod, App, Backbone, Marionette, $, _) {
     return this.arraySum(_(hash).pluck(param));
   };
   Mod.formatCurrency = function(n) {
-    return '$' + n.toFixed(2);
+    n = n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return '$' + n;
   };
 });

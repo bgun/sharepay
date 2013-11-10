@@ -11,13 +11,13 @@
 					<button class="add-shared-item-btn">add</button>
 				</form>
 				<div class="item-group">
-					<% _.each(sharedItems, function(item) { %>
+					<% _.each(groupedItems.shared, function(item) { %>
 					<div class="item">
 						<b><%= item.name %></b>
 						<span class="item-price"><%= item.price %></span>
 					</div>
 					<% }); %>
-					<% if (sharedItems.length) { %>
+					<% if (groupedItems.shared.length) { %>
 					<div class="total-row">
 						<b>Total</b>
 						<span class="shared-total"><%= sharedTotal %></span>
@@ -26,18 +26,23 @@
 				</div>
 			</section>
 
-			<% if (vendor || sharedItems.length) { %>
+			<% if (items.length) { %>
 				<section class="individual">
 					<h2>Individual Items</h2>
 						<% _.each(users, function(user) { %>
+							<% var groupItems = groupedItems[user]; %>
 							<div class="item-group">
 								<h3><%= user %></h3>
-								[each item]
+								<% _.each(groupItems, function(item){ %>
 								<div class="item">
-									<b class="item-name">[item name]</b>
-									<span class="item-price">[item price]</span>
+									<b><%= item.name %></b>
+									<span class="item-price"><%= item.price %></span>
 								</div>
-								[/each item]
+								<% }); %>
+								<% if (groupedItems.shared.length) { %>
+									<b>Share of Shared</b>
+									<span class="item-price"><%= sharedShare %></span>
+								<% } %>
 							</div>
 							[if me && !host]
 							<button class="venmo-btn">Pay with Venmo</button>

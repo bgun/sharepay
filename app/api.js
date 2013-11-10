@@ -65,7 +65,11 @@ exports.getProcessors = function(callback) {
 
 var userSchema = new Schema({
   name: String,
-  email: String
+  email: String,
+  tokens: {
+	  venmo: String,
+	  dwolla: String
+  }
 });
 var User = mongoose.model('User', userSchema);
 exports.getUsers = function(callback) {
@@ -94,14 +98,10 @@ exports.getOrCreateUser = function(eaddr,callback) {
 exports.setUserToken = function(eaddr, type, token) {
   var dat =  {};
   dat[type] = token;
-  console.log(eaddr);
-  console.log({"tokens": dat});
-  
   User.update({email: eaddr}, {$set: {"tokens": dat} }, function(err, r) {
 	if(err) {
 	   console.log(err);
 	 }
-    console.log("Updated user: "+r);
     }
   );
 };

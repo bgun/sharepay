@@ -10,48 +10,27 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 			'click .invite-btn': 'sendInvites'
 		},
 		onRender: function(options) {
-			var that = this;
+			var that = this,
+				vendorColl,
+				processorColl;
 
-			var vendorsColl = new App.Collections.VendorCollection();
-			vendorsColl.fetch().done(function(){
+			vendorColl = new App.Collections.VendorCollection();
+			vendorColl.fetch().done(function(){
 				that.vendors.show(new App.Views.VendorPickerCollectionView({
-					collection: vendorsColl
+					collection: vendorColl
 				}));
 			});
 
-			var processorsColl = new App.Collections.ProcessorCollection();
-			processorsColl.fetch().done(function(){
+			processorColl = new App.Collections.ProcessorCollection();
+			processorColl.fetch().done(function(){
 				that.processors.show(new App.Views.ProcessorPickerCollectionView({
-					collection: processorsColl
+					collection: processorColl
 				}));
 			});
 
-			//$.when(vendorAjax/*, processorAjax*/).done(function(vendors/*, processors*/) {
-			//	 console.log(vendors.vendors);
-				//this.vendors.show(new App.Views.VendorPickerCollectionView({
-				//	collection: new App.Collections.VendorCollection( vendors[0].vendors )
-				//}));
-			//	this.processors.show(new App.Views.ProcessorsPickerView({
-			//		collection: new App.Collections.ProcessorCollection( processors[0].processors )
-			//	}));
-			//});
 		},
-		sendInvites: function() {
-			alert('send invites');
-		},
-
 		updateVendor: function(evt) {
-			var vendorId = $(evt.target);
 
-
-	            //cell = this.model.cells.get(cellId);
-			console.log(vendorId);
-			$(evt.currentTarget).toggleClass('selected');
-			this.cart.set({
-				//vendor: evt
-			});
 		}
-
-
 	});
 });

@@ -36,6 +36,22 @@ $(function() {
       }});
     },
 
+    login: function() {
+      var loginView = new App.Views.LoginView({
+
+        loginCallback: function(userEmail) {
+          console.log(userEmail+" logged in");
+          App.user.set('currentUser', true);
+          App.user.url = '/api/user?email=' + userEmail;
+          App.user.fetch({success:function(){
+            App.router.navigate('/cart/',{trigger:true});
+          }});
+        }
+
+      });
+      App.content.show(loginView);
+    },
+
     defaultRoute: function(path) {
       if (path) {
         console.log('unkown path:', path);

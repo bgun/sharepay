@@ -7,7 +7,7 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 		},
 		className: 'main-view',
 		events: {
-			'click button': 'saveCart'
+			'click button.main-submit': 'saveCart'
 		},
 		onRender: function(options) {
 			window.testMainView =  this;
@@ -43,7 +43,7 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 		saveCart: function() {
 			var that = this;
 			this.model.save().done(function(){
-				App.router.navigate('cart/'+that.model.get('_id')+'/email/'+ 'ben@bengundersen.com', {trigger: true, replace: true});
+				App.router.navigate('cart/'+that.model.get('_id')+'/email/'+App.user.get('email'), {trigger: true, replace: true});
 			});
 			
 		}

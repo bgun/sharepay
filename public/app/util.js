@@ -1,13 +1,11 @@
-App.Utils = {
-  isNumber: function(n) {
+App.module("Utils", function(Mod, App, Backbone, Marionette, $, _) {
+  Mod.isNumber = function(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
-  },
-  arraySum: function(arr) {
-    return _(arr).reduce(function(m,x) {
-      return m + x; 
-    }, 0);
-  },
-  hashSum: function(hash, param) {
+  };
+  Mod.arraySum = function(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+  };
+  Mod.hashSum = function(hash, param) {
     return this.arraySum(_(hash).pluck(param));
-  }
-};
+  };
+});

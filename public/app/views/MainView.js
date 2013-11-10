@@ -7,7 +7,7 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 		},
 		className: 'main-view',
 		events: {
-			'click .vendor': 'updateVendor'
+			'click button': 'saveCart'
 		},
 		onRender: function(options) {
 			window.testMainView =  this;
@@ -39,8 +39,13 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 					that.model.get('processors').remove(selectedProcessorModel);
 				});
 			});
-
-
+		},
+		saveCart: function() {
+			var that = this;
+			this.model.save().done(function(){
+				Backbone.router.navigate('cart/'+that.model.id+'/email/'+ 'ben@bengundersen.com', {trigger: true, replace: true});
+			});
+			
 		}
 	});
 });

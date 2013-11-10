@@ -8,6 +8,7 @@ App.module("Models", function(Mod, App, Backbone, Marionette, $, _) {
 			processors: new App.Collections.ProcessorCollection(),
 			deadline: null,
 		},
+		url:'/cart',
 		parse: function(r) {
 			return r.cart;
 		},

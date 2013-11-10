@@ -44,6 +44,9 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 			var that = this;
 			this.processEmails();
 			this.model.set('host',App.user.toJSON());
+			var deadline = new Date();
+			deadline.setHours(deadline.getHours()+1);
+			this.model.set('deadline',deadline);
 			this.model.save().done(function(){
 				App.router.navigate('cart/'+that.model.get('_id')+'/email/'+App.user.get('email'), {trigger: true, replace: true});
 			});
@@ -55,12 +58,7 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 
 			console.log(userEmails);
 
-			this.model.set('users', _.map(userEmails,function(email) {
-			  return {
-			    name: email.split('@')[0],
-			    email: email
-			  };
-			}));
+			this.model.set('emails', userEmails);
 		}
 	});
 });

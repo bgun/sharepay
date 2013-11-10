@@ -71,13 +71,22 @@ makeReadApis(["carts","processors","users","vendors"]);
 app.post('/api/cart',function(req, res) {
   console.log(req.body);
   var obj = JSON.parse(req.body.model);
+  var newusers = [];
   console.log("NEW CART",obj);
-  api.makeCart(obj,function(cart) {
-    res.set("Content-Type","application/json");
-    res.set("Access-Control-Allow-Origin","*");
-    res.send({
-      success: true,
-      cart: cart
+  _.each(obj.emails,function(em) {
+    api.getOrCreateUser(em,function(newuser) {
+      newusers.push(newuser);
+      if(newusers.length == obj.emails.length) {
+        obj.users = newusers;
+        api.makeCart(obj,function(cart) {
+          res.set("Content-Type","application/json");
+          res.set("Access-Control-Allow-Origin","*");
+          res.send({
+            success: true,
+            cart: cart
+          });
+        });
+      }
     });
   });
 });

@@ -71,6 +71,8 @@ module.exports = function(app){
 			console.log("error",err);
 			console.log("http code", r.statusCode);
 			console.log("body", body);
+      resp.set("Content-Type","text/json");
+      resp.set("Access-Control-Allow-Origin","*");
 			resp.send(body);
 		});
 	});
@@ -87,6 +89,8 @@ module.exports = function(app){
 			console.log("error",err);
 			console.log("http code", r.statusCode);
 			console.log("body", body);
+      resp.set("Content-Type","text/json");
+      resp.set("Access-Control-Allow-Origin","*");
 			resp.send(body);
 		});
 	});

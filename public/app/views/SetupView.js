@@ -53,8 +53,6 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 				inputText = $('#emailInput').val(),
 				userEmails = inputText.split(',');
 
-			console.log(userEmails);
-
 			this.model.set('users', _.map(userEmails,function(email) {
 			  return {
 			    name: email.split('@')[0],

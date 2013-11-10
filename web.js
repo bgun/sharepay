@@ -18,23 +18,23 @@ app.use(express.bodyParser());
 var api      = require("./app/api.js");
 var email    = require("./app/email.js");
 
-require("./app/oauth/processors")(app);
+require("./app/processors")(app);
 
 
 
 
 
 io.sockets.on('connection', function(socket) {
-  socket.emit('news', { hello: 'world' });
   socket.emit('identify', { clientId: socket.id });
-  console.log("SOCKET ID:",socket.id);
+  console.log("CONNECTED SOCKET ID:",socket.id);
   socket.on('cart:item-add', function (data) {
     console.log("ITEM RECEIVED",data);
-    api.addItemToCart(data.cartId, data.item);
+    api.addItemToCart(data.cartId, data.item, function() {
+      socket.broadcast.emit('db:item-added',data);
+      console.log("Emitted db:item-added",data);
+    });
   });
 });
-
-
 
 
 
@@ -68,7 +68,7 @@ var makeReadApis = function(nouns) {
 makeReadApis(["carts","processors","users","vendors"]);
 
 
-app.post('/api/cart/new',function(req, res) {
+app.post('/api/cart',function(req, res) {
   console.log(req.body);
   var obj = JSON.parse(req.body.cart);
   api.makeCart(obj,function(cart) {
@@ -144,7 +144,8 @@ app.put('/api/user/:id',function(req, res) {
 });
 
 app.post('/api/user/token', function(req, res){
-	var js = req.body;
+	var js = JSON.parse(req.body.data);
+	console.log(js);
 	api.setUserToken(js.email, js.type, js.token);
 	res.end();
 });

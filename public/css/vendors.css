@@ -16,3 +16,6 @@
 .vendor-container.selected {
 	background: #aaa;
 }
+.vendorLogo {
+  width: 200px;
+}

@@ -59,9 +59,11 @@ $(function() {
     Backbone.history.start();
   });
   App.socket = io.connect();
-  App.socket.on('identify', function(data) {
-    console.log(data);
-    App.clientId = data.clientId;
-    App.start();
+  App.socket.on('connect',function() {
+    App.socket.on('identify', function(data) {
+      console.log("IDENTIFY",data.clientId);
+      App.clientId = data.clientId;
+      App.start();
+    });
   });
 });

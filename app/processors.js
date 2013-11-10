@@ -46,4 +46,21 @@ module.exports = function(app){
 		});
 		
 	});
+	
+	app.post('/api/processor/dwolla',function(req, resp){
+		var js = req.body;
+		console.log(js);
+		var url = "https://www.dwolla.com/oauth/rest/transactions/send";
+		request({
+			method:"POST", 
+			uri: url, 
+			headers: {"Content-Type":"application/json"},
+			body: JSON.stringify(js)
+		}, function(err, r, body){
+			console.log("error",err);
+			console.log("http code", r.statusCode);
+			console.log("body", body);
+			resp.send(body);
+		});
+	});
 };

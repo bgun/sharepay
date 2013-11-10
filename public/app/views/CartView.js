@@ -30,15 +30,20 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 						token : event.data.token
 					})}
 				});
-				var tokens = App.user.get('tokens');
-				tokens = tokens || {};
-				tokens[event.data.type] = event.data.token;
-				App.user.set('tokens', tokens);
-				if(event.data.type == "dwolla"){
-					self.makeDwollaPayment();
-				} else if(event.data.type == "venmo"){
-					self.makeVenmoPayment();
+				if(typeof event.data.token != "undefined"){
+					var tokens = App.user.get('tokens');
+					tokens = tokens || {};
+					tokens[event.data.type] = event.data.token;
+					App.user.set('tokens', tokens);
+					if(event.data.type == "dwolla"){
+						self.makeDwollaPayment();
+					} else if(event.data.type == "venmo"){
+						self.makeVenmoPayment();
+					}
+				} else {
+					alert("oauth failed");
 				}
+				
 			},false);
 			
 		},

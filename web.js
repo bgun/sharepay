@@ -24,9 +24,14 @@ io.sockets.on('connection', function(socket) {
   console.log("CONNECTED SOCKET ID:",socket.id);
   socket.on('cart:item-add', function (data) {
     console.log("ITEM RECEIVED",data);
-    orm.addItemToCart(data.cartId, data.item, function() {
-      socket.broadcast.emit('db:item-added',data);
-      console.log("Emitted db:item-added",data);
-    });
+    if(data.completed) {
+      console.log("DUPLICATE");
+    } else {
+      data.completed = true;
+      orm.addItemToCart(data.cartId, data.item, function() {
+        socket.broadcast.emit('db:item-added',data);
+        console.log("Emitted db:item-added",data);
+      });
+    }
   });
 });

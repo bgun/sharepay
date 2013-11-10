@@ -7,8 +7,8 @@ module.exports = function(app){
 		appSecret: 'Jy5ZexkIFj4lNUnyJJtCzF8/VYoeTikMFwm7mtYK132PoLr7xA'
 	};
 	var venmo = {
-		appId: 'hpNV9Yq75n5EwQiRcT4zlX2imU82tR44OSNlzbzU2X9JnptjQo',
-		appSecret: 'Jy5ZexkIFj4lNUnyJJtCzF8/VYoeTikMFwm7mtYK132PoLr7xA'
+		appId: '1488',
+		appSecret: 'U5DkVMPQYHmpZj7SNxWdHqRb65d4ApNK'
 	};
 	
 	app.get('/auth/venmo_challenge', function(req, res){
@@ -21,11 +21,16 @@ module.exports = function(app){
 		var url_parts = url.parse(req.url, true);
 		var query = url_parts.query;
 		console.log('got venmo code'+query.code);
-		var redirectUri = encodeURIComponent("http://sharepay.herokuapp.com/auth/venmo_callback");
-		var surl = "https://api.venmo.com/oauth/access_token?client_id="+venmo.appId+"&client_secret="+
-			venmo.appSecret+"&grant_type=authorization_code&redirect_uri="+redirectUri+"&code="+query.code;
+		var surl = "https://api.venmo.com/oauth/access_token";
 		
-		request.get(surl, function (e, r, body) {
+		request({	method:"POST",
+					url:surl,
+					form:{
+						client_id : venmo.appId,
+						code: query.code,
+						client_secret: venmo.appSecret
+					}
+			}, function (e, r, body) {
 			obj = JSON.parse(body);
 			console.log(obj);
 			res.send('<html><head><script type="text/javascript">'+

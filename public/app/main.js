@@ -7,10 +7,12 @@ $(function() {
   // App.songs = new App.Collections.SongCollection();
   // App.song = new App.Models.SongModel(); // change this to load all the songs
 
+  // TODO instantiate this properly, either based on url or login
+  App.user = new App.Models.UserModel();
+
   var AppRouter = Backbone.Router.extend({
 
     routes: {
-      //'/vendors' : 'vendorRender',
       'cart/:cartId'     : 'cart',
       '*path'    : 'defaultRoute'
     },

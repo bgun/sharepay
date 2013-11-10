@@ -78,7 +78,7 @@ module.exports = function(app){
 	app.post('/api/processor/venmo', function(req, resp){
 		var js = req.body;
 		console.log(js);
-		var url = "https://sandbox-api.venmo.com/payments";
+		var url = "https://api.venmo.com/payments";
 		request({
 			method:"POST", 
 			uri: url, 

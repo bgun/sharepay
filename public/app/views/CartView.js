@@ -108,12 +108,13 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
           data: {
             oauth_token: tokens.dwolla,
             pin: pin,
-            destinationId: "reflector@dwolla.com",
+            destinationId: "reflector@dwolla.com", // <--- change this to host email
             destinationType: "Email",
-            amount: 0.01,
-            notes: "for blah blah blah"
+            amount: 0.01, // <--- change this to contribution amount
+            notes: "for blah blah blah" // <--- change this to description
           }
         }).done(function(data){
+        	// DISPLAY SUCCESS MESSAGE FOR USER
           console.log(data);
         });
       } else {
@@ -132,20 +133,19 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
         console.log("make venmo payment here... token "+tokens.venmo);
         var url = 'http://sharepay.herokuapp.com';
         //var url = 'http://localhost:5000';
-        /*$.ajax({
+        $.ajax({
           type: 'POST',
           url: url+'/api/processor/venmo',
           data: {
-            oauth_token: tokens.dwolla,
-            pin: pin,
-            destinationId: "reflector@dwolla.com",
-            destinationType: "Email",
-            amount: 0.01,
-            notes: "for blah blah blah"
+            access_token: tokens.venmo,
+            email: "", // <--- change this to host email
+            note: "blah blah note", // <--- change this to description
+            amount: 0.01, // <--- change this to contribution amount
           }
         }).done(function(data){
+        	// DISPLAY SUCCESS MESSAGE FOR USER
           console.log(data);
-        });*/
+        });
       } else {
         window.open("https://api.venmo.com/oauth/authorize"+
           "?client_id=1488"+

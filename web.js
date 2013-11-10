@@ -26,8 +26,9 @@ require("./app/oauth/processors")(app);
 
 io.sockets.on('connection', function(socket) {
   socket.emit('news', { hello: 'world' });
-  socket.on('items:add', function (data) {
+  socket.on('cart:item-add', function (data) {
     console.log("ITEM RECEIVED",data);
+    api.addItemToCart(data.cartId, data.item);
   });
 });
 
@@ -62,7 +63,7 @@ var makeReadApis = function(nouns) {
     });
   });
 };
-makeReadApis(["processors","users","vendors"]);
+makeReadApis(["carts","processors","users","vendors"]);
 
 
 app.put('/api/cart/new',function(req, res) {

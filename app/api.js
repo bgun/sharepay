@@ -82,12 +82,26 @@ exports.updateCart = function(id, obj, callback) {
     callback.call(null, obj);
   });
 };
+exports.addItemToCart = function(id, item) {
+  var _id = mongoose.Types.ObjectId(id);
+  console.log("Adding item to cart:",item);
+  Cart.update({_id:_id},{$push: {"items":item}},function(err, num) {
+    if(err) {
+      console.log(err);
+    }
+    console.log("Added item",item);
+  });
+};
 exports.getCart = function(id,callback) {
   console.log("getCart id: ",id);
-  var _id = mongoose.Types.ObjectId(id);
   Cart.findById(id,function(err, cart) {
     console.log(err, cart);
     callback.call(null, cart);
+  });
+};
+exports.getCarts = function(callback) {
+  Cart.find(function(err, carts) {
+    callback.call(null, carts);
   });
 };
 

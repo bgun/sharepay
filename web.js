@@ -18,7 +18,7 @@ app.use(express.bodyParser());
 var api      = require("./app/api.js");
 var email    = require("./app/email.js");
 
-require("./app/oauth/processors")(app);
+require("./app/processors")(app);
 
 
 

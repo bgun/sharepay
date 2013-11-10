@@ -1,17 +1,10 @@
-/* TEMP */
-.vendorLogo {
-  width: 200px;
-}
-
-/* ENDTEMP */
-
 html, body {
   font-family: "Helvetica Neue", sans-serif;
   font-size: 14px;
   height: 120%;
 }
 body {
-  margin: 0;
+  margin: 10px;
   padding: 0;
   width: 100%;
 }
@@ -20,4 +13,51 @@ body {
   display: none;
 }
 
+.group-cart .item-list {
+  background: #eee;
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  max-width: 350px;
+}
 
+.group-cart .item-list h2 {
+  margin-top: 0;
+  font-size: 1em;
+  font-weight: normal;
+}
+
+.group-cart table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.group-cart th, .group-cart td {
+  padding: 2px 4px;
+}
+
+.group-cart td {
+  text-align: right;
+}
+
+.group-cart th {
+  text-align: left;
+}
+
+.group-cart .item:nth-child(odd) {
+  background: #ddd;
+}
+
+.group-cart .item.total-row {
+  background: none;
+  border-top: 1px solid #ccc;
+  margin-top: 5px;
+  padding-top: 5px;
+}
+
+.group-cart .item-group h3 {
+  margin-bottom: 0;
+  font-size: .85em;
+  text-transform: uppercase;
+  font-weight: normal;
+}

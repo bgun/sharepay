@@ -1,6 +1,7 @@
 // send-order
 
 App = new Backbone.Marionette.Application();
+Backbone.emulateJSON = true;
 $(function() {
   App.addRegions({
     content: '#content'
@@ -38,7 +39,8 @@ $(function() {
       if (path) {
         console.log('unkown path:', path);
       }
-      App.content.show(new App.Views.MainView());
+
+      App.content.show(new App.Views.MainView({model:new App.Models.CartModel()}));
     }
 
   });

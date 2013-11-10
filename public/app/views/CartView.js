@@ -127,6 +127,7 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
         }).done(function(data){
           console.log(data);
           toastr.success('Thanks for the dough, dude.');
+          $('.user-payment').html('Paid');
         });
       } else {
         window.open("https://www.dwolla.com/oauth/v2/authenticate"+
@@ -157,6 +158,7 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
         }).done(function(data){
           console.log(data);
           toastr.success('Congratulations! Your payment went through');
+          $('.user-payment').html('Paid');
         });
       } else {
         window.open("https://api.venmo.com/oauth/authorize"+

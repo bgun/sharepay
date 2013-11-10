@@ -23,17 +23,70 @@ app.get('/', function(request, response) {
 app.get('/test',function(req, res) {
   var parts = url.parse(req.url, true);
   var query = parts.query;
-  res.send(query);//.join(","));
+  res.send(query);
 });
 
-app.get('/api/vendors',function(req, res) {
-  api.getVendors(function(vendors) {
-    res.set("Content-Type","application/json");
-    res.send({
-      count: vendors.length,
-      vendors: vendors
+
+var capitalize = function(word) {
+  return word[0].toUpperCase() + word.substr(1,word.length);
+};
+
+var makeReadApis = function(nouns) {
+  _.each(nouns,function(n) {
+    console.log("creating /api/"+n+" endpoint");
+    app.get('/api/'+n,function(req, res) {
+      api["get"+capitalize(n)](function(r) {
+        res.set("Content-Type","text/json");
+        res.send({
+          count: r.length,
+          vendors: r
+        });
+      });
     });
   });
+};
+makeReadApis(["processors","users","vendors"]);
+
+
+app.post('/api/cart/new',function(req, res) {
+  var obj = JSON.stringify(req.body.cart);
+  api.makeCart(obj,function(cart) {
+    res.set("Content-Type","application/json");
+    res.send({
+      success: true,
+      cart: cart
+    });
+  });
+});
+
+app.get('/api/cart/:id',function(req, res) {
+  api.getCart(req.params.id,function(cart) {
+    res.set("Content-Type","text/json");
+    res.send({
+      success: true,
+      id: req.params.id,
+      cart: cart
+    });
+  });
+});
+
+app.get('/api/user',function(req, res) {
+  res.set("Content-Type","text/json");
+  var parts = url.parse(req.url, true);
+  var query = parts.query;
+  if(query.email) {
+    api.getOrCreateUser(query.email,function(user, newuser) {
+      res.send({
+        success: true,
+        user: user,
+        newuser: newuser ? true : false
+      });
+    });
+  } else {
+    res.send({
+      error: "Must specify an email"
+    });
+  }
 });
 
 
@@ -43,13 +96,3 @@ var port = process.env.PORT || 5000;
 app.listen(port, function() {
   console.log("Listening on " + port);
 });
-
-/*
-var Cat = mongoose.model('test', { name: String });
-
-var kitty = new Cat({ name: 'Zildjian' });
-kitty.save(function (err) {
-  if (err) // ...
-  console.log('meow');
-});
-*/

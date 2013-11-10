@@ -38,7 +38,8 @@ $(function() {
       if (path) {
         console.log('unkown path:', path);
       }
-      App.content.show(new App.Views.MainView());
+
+      App.content.show(new App.Views.MainView({model:new App.Models.CartModel()}));
     }
 
   });

@@ -10,26 +10,37 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 			'click .vendor': 'updateVendor'
 		},
 		onRender: function(options) {
+			window.testMainView =  this;
 			var that = this,
 				vendorColl,
 				processorColl;
 
 			vendorColl = new App.Collections.VendorCollection();
 			vendorColl.fetch().done(function(){
-				that.vendors.show(new App.Views.VendorPickerCollectionView({
+				var pickerView = new App.Views.VendorPickerCollectionView({
 					collection: vendorColl
-				}));
+				});
+				that.vendors.show(pickerView);
+				pickerView.on('itemview:vendorselected',function(view,selectedVendorModel){
+					that.model.set('vendor',selectedVendorModel);
+				});
 			});
 
 			processorColl = new App.Collections.ProcessorCollection();
 			processorColl.fetch().done(function(){
-				that.processors.show(new App.Views.ProcessorPickerCollectionView({
+				var pickerView = new App.Views.ProcessorPickerCollectionView({
 					collection: processorColl
-				}));
+				});
+				that.processors.show(pickerView);
+				pickerView.on('itemview:addprocessor',function(view,selectedProcessorModel){
+					that.model.get('processors').add(selectedProcessorModel);
+				});
+				pickerView.on('itemview:removeprocessor',function(view,selectedProcessorModel){
+					that.model.get('processors').remove(selectedProcessorModel);
+				});
 			});
-		},
-		updateVendor: function(evt) {
-			console.log(evt);
+
+
 		}
 	});
 });

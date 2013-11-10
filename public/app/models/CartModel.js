@@ -5,7 +5,7 @@ App.module("Models", function(Mod, App, Backbone, Marionette, $, _) {
 			items: [],
 			groupedItems: [],
 			users: [],
-			processors: [],
+			processors: new App.Collections.ProcessorCollection(),
 			deadline: null,
 		},
 		parse: function(r) {

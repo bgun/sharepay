@@ -119,10 +119,10 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
           data: {
             oauth_token: tokens.dwolla,
             pin: pin,
-            destinationId: that.get('host').email,
+            destinationId: that.model.get('host').email,
             destinationType: "Email",
             amount: 0.01, // <--- change this to contribution amount
-            notes: "for blah blah blah" // <--- change this to description
+            notes: "SharePay Purchase" // <--- change this to description
           }
         }).done(function(data){
           console.log(data);
@@ -151,7 +151,7 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
           data: {
             access_token: tokens.venmo,
             email: that.model.get('host').email, // <--- change this to host email
-            note: "blah blah note", // <--- change this to description
+            note: "SharePay Purchase", // <--- change this to description
             amount: 0.01, // <--- change this to contribution amount
           }
         }).done(function(data){

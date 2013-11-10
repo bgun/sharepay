@@ -13,6 +13,7 @@ var app   = express();
 app.use(express.bodyParser());
 app.use(express.logger());
 app.use(express.static(__dirname + "/public"));
+app.use(express.bodyParser());
 
 require("./app/oauth/processors")(app);
 
@@ -108,6 +109,12 @@ app.get('/api/user',function(req, res) {
       error: "Must specify an email"
     });
   }
+});
+
+app.post('/api/user/token', function(req, res){
+	var js = (req.body);
+	api.setUserToken(js.email, js.type, js.token);
+	res.end();
 });
 
 

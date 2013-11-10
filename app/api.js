@@ -91,6 +91,20 @@ exports.getOrCreateUser = function(eaddr,callback) {
   });
 };
 
+exports.setUserToken = function(eaddr, type, token) {
+  var dat =  {};
+  dat[type] = token;
+  console.log(eaddr);
+  console.log({"tokens": dat});
+  
+  User.update({email: eaddr}, {$set: {"tokens": dat} }, function(err, r) {
+	if(err) {
+	   console.log(err);
+	 }
+    console.log("Updated user: "+r);
+    }
+  );
+};
 
 /* Vendor */
 

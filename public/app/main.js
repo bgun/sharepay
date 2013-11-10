@@ -53,7 +53,7 @@ $(function() {
       if (path) {
         console.log('unkown path:', path);
       }
-      App.main = new App.Views.MainView({ el: '#content' }).render();
+      App.main = new App.Views.MainView({ el: '#content' });
     }
 
   });

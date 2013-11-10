@@ -22,10 +22,9 @@ App.module("Models", function(Mod, App, Backbone, Marionette, $, _) {
         this.groupItems();
       }
       App.socket.on('db:item-added',function(cartItem) {
-        console.log("FINGERPRINTS",cartItem.fingerprints);
-        if(!_.contains(cartItem.fingerprints, App.clientId)) {
-          that.addItem(cartItem.item, cartItem);
-        }
+        //if(!_.contains(cartItem.fingerprints, App.clientId)) {
+          that.addItem(cartItem.item, false);
+        //}
       });
     },
     getTimeLeft: function() {
@@ -62,16 +61,18 @@ App.module("Models", function(Mod, App, Backbone, Marionette, $, _) {
       });
       this.set('groupedItems', grouped);
     },
-    addItem: function(item, cartItem) {
+    addItem: function(item, propagate) {
       this.get('items').push(item);
       this.groupItems();
       this.trigger('change');
       console.log("Adding item: ",item);
-      App.socket.emit('cart:item-add',{
-        cartId: this.get('_id'),
-        fingerprints: cartItem ? _.union(cartItem.fingerprints,App.clientId) : [App.clientId],
-        item: item
-      });
+      if(propagate) {
+        App.socket.emit('cart:item-add',{
+          cartId: this.get('_id'),
+          //fingerprints: cartItem ? _.union(cartItem.fingerprints,App.clientId) : [App.clientId],
+          item: item
+        });
+      }
     }
   });
 });

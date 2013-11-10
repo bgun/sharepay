@@ -9,27 +9,29 @@ App.Views.MainView = Backbone.View.extend({
 	},
 
 	initialize: function(options) {
-		var url = 'http://sharepay.herokuapp.com';
+		var that = this,
+			url = 'http://sharepay.herokuapp.com',
+			vendorAjax = $.ajax({
+				type: 'GET',
+				url: url + '/api/vendors'
+			}),
+			processorAjax = $.ajax({
+				type: 'GET',
+				url: url + '/api/processors'
+			});
 
-		var vendorAjax = $.ajax({
-			url: url + '/api/vendors'
-		});
-		
-		var processorAjax = $.ajax({
-			url: url + '/api/processors'
-		});
+		this.childViews = [];
 
 		$.when(vendorAjax, processorAjax).done(function(vendors, processors) {
-			console.log(vendors, processors);
-			this.childViews = [];
-			this.childViews.push(new App.Views.VendorPickerView({
-				parentView: this,
-				collection: vendors
+			that.childViews.push(new App.Views.VendorPickerView({
+				parentView: that,
+				collection: new App.Collections.VendorCollection( vendors[0].vendors )
 			}));
-			this.childViews.push(new App.Views.ProcessorsPickerView({
-				parentView: this,
-				collection: processors
+			that.childViews.push(new App.Views.ProcessorsPickerView({
+				parentView: that,
+				collection: new App.Collections.ProcessorCollection( processors[0].processors )
 			}));
+			that.render();
 		});		
 	},
 

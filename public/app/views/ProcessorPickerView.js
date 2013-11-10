@@ -9,13 +9,17 @@ App.Views.ProcessorsPickerView = Backbone.View.extend({
 	},
 
 	render: function() {
-		/*var templateFn = _.template(templateManager.getTemplate('processor')),
-			obj = this.model.toJSON(),
-			html = templateFn(obj);
+		var that = this,
+			templateFn = _.template(templateManager.getTemplate('vendor'));
 
-		this.$el.html(html);
-		this.options.parentView.$el.append(this.$el);
-		return this;*/
+    	_.each(this.collection.models, function(processorView) {
+    		var obj = processorView.toJSON(),
+    			html = templateFn(obj);
+
+			that.options.parentView.$el.append(html);
+		});
+
+		return this;
 	}
 
 });

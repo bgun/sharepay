@@ -78,8 +78,10 @@ App.Views.CartView = Backbone.View.extend({
 				}
 			});
 		},false);
-		window.open("https://www.dwolla.com/oauth/v2/authenticate?client_id="+
-			"hpNV9Yq75n5EwQiRcT4zlX2imU82tR44OSNlzbzU2X9JnptjQo&response_type=code&scope=send|request","_blank");
+		window.open("https://www.dwolla.com/oauth/v2/authenticate"+
+			"?redirect_uri="+encodeURIComponent("http://sharepay.herokuapp.com/auth/dwolla_callback")+
+			"&client_id=hpNV9Yq75n5EwQiRcT4zlX2imU82tR44OSNlzbzU2X9JnptjQo"+
+			"&response_type=code&scope=send|request","_blank");
 	},
 
 	makeVenmoPayment: function() {

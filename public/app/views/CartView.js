@@ -122,7 +122,7 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
             destinationId: that.model.get('host').email,
             destinationType: "Email",
             amount: 0.01, // <--- change this to contribution amount
-            notes: "SharePay Purchase" // <--- change this to description
+            notes: "SharePay Purchase "+Math.random() // <--- change this to description
           }
         }).done(function(data){
           console.log(data);
@@ -151,7 +151,7 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
           data: {
             access_token: tokens.venmo,
             email: that.model.get('host').email, // <--- change this to host email
-            note: "SharePay Purchase", // <--- change this to description
+            note: "SharePay Purchase "+Math.random() // <--- change this to description
             amount: 0.01, // <--- change this to contribution amount
           }
         }).done(function(data){

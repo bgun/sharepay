@@ -92,3 +92,15 @@
 .group-cart .item-group.mine .user-payment {
   border-top-color: #a2c89c;
 }
+
+.shared-item-form {
+  margin-bottom: 6px;
+}
+.shared-item-form input {
+  background: #FFF;
+  border: 1px solid #DDD;
+  border-radius: 5px;
+  font-size: 12px;
+  margin: 0;
+  padding: 6px;
+}

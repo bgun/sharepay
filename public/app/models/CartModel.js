@@ -2,10 +2,14 @@ App.module("Models", function(Mod, App, Backbone, Marionette, $, _) {
 	Mod.CartModel = Backbone.Model.extend({
 		defaults: {
 			vendor: null,
+			items: [],
 			groupedItems: [],
 			users: [],
 			processors: [],
 			deadline: null,
+		},
+		parse: function(r) {
+			return r.cart;
 		},
 		initialize: function(options) {
 			if (options && typeof options.deadline === 'string') {
@@ -14,21 +18,22 @@ App.module("Models", function(Mod, App, Backbone, Marionette, $, _) {
 			if (options && options.items && options.items.length) {
 				this.groupItems();
 			}
-		}, 
-		parse: function(r) {
-			return r.cart;
 		},
 		getTimeLeft: function() {
 			var millis = this.get('deadline') - new Date(),
 				friendly = moment(this.get('deadline')).fromNow();
-
-			// console.log('cart time left', millis, friendly);
 			return friendly;
 		},
 		groupItems: function() {
-			var grouped = _(this.get('items')).groupBy(function(item){ return item.user || 'shared'; });
+			var grouped = _(this.get('items')).groupBy(function(item){
+				var result = item.user || 'shared';
+				return result;
+			});
+			_(grouped).each(function(group, key){
+				grouped[key].totalCost = App.Utils.hashSum(group, 'price');
+			});
 			this.set('groupedItems', grouped);
-			},
+		},
 		addItem: function(item) {
 			this.get('items').push(item);
 			this.groupItems();

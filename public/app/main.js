@@ -13,9 +13,8 @@ $(function() {
   var AppRouter = Backbone.Router.extend({
 
     routes: {
-      'cart/:cartId'                : 'cart',
       'cart/:cartId/email/:userEmail' : 'cart',
-      '*path'                       : 'defaultRoute'
+      '*path'                         : 'defaultRoute'
     },
 
     cart: function(cartId, userEmail) {
@@ -23,11 +22,12 @@ $(function() {
 
       // TODO: use $.when
       App.user.set('currentUser', true);
-      App.user.url = 'http://sharepay.herokuapp.com/api/user?email=' + userEmail;
+      App.user.url = '/api/user?email=' + userEmail;
       App.user.fetch({success:function(){
         App.cart = new App.Models.CartModel();
-        App.cart.url = 'http://sharepay.herokuapp.com/api/cart/' + cartId;
+        App.cart.url = '/api/cart/' + cartId;
         App.cart.fetch({success:function(){
+          App.cart.groupItems();
           var cartView = new App.Views.CartView({model:App.cart});
           cartView.render();
         }});

@@ -52,11 +52,11 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 
 			obj.timeLeft = this.model.getTimeLeft();
 			obj.sharedTotal = App.Utils.hashSum(this.model.get('groupedItems').shared, 'price');
-			obj.sharedShare = (obj.sharedTotal / this.model.get('users').length).toFixed(2);
+			obj.sharedShare = obj.sharedTotal / this.model.get('users').length;
+			obj.currentUserId = App.user.get('_id');
+			obj.isHost = App.user.get('isHost');
 			html = templateFn(obj);
 			this.$el.html(html);
-
-			this.delegateEvents();
 
 			this.intervalId = setInterval(function(){
 				self.updateCountdown();

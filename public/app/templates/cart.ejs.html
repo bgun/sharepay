@@ -14,13 +14,13 @@
 					<% _.each(groupedItems.shared, function(item) { %>
 					<div class="item">
 						<b><%= item.name %></b>
-						<span class="item-price"><%= item.price %></span>
+						<span class="item-price"><%= App.Utils.formatCurrency(item.price) %></span>
 					</div>
 					<% }); %>
 					<% if (groupedItems.shared && groupedItems.shared.length) { %>
 					<div class="total-row">
 						<b>Total</b>
-						<span class="shared-total"><%= sharedTotal %></span>
+						<span class="shared-total"><%= App.Utils.formatCurrency(groupedItems.shared.totalCost) %></span>
 					</div>
 					<% } %>
 				</div>
@@ -36,19 +36,24 @@
 								<% _.each(groupItems, function(item){ %>
 								<div class="item">
 									<b><%= item.name %></b>
-									<span class="item-price"><%= item.price %></span>
+									<span class="item-price"><%= App.Utils.formatCurrency(item.price) %></span>
 								</div>
 								<% }); %>
 								<% if (groupedItems.shared && groupedItems.shared.length) { %>
 									<b>Share of Shared</b>
-									<span class="item-price"><%= sharedShare %></span>
+									<span class="item-price"><%= App.Utils.formatCurrency(sharedShare) %></span>
 								<% } %>
+
+								<div class="total-row">
+									<b>Total</b>
+								</div>
+
 							</div>
-							[if me && !host]
+							<% if (user._id === currentUserId && !isHost) { %>
 							Pay with:
 							<button class="dwolla-btn">Dwolla</button>
 							<button class="venmo-btn">Venmo</button>
-							[/if me && !host]
+							<% } %>
 						<% }); %>
 				</section>
 			<% } %>
@@ -56,8 +61,8 @@
 
 		<section class="summary">
 			<h2>Summary</h2>
-			[if host]
+			<% if (isHost) { %>
 			<button class="send-order">Send Order</button>
-			[/if host]
+			<% } %>
 		</section>
 	</section>

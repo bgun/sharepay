@@ -64,9 +64,9 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
       html = templateFn(obj);
       this.$el.html(html);
 
-      this.intervalId = setInterval(function(){
-        self.updateCountdown();
-      }, COUNTDOWN_INTERVAL);
+      // this.intervalId = setInterval(function(){
+      //   self.updateCountdown();
+      // }, COUNTDOWN_INTERVAL);
       return this;
     },
 
@@ -115,8 +115,8 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
             notes: "for blah blah blah" // <--- change this to description
           }
         }).done(function(data){
-        	// DISPLAY SUCCESS MESSAGE FOR USER
           console.log(data);
+          toastr.success('Thanks for the dough, dude.');
         });
       } else {
         window.open("https://www.dwolla.com/oauth/v2/authenticate"+
@@ -145,8 +145,8 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
             amount: 0.01, // <--- change this to contribution amount
           }
         }).done(function(data){
-        	// DISPLAY SUCCESS MESSAGE FOR USER
           console.log(data);
+          toastr.success('Congratulations! Your payment went through');
         });
       } else {
         window.open("https://api.venmo.com/oauth/authorize"+

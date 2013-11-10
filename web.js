@@ -26,6 +26,8 @@ require("./app/oauth/processors")(app);
 
 io.sockets.on('connection', function(socket) {
   socket.emit('news', { hello: 'world' });
+  socket.emit('identify', { client_id: socket.id });
+  console.log("SOCKET ID:",socket.id);
   socket.on('cart:item-add', function (data) {
     console.log("ITEM RECEIVED",data);
     api.addItemToCart(data.cartId, data.item);
@@ -66,7 +68,7 @@ var makeReadApis = function(nouns) {
 makeReadApis(["carts","processors","users","vendors"]);
 
 
-app.put('/api/cart/new',function(req, res) {
+app.post('/api/cart/new',function(req, res) {
   console.log(req.body);
   var obj = JSON.parse(req.body.cart);
   api.makeCart(obj,function(cart) {
@@ -79,7 +81,7 @@ app.put('/api/cart/new',function(req, res) {
   });
 });
 
-app.post('/api/cart/:id',function(req, res) {
+app.put('/api/cart/:id',function(req, res) {
   console.log(req.body);
   var id = req.params.id;
   var obj = JSON.parse(req.body.cart);
@@ -124,6 +126,21 @@ app.get('/api/user',function(req, res) {
       error: "Must specify an email"
     });
   }
+});
+
+app.put('/api/user/:id',function(req, res) {
+  console.log(req.body);
+  var id = req.params.id;
+  var obj = JSON.parse(req.body.user);
+  console.log("UPDATING CART TO:",obj);
+  api.updateUser(id,obj,function(user) {
+    res.set("Content-Type","text/json");
+    res.set("Access-Control-Allow-Origin","*");
+    res.send({
+      success: true,
+      user: user
+    });
+  });
 });
 
 app.post('/api/user/token', function(req, res){

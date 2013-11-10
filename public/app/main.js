@@ -67,8 +67,9 @@ $(function() {
   App.start();
 
   var socket = io.connect();
-  socket.on('news', function (data) {
+  socket.on('identify', function(data) {
     console.log(data);
+    App.client_id = data.client_id;
   });
   Backbone.Mediator.sub("cart:item-add",function(cartItem) {
     socket.emit('cart:item-add',cartItem);

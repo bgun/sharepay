@@ -29,6 +29,16 @@ exports.getUsers = function(callback) {
     callback.call(null, users);
   });
 };
+exports.updateUser = function(id, obj, callback) {
+  console.log("Updating user:",obj);
+  User.update({_id:id},_.omit(obj,"_id"),function(err, user) {
+    if(err) {
+      console.log(err);
+    }
+    console.log("Updated user:",user);
+    callback.call(null, obj);
+  });
+};
 exports.getOrCreateUser = function(eaddr,callback) {
   User.findOne({email: eaddr}, function(err, user) {
     if(user) {

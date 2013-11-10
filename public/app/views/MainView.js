@@ -46,13 +46,15 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 			this.processEmails();
 			
 			this.model.save().done(function() {
-				App.router.navigate('cart/' + that.model.get('id') + '/email/' + 'ben@bengundersen.com', {trigger: true, replace: true});
+				App.router.navigate('cart/' + that.model.id + '/email/' + 'ben@bengundersen.com', {trigger: true, replace: true});
 			});	
 		},
 		processEmails: function() {
 			var that = this,
 				inputText = $('#emailInput').val(),
 				userEmails = inputText.split(',');
+
+			console.lo
 
 			this.model.set('users', userEmails);
 		}

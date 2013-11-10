@@ -1,5 +1,6 @@
 App.module("Models", function(Mod, App, Backbone, Marionette, $, _) {
   Mod.CartModel = Backbone.Model.extend({
+    idAttribute: '_id',
 		defaults: {
 			vendor: null,
 			items: [],

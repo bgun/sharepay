@@ -7,100 +7,37 @@ body {
   padding: 0;
 }
 
+
+img.wrinkles {
+  vertical-align: middle;
+  margin-left: -15px;
+}
+
+.logo {
+  font-family: Rochester;
+  font-size: 500%;
+  color: #7a5b3e;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
 .hide {
   display: none;
 }
 
-.group-cart .item-list {
-  background: #eee;
-  margin: 10px 0;
-  padding: 10px;
-  border: 1px solid #ccc;
-  max-width: 350px;
-  border-radius: 5px;
+
+.login-view {
+  width: 350px;
+  margin: auto;
+  margin-top: 40px;
 }
 
-.group-cart .item-list h2 {
-  margin-top: 0;
-  font-size: 1em;
-  font-weight: normal;
+.login-view input {
+  font-size: 24px;
+  width: 100%;  
 }
 
-.group-cart table {
-  width: 100%;
-  border-collapse: collapse;
+.login-view button {
+  font-size: 24px;
 }
-
-.group-cart tbody {
-  border-bottom: 2px solid #ccc;
-}
-
-.group-cart th, .group-cart td {
-  padding: 2px 4px;
-}
-
-.group-cart td {
-  text-align: right;
-}
-
-.group-cart th {
-  font-weight: normal;
-  text-align: left;
-}
-
-.group-cart .item:nth-child(even) {
-  background: #ddd;
-}
-
-.group-cart .item.total-row {
-  background: none;
-  font-weight: bold;
-}
-
-.group-cart .item-group {
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 10px;
-  margin-bottom: 10px;
-}
-
-.group-cart .item-group h3 {
-  margin: 0 0 5px;
-  font-size: .85em;
-  text-transform: uppercase;
-}
-
-.group-cart .user-payment {
-  border-top: 1px solid #ddd;
-  margin-top: 5px;
-  padding: 5px;
-}
-
-
-.group-cart .mine tbody {
-  border-bottom: 2px solid #7a9e73;
-}
-
-.group-cart .item-group.mine tfoot .item:nth-child(even), .group-cart tfoot .item:nth-child(even) {
-  background: none;
-}
-
-.group-cart .item-group.mine {
-  background: #caefc5;
-}
-
-.group-cart .item-group.mine .item:nth-child(even) {
-  background: #a2c89c;
-}
-
-.group-cart .item-group.mine .item.total-row {
-  border-top-color: #7a9e73;
-}
-
-.group-cart .item-group.mine .user-payment {
-  border-top-color: #a2c89c;
-}
-
-
 

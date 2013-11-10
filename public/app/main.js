@@ -14,9 +14,9 @@ $(function() {
   var AppRouter = Backbone.Router.extend({
 
     routes: {
-      'login'                         : 'login',
+      'setup'                         : 'setup',
       'cart/:cartId/email/:userEmail' : 'cart',
-      '*path'                         : 'defaultRoute'
+      '*path'                         : 'login'
     },
 
     cart: function(cartId, userEmail) {
@@ -44,7 +44,7 @@ $(function() {
           App.user.set('currentUser', true);
           App.user.url = '/api/user?email=' + userEmail;
           App.user.fetch({success:function(){
-            App.router.navigate('/cart/',{trigger:true});
+            App.router.navigate('/setup',{trigger:true});
           }});
         }
 
@@ -52,11 +52,11 @@ $(function() {
       App.content.show(loginView);
     },
 
-    defaultRoute: function(path) {
+    setup: function(path) {
       if (path) {
         console.log('unkown path:', path);
       }
-      App.content.show(new App.Views.MainView({model:new App.Models.CartModel()}));
+      App.content.show(new App.Views.SetupView({model:new App.Models.CartModel()}));
     }
 
   });

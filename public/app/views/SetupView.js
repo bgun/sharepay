@@ -43,6 +43,7 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 		saveCart: function() {
 			var that = this;
 			this.processEmails();
+			this.model.set('host',App.user.toJSON());
 			this.model.save().done(function(){
 				App.router.navigate('cart/'+that.model.get('_id')+'/email/'+App.user.get('email'), {trigger: true, replace: true});
 			});

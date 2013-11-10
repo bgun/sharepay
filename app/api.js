@@ -69,6 +69,7 @@ var Item = mongoose.model('Item', itemSchema);
 var cartSchema = Schema({
   deadline: String,
   vendor: String,
+  host: {},
   items: [],
   users: []
 });

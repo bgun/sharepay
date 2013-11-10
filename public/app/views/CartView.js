@@ -94,6 +94,7 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
     },
 
     makeDwollaPayment: function() {
+      var that = this;
       console.log('dwolla!');
       var tokens = App.user.get('tokens') || {};
       if(typeof tokens.dwolla != "undefined"){
@@ -108,7 +109,7 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
           data: {
             oauth_token: tokens.dwolla,
             pin: pin,
-            destinationId: "reflector@dwolla.com", // <--- change this to host email
+            destinationId: that.get('host').email,
             destinationType: "Email",
             amount: 0.01, // <--- change this to contribution amount
             notes: "for blah blah blah" // <--- change this to description
@@ -126,6 +127,7 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
     },
 
     makeVenmoPayment: function() {
+      var that = this;
       console.log('venmo!...?');
       var tokens = App.user.get('tokens') || {};
       if(typeof tokens.venmo != "undefined"){
@@ -138,7 +140,7 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
           url: url+'/api/processor/venmo',
           data: {
             access_token: tokens.venmo,
-            email: "", // <--- change this to host email
+            email: that.get('host').email, // <--- change this to host email
             note: "blah blah note", // <--- change this to description
             amount: 0.01, // <--- change this to contribution amount
           }

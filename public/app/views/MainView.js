@@ -22,7 +22,6 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 				});
 
 			this.childViews = [];
-
 			$.when(vendorAjax, processorAjax).done(function(vendors, processors) {
 				that.childViews.push(new App.Views.VendorPickerView({
 					parentView: that,
@@ -32,19 +31,32 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 					parentView: that,
 					collection: new App.Collections.ProcessorCollection( processors[0].processors )
 				}));
-				that.render();
+				renderCb(that.childViews);
 			});
 		},
 
-		render: function() {
-			_.each(this.childViews, function(view) {
+		render: function(childViews) {
+			_.each(childViews, function(view) {
 				view.render();
 			});
 		},
 
 		sendInvites: function() {
 			alert('send invites');
+		},
+
+		updateVendor: function(evt) {
+			var vendorId = $(evt.target);
+
+
+	            //cell = this.model.cells.get(cellId);
+			console.log(vendorId);
+			$(evt.currentTarget).toggleClass('selected');
+			this.cart.set({
+				//vendor: evt
+			});
 		}
+
 
 	});
 });

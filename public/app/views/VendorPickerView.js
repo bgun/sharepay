@@ -10,16 +10,22 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 			this.parentEl = this.options.parentView.$el;
 		},
 
-		// `render` renders the HTML container, `vendor-list-container`.
 		render: function() {
-			var that = this,
+			var html,
+				that = this,
 				templateFn = _.template(templateManager.getTemplate('vendors'));
 
-			var html = templateFn({
-				vendors: this.collection.models
+			_.each(this.collection.models, function(vendor) {
+				var v = new App.Views.VendorView({
+					model: vendor,
+					parentView: that
+				});
+				var html = v.render();
+				that.$el.append(html);
 			});
 
-			this.parentEl.append(html);
+			//this.$el.html(html);
+			//this.parentEl.html(this.$el);
 		}
 
 	});

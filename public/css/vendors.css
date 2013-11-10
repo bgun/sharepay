@@ -1,0 +1,18 @@
+.left {
+	float: left;
+}
+.vendor-container {
+	height: 150px;
+	padding: 5px;
+}
+.vendor-container,
+.vendor-container img {
+	width: 150px;
+}
+.vendor-container .name {
+	text-align: center;
+	width: 100%;
+}
+.vendor-container.selected {
+	background: #aaa;
+}

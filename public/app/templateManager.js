@@ -25,3 +25,6 @@ var templateManager = (function($, _) {
     templates: templates
   };
 })(jQuery, _);
+
+
+  

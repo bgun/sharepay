@@ -63,6 +63,16 @@ $(function() {
 
   });
   
+  var defaultTemplateLoadingMechanism = Marionette.TemplateCache.prototype.loadTemplate;
+  Marionette.TemplateCache.prototype.loadTemplate = function(key){
+    var template;
+    if(key.indexOf('#') !== 0){
+      template = getTemplates[key];
+    } else {
+      template = defaultTemplateLoadingMechanism(val);
+    }
+    return template;
+  };
   App.addInitializer(function(){
     App.router = new AppRouter();
     Backbone.history.start();

@@ -71,11 +71,11 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 					type: 'POST',
 					url: url + '/api/user/token',
 					processData: false,
-					data: {
-						"email": "test@test.com",
-						"type" : event.data.type,
-						"token" : event.data.token
-					}
+					data: JSON.stringify({
+						email: "test@test.com",
+						type : event.data.type,
+						token : event.data.token
+					})
 				});
 			},false);
 			window.open("https://www.dwolla.com/oauth/v2/authenticate"+

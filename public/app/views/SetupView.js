@@ -57,9 +57,10 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 				userEmails = inputText.split(',');
 
 			console.log(userEmails);
-			var currUser = App.user.get('email').split('@')[0];
+			//var currUser = App.user.get('email').split('@')[0];
+			//var cartId = this.model.id();
 			
-			$.ajax({
+			/*$.ajax({
 				type: 'POST',
 				url: '/api/invite',
 				data: {
@@ -69,7 +70,7 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 					vendor: this.model.get('vendor').attributes.name
 				}
 			});
-
+			*/
 			this.model.set('emails', userEmails);
 		}
 	});

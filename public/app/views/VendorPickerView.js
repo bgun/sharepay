@@ -14,6 +14,8 @@ App.Views.VendorPickerView = Backbone.View.extend({
 		var that = this,
 			templateFn = _.template(templateManager.getTemplate('vendors'));
 
+		console.log(this.collection.models);
+
 		var html = templateFn({
 			vendors: this.collection.models
 		});

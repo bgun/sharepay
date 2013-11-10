@@ -2,5 +2,14 @@
 	float: left;
 }
 .vendor-container {
-	float: left;
+	height: 150px;
+	padding: 5px;
+}
+.vendor-container,
+.vendor-container img {
+	width: 150px;
+}
+.vendor-container .name {
+	text-align: center;
+	width: 100%;
 }

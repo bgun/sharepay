@@ -5,8 +5,7 @@ App.Views.MainView = Backbone.View.extend({
 	className: 'main-view',
 
 	events: {
-		'click .invite-btn': 'sendInvites',
-		'click .vendor-container': 'updateVendor'
+		'click .invite-btn': 'sendInvites'
 	},
 
 	initialize: function(options) {
@@ -44,6 +43,10 @@ App.Views.MainView = Backbone.View.extend({
 
 	sendInvites: function() {
 		alert('send invites');
+	},
+
+	updateVendor: function() {
+
 	}
 
 });

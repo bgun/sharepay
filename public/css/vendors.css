@@ -13,3 +13,6 @@
 	text-align: center;
 	width: 100%;
 }
+.vendor-container.selected {
+	background: #aaa;
+}

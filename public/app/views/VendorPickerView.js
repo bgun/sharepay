@@ -1,5 +1,7 @@
 App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 	var VendorPicker = Marionette.ItemView.extend({
+		tagName: 'div',
+		className: 'vendor-container left',
 		template: 'vendor',
 		events:{
 			'click img': 'updateVendor',
@@ -11,8 +13,8 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 	});
 
 	Mod.VendorPickerCollectionView = Marionette.CollectionView.extend({
-		tagName: 'section',
-		className: 'vendor',
+		//tagName: 'section',
+		//className: 'vendor',
 		itemView: VendorPicker
 	});
 });

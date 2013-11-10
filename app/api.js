@@ -128,12 +128,18 @@ exports.getProcessors = function(callback) {
 
 exports.setUserToken = function(eaddr, type, token) {
   User.findOne({email: eaddr}, function(err, user){
-	  var tokens = user.tokens || {};
-	  tokens[type] = token;
-	  User.update({"_id": user._id}, {"$set": {"tokens": tokens}}, function(err, r) {
-		  console.log(err);
-		  console.log("Updated #users: "+r);
+	  if(err){
+		  console.log("error", err);
+	  }
+	  user.tokens = user.tokens || {};
+	  user.tokens[type] = token;
+	  user.save(function(err){
+		  console.log("?",err);
 	  });
+	  /*User.update({email: user.email}, {"tokens": tok}, {}, function(err2, r) {
+		  console.log(err2);
+		  console.log("Updated #users: "+r);
+	  });*/
   });
 };
 

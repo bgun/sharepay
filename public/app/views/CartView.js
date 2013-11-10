@@ -23,26 +23,26 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
         console.log('received response: ',event.data);
         if(event.data.token != "undefined"){
         var url = 'http://sharepay.herokuapp.com';
-	        $.ajax({
-	          type: 'POST',
-	          url: url + '/api/user/token',
-	          data: {data: JSON.stringify({
-	            email: App.user.get('email'),
-	            type : event.data.type,
-	            token : event.data.token
-	          })}
-	        });
-	        var tokens = App.user.get('tokens');
-	        tokens = tokens || {};
-	        tokens[event.data.type] = event.data.token;
-	        App.user.set('tokens', tokens);
-	        if(event.data.type == "dwolla"){
-	          self.makeDwollaPayment();
-	        } else if(event.data.type == "venmo"){
-	          self.makeVenmoPayment();
-	        }
+            $.ajax({
+              type: 'POST',
+              url: url + '/api/user/token',
+              data: {data: JSON.stringify({
+                email: App.user.get('email'),
+                type : event.data.type,
+                token : event.data.token
+              })}
+            });
+            var tokens = App.user.get('tokens');
+            tokens = tokens || {};
+            tokens[event.data.type] = event.data.token;
+            App.user.set('tokens', tokens);
+            if(event.data.type == "dwolla"){
+              self.makeDwollaPayment();
+            } else if(event.data.type == "venmo"){
+              self.makeVenmoPayment();
+            }
         } else {
-        	alert("oauth error");
+            alert("oauth error");
         }
       },false);
       
@@ -56,9 +56,10 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
         html;
 
       obj.timeLeft = this.model.getTimeLeft();
-      obj.sharedTotal = App.Utils.hashSum(this.model.get('groupedItems').shared, 'price');
-      obj.sharedShare = obj.sharedTotal / this.model.get('users').length;
+      obj.sharedShare = this.model.getSharedShare();
       obj.currentUserId = App.user.get('_id');
+      obj.totalCost = this.model.getTotalCost();
+      obj.totalContributions = this.model.getTotalContribution();
       obj.isHost = App.user.get('isHost');
       html = templateFn(obj);
       this.$el.html(html);
@@ -107,12 +108,13 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
           data: {
             oauth_token: tokens.dwolla,
             pin: pin,
-            destinationId: "reflector@dwolla.com",
+            destinationId: "reflector@dwolla.com", // <--- change this to host email
             destinationType: "Email",
-            amount: 0.01,
-            notes: "for blah blah blah"
+            amount: 0.01, // <--- change this to contribution amount
+            notes: "for blah blah blah" // <--- change this to description
           }
         }).done(function(data){
+        	// DISPLAY SUCCESS MESSAGE FOR USER
           console.log(data);
         });
       } else {
@@ -131,20 +133,19 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
         console.log("make venmo payment here... token "+tokens.venmo);
         var url = 'http://sharepay.herokuapp.com';
         //var url = 'http://localhost:5000';
-        /*$.ajax({
+        $.ajax({
           type: 'POST',
           url: url+'/api/processor/venmo',
           data: {
-            oauth_token: tokens.dwolla,
-            pin: pin,
-            destinationId: "reflector@dwolla.com",
-            destinationType: "Email",
-            amount: 0.01,
-            notes: "for blah blah blah"
+            access_token: tokens.venmo,
+            email: "", // <--- change this to host email
+            note: "blah blah note", // <--- change this to description
+            amount: 0.01, // <--- change this to contribution amount
           }
         }).done(function(data){
+        	// DISPLAY SUCCESS MESSAGE FOR USER
           console.log(data);
-        });*/
+        });
       } else {
         window.open("https://api.venmo.com/oauth/authorize"+
           "?client_id=1488"+

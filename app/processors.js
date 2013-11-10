@@ -74,4 +74,20 @@ module.exports = function(app){
 			resp.send(body);
 		});
 	});
+	
+	app.post('/api/processor/venmo', function(req, resp){
+		var js = req.body;
+		console.log(js);
+		var url = "https://api.venmo.com/payments";
+		request({
+			method:"POST", 
+			uri: url, 
+			form: js
+		}, function(err, r, body){
+			console.log("error",err);
+			console.log("http code", r.statusCode);
+			console.log("body", body);
+			resp.send(body);
+		});
+	});
 };

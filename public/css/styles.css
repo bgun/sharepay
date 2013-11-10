@@ -31,6 +31,10 @@ body {
   border-collapse: collapse;
 }
 
+.group-cart tbody {
+  border-bottom: 2px solid #ccc;
+}
+
 .group-cart th, .group-cart td {
   padding: 2px 4px;
 }
@@ -44,15 +48,12 @@ body {
   text-align: left;
 }
 
-.group-cart .item:nth-child(odd) {
+.group-cart .item:nth-child(even) {
   background: #ddd;
 }
 
 .group-cart .item.total-row {
   background: none;
-  border-top: 1px solid #ccc;
-  margin-top: 5px;
-  padding-top: 5px;
   font-weight: bold;
 }
 
@@ -77,11 +78,19 @@ body {
 }
 
 
+.group-cart .mine tbody {
+  border-bottom: 2px solid #7a9e73;
+}
+
+.group-cart .item-group.mine tfoot .item:nth-child(even), .group-cart tfoot .item:nth-child(even) {
+  background: none;
+}
+
 .group-cart .item-group.mine {
   background: #caefc5;
 }
 
-.group-cart .item-group.mine .item:nth-child(odd) {
+.group-cart .item-group.mine .item:nth-child(even) {
   background: #a2c89c;
 }
 

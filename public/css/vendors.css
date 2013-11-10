@@ -3,6 +3,7 @@
 }
 .vendor-container {
 	height: 150px;
+	cursor: pointer;
 	padding: 5px;
 }
 .vendor-container,

@@ -13,12 +13,56 @@ var Schema = mongoose.Schema,
     ObjectId = Schema.ObjectId;
 
 
+/* User */
+
+var userSchema = new Schema({
+  name: String,
+  email: String,
+  tokens: {
+    venmo: String,
+    dwolla: String
+  }
+});
+var User = mongoose.model('User', userSchema);
+exports.getUsers = function(callback) {
+  User.find(function(err, users) {
+    callback.call(null, users);
+  });
+};
+exports.getOrCreateUser = function(eaddr,callback) {
+  User.findOne({email: eaddr}, function(err, user) {
+    if(user) {
+      console.log("FOUND USER",user);
+      callback.call(null,user);
+    } else {
+      var u = new User({
+        name: "",
+        email: eaddr
+      });
+      console.log("NEW USER",u);
+      u.save(function(err, newuser) {
+        callback.call(null, newuser, true);
+      });
+    }
+  });
+};
+
+
+/* Item */
+var itemSchema = Schema({
+  name: String,
+  price: Number,
+  user: String
+});
+var Item = mongoose.model('Item', itemSchema);
+
+
 /* Cart */
 
 var cartSchema = Schema({
   deadline: String,
   vendor: String,
-  items: Array
+  items: [Item]
 });
 var Cart = mongoose.model('Cart', cartSchema);
 exports.makeCart = function(obj, callback) {
@@ -60,40 +104,6 @@ exports.getProcessors = function(callback) {
   });
 };
 
-
-/* User */
-
-var userSchema = new Schema({
-  name: String,
-  email: String,
-  tokens: {
-    venmo: String,
-    dwolla: String
-  }
-});
-var User = mongoose.model('User', userSchema);
-exports.getUsers = function(callback) {
-  User.find(function(err, users) {
-    callback.call(null, users);
-  });
-};
-exports.getOrCreateUser = function(eaddr,callback) {
-  User.findOne({email: eaddr}, function(err, user) {
-    if(user) {
-      console.log("FOUND USER",user);
-      callback.call(null,user);
-    } else {
-      var u = new User({
-        name: "",
-        email: eaddr
-      });
-      console.log("NEW USER",u);
-      u.save(function(err, newuser) {
-        callback.call(null, newuser, true);
-      });
-    }
-  });
-};
 
 exports.setUserToken = function(eaddr, type, token) {
   var dat =  {

@@ -21,12 +21,18 @@ var email    = require("./app/email.js");
 require("./app/oauth/processors")(app);
 
 
+
+
+
 io.sockets.on('connection', function(socket) {
   socket.emit('news', { hello: 'world' });
   socket.on('items:add', function (data) {
     console.log("ITEM RECEIVED",data);
   });
 });
+
+
+
 
 
 // playing with querystrings

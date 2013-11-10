@@ -1,21 +1,33 @@
 var express  = require("express");
+var app      = express();
+var server   = require('http').createServer(app);
+// start listening on port 5000
+var port = process.env.PORT || 5000;
 var fs       = require("fs");
 var url      = require("url");
 var _        = require("underscore");
+var io       = require("socket.io").listen(server, { port: port });
 
-// application
-var api      = require("./app/api.js");
-var email    = require("./app/email.js");
-var mediator = require("./app/mediator.js");
-
-// go
-var app   = express();
+server.listen(port);
 
 app.use(express.logger());
 app.use(express.static(__dirname + "/public"));
 app.use(express.bodyParser());
 
+// application
+var api      = require("./app/api.js");
+var email    = require("./app/email.js");
+
 require("./app/oauth/processors")(app);
+
+
+io.sockets.on('connection', function(socket) {
+  socket.emit('news', { hello: 'world' });
+  socket.on('items:add', function (data) {
+    console.log("ITEM RECEIVED",data);
+  });
+});
+
 
 app.get('/', function(request, response) {
   response.send('<h1>SharePay</h1>');
@@ -116,14 +128,4 @@ app.post('/api/user/token', function(req, res){
 	console.log(js,js.email);
 	api.setUserToken(js.email, js.type, js.token);
 	res.end();
-});
-
-app.post
-
-
-// start listening on port 5000
-
-var port = process.env.PORT || 5000;
-app.listen(port, function() {
-  console.log("Listening on " + port);
 });

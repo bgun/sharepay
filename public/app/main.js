@@ -73,7 +73,11 @@ $(function() {
   App.router = new AppRouter();
   Backbone.history.start();
 
-  var socket = io.connect('http://localhost');
+  var socket = io.connect();
+  socket.on('news', function (data) {
+    console.log(data);
+    socket.emit('items:add', { my: 'data' });
+  });
   Backbone.Mediator.sub("model:item-add",function(data) {
     socket.on('news', function (data) {
       console.log(data);

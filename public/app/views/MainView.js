@@ -7,8 +7,7 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 		},
 		className: 'main-view',
 		events: {
-			'click button': 'saveCart',
-			'click button': 'processEmails'
+			'click button': 'saveCart'
 		},
 		onRender: function(options) {
 			window.testMainView =  this;
@@ -43,6 +42,9 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 		},
 		saveCart: function() {
 			var that = this;
+
+			this.processEmails();
+			
 			this.model.save().done(function() {
 				Backbone.router.navigate('cart/' + that.model.id + '/email/' + 'ben@bengundersen.com', {trigger: true, replace: true});
 			});	
@@ -50,23 +52,9 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 		processEmails: function() {
 			var that = this,
 				inputText = $('#emailInput').val(),
-				emails = inputText.split(','),
-				validEmails = [];
+				userEmails = inputText.split(',');
 
-			_.each(emails, function(email) {
-				if (that.validateEmail(email)) {
-					that.validEmails.push(email);
-				}
-			});
-
-			this.model.save().done(function() {
-
-			});
-
-		},
-		validateEmail: function(email) {
-    		var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-			return re.test(email);
+			this.model.set('users', userEmails);
 		}
 	});
 });

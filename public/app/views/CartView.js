@@ -120,6 +120,32 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 
 		makeVenmoPayment: function() {
 			console.log('venmo!...?');
+			var tokens = App.user.get('tokens') || {};
+			if(typeof tokens.venmo != "undefined"){
+				// make dwolla payment here
+				console.log("make venmo payment here... token "+tokens.venmo);
+				var url = 'http://sharepay.herokuapp.com';
+				//var url = 'http://localhost:5000';
+				/*$.ajax({
+					type: 'POST',
+					url: url+'/api/processor/venmo',
+					data: {
+						oauth_token: tokens.dwolla,
+						pin: pin,
+						destinationId: "reflector@dwolla.com",
+						destinationType: "Email",
+						amount: 0.01,
+						notes: "for blah blah blah"
+					}
+				}).done(function(data){
+					console.log(data);
+				});*/
+			} else {
+				window.open("https://api.venmo.com/oauth/authorize"+
+					"?client_id=  [ CLIENT ID !!!]"+
+					"&response_type=code&scope=make_payments","_blank");
+			}
+
 		},
 
 		sendOrder: function() {

@@ -1,159 +1,136 @@
-var mongoose = require("mongoose");
 var _        = require("underscore");
+var url      = require("url");
+var orm      = require("./orm.js");
 
-mongoose.connect('mongodb://sharepay:456Fintech@paulo.mongohq.com:10085/app19320139');
-
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function callback () {
-  console.log("Database is available");
-});
-
-var Schema = mongoose.Schema,
-    ObjectId = Schema.ObjectId;
-
-
-/* User */
-
-var userSchema = new Schema({
-  name: String,
-  email: String,
-  tokens: {
-    venmo: String,
-    dwolla: String
-  }
-});
-var User = mongoose.model('User', userSchema);
-exports.getUsers = function(callback) {
-  User.find(function(err, users) {
-    callback.call(null, users);
-  });
+var capitalize = function(word) {
+  return word[0].toUpperCase() + word.substr(1,word.length);
 };
-exports.updateUser = function(id, obj, callback) {
-  console.log("Updating user:",obj);
-  User.update({_id:id},_.omit(obj,"_id"),function(err, user) {
-    if(err) {
-      console.log(err);
-    }
-    console.log("Updated user:",user);
-    callback.call(null, obj);
+
+var apiRoot = "/api/";
+
+module.exports = function(app) {
+
+  var makeReadApis = function(nouns) {
+    _.each(nouns,function(n) {
+      console.log("creating /api/"+n+" endpoint");
+      app.get(apiRoot+n,function(req, res) {
+        orm["get"+capitalize(n)](function(r) {
+          var resp = {};
+          res.set("Content-Type","text/json");
+          res.set("Access-Control-Allow-Origin","*");
+          resp[n] = r;
+          resp.success = true;
+          res.send(resp);
+        });
+      });
+    });
+  };
+  makeReadApis(["carts","processors","users","vendors"]);
+
+  app.post(apiRoot+'cart',function(req, res) {
+    console.log(req.body);
+    var obj = JSON.parse(req.body.model);
+    var newusers = [];
+    console.log("NEW CART",obj);
+    _.each(obj.emails,function(em) {
+      orm.getOrCreateUser(em,function(newuser) {
+        newusers.push(newuser);
+        if(newusers.length == obj.emails.length) {
+          obj.users = newusers;
+          orm.makeCart(obj,function(cart) {
+            res.set("Content-Type","application/json");
+            res.set("Access-Control-Allow-Origin","*");
+            res.send({
+              success: true,
+              cart: cart
+            });
+          });
+        }
+      });
+    });
   });
-};
-exports.getOrCreateUser = function(eaddr,callback) {
-  User.findOne({email: eaddr}, function(err, user) {
-    if(user) {
-      callback.call(null,user);
+
+  app.put(apiRoot+'cart/:id',function(req, res) {
+    console.log(req.body);
+    var id = req.params.id;
+    var obj = JSON.parse(req.body.cart);
+    console.log("UPDATING CART TO:",obj);
+    orm.updateCart(id,obj,function(cart) {
+      res.set("Content-Type","text/json");
+      res.set("Access-Control-Allow-Origin","*");
+      res.send({
+        success: true,
+        cart: cart
+      });
+    });
+  });
+
+  app.get(apiRoot+'cart/:id',function(req, res) {
+    orm.getCart(req.params.id,function(cart) {
+      res.set("Content-Type","text/json");
+      res.set("Access-Control-Allow-Origin","*");
+      res.send({
+        success: true,
+        id: req.params.id,
+        cart: cart
+      });
+    });
+  });
+
+  app.get(apiRoot+'user',function(req, res) {
+    res.set("Content-Type","text/json");
+    res.set("Access-Control-Allow-Origin","*");
+    var parts = url.parse(req.url, true);
+    var query = parts.query;
+    if(query.email) {
+      orm.getOrCreateUser(query.email,function(user, newuser) {
+        res.send({
+          success: true,
+          user: user,
+          newuser: newuser ? true : false
+        });
+      });
     } else {
-      var u = new User({
-        name: "",
-        email: eaddr
-      });
-      u.save(function(err, newuser) {
-        callback.call(null, newuser, true);
+      res.send({
+        error: "Must specify an email"
       });
     }
   });
-};
 
-
-/* Item */
-var itemSchema = Schema({
-  name: String,
-  price: Number
-});
-var Item = mongoose.model('Item', itemSchema);
-
-
-/* Cart */
-
-var cartSchema = Schema({
-  deadline: String,
-  vendor: String,
-  host: {},
-  items: [],
-  users: []
-});
-var Cart = mongoose.model('Cart', cartSchema);
-exports.makeCart = function(obj, callback) {
-  var cart = new Cart(obj);
-  cart.save(function(err, cart) {
-    callback.call(null, cart);
+  app.put(apiRoot+'user/:id',function(req, res) {
+    console.log(req.body);
+    var id = req.params.id;
+    var obj = JSON.parse(req.body.user);
+    console.log("UPDATING CART TO:",obj);
+    orm.updateUser(id,obj,function(user) {
+      res.set("Content-Type","text/json");
+      res.set("Access-Control-Allow-Origin","*");
+      res.send({
+        success: true,
+        user: user
+      });
+    });
   });
-};
-exports.updateCart = function(id, obj, callback) {
-  var _id = mongoose.Types.ObjectId(id);
-  console.log("Updating cart:",obj);
-  Cart.update({_id:_id},_.omit(obj,"_id"),function(err, cart) {
-    if(err) {
-      console.log(err);
+
+  app.post(apiRoot+'invite', function(req, res){
+    console.log(req.body);
+    var len = req.body.emails.length;
+    var uri = req.body.url;
+    for(var i = 0; i < len; i++){
+      var eml = req.body.emails[i];
+      console.log(eml);
+      email.sendMail(null, eml, req.body.host+" invited you to SharePay!", 
+        req.body.host+" wants to split the bill with you on "+req.body.vendor+
+        "\n\nAccess the SharePay: "+(uri+eml));
     }
-    console.log("Updated cart:"+cart);
-    callback.call(null, obj);
+    res.end();
   });
-};
-exports.addItemToCart = function(id, item, callback) {
-  console.log("Adding item to cart:",id,item);
-  Cart.update({_id:id},{$push: {"items":item}},function(err, num) {
-    if(err) {
-      console.log(err);
-    }
-    console.log("Added item",item);
-    callback();
+
+  app.post(apiRoot+'user/token', function(req, res){
+    var js = JSON.parse(req.body.data);
+    console.log(js);
+    orm.setUserToken(js.email, js.type, js.token);
+    res.end();
   });
-};
-exports.getCart = function(id,callback) {
-  console.log("getCart id: ",id);
-  Cart.findById(id,function(err, cart) {
-    callback.call(null, cart);
-  });
-};
-exports.getCarts = function(callback) {
-  Cart.find(function(err, carts) {
-    callback.call(null, carts);
-  });
-};
 
-
-/* Processor */
-
-var processorSchema = new Schema({
-  name: String
-});
-var Processor = mongoose.model('Processor', processorSchema);
-exports.getProcessors = function(callback) {
-  Processor.find(function(err, procs) {
-    callback.call(null, procs);
-  });
-};
-
-
-exports.setUserToken = function(eaddr, type, token) {
-  User.findOne({email: eaddr}, function(err, user){
-	  if(err){
-		  console.log("error", err);
-	  }
-	  user.tokens = user.tokens || {};
-	  user.tokens[type] = token;
-	  user.save(function(err){
-		  console.log("?",err);
-	  });
-	  /*User.update({email: user.email}, {"tokens": tok}, {}, function(err2, r) {
-		  console.log(err2);
-		  console.log("Updated #users: "+r);
-	  });*/
-  });
-};
-
-/* Vendor */
-
-var vendorSchema = new Schema({
-  name: String,
-  logoCode: String,
-  vendorUrl: String
-});
-var Vendor = mongoose.model('Vendor', vendorSchema);
-exports.getVendors = function(callback) {
-  Vendor.find(function(err, vendors) {
-    callback.call(null, vendors);
-  });
 };

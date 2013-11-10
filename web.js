@@ -10,6 +10,7 @@ var email = require("./email.js");
 // go
 var app   = express();
 
+app.use(express.bodyParser());
 app.use(express.logger());
 app.use(express.static(__dirname + "/public"));
 
@@ -45,9 +46,24 @@ var makeReadApis = function(nouns) {
 makeReadApis(["processors","users","vendors"]);
 
 
-app.post('/api/cart/new',function(req, res) {
-  var obj = JSON.stringify(req.body.cart);
+app.put('/api/cart/new',function(req, res) {
+  console.log(req.body);
+  var obj = JSON.parse(req.body.cart);
   api.makeCart(obj,function(cart) {
+    res.set("Content-Type","text/json");
+    res.send({
+      success: true,
+      cart: cart
+    });
+  });
+});
+
+app.post('/api/cart/:id',function(req, res) {
+  console.log(req.body);
+  var id = req.params.id;
+  var obj = JSON.parse(req.body.cart);
+  console.log("UPDATING CART TO:",obj);
+  api.updateCart(id,obj,function(cart) {
     res.set("Content-Type","text/json");
     res.send({
       success: true,

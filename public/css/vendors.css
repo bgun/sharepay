@@ -23,7 +23,6 @@
 }
 .processor span {
 	display: inline-block;
-
 }
 .processor input {
 	vertical-align: top;
@@ -35,12 +34,32 @@
 }
 .Venmo.processor span {
 	background-image: url(https://s3.amazonaws.com/venmo/venmo_logo_blue.png);
-	background-size: 100%;
 	width: 120px;
 	height: 22px;
+	background-size: 100%;
 }
 .PayPal.processor span {
 	background-image: url(https://www.paypalobjects.com/webstatic/i/sparta/logo/logo_paypal_106x29.png);
 	width:99px;
 	height:29px;
+}
+span.Dwolla,
+span.Venmo {
+	margin:10px;
+	display: inline-block;
+	cursor: pointer;
+}
+.user-payment{
+	
+}
+span.Dwolla {
+	background: url(https://www.dwolla.com/Content/images/svg/dwolla.svg?1382539872);
+	height: 23px;
+	width: 119px;
+}
+span.Venmo {
+	background-image: url(https://s3.amazonaws.com/venmo/venmo_logo_blue.png);
+	width: 120px;
+	height: 22px;
+	background-size: 100%;
 }

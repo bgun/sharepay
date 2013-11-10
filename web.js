@@ -153,6 +153,20 @@ app.put('/api/user/:id',function(req, res) {
   });
 });
 
+app.post('/api/invite', function(req, res){
+	console.log(req.body);
+	var len = req.body.emails.length;
+	var uri = req.body.url;
+	for(var i = 0; i < len; i++){
+		var eml = req.body.emails[i];
+		console.log(eml);
+		email.sendMail(null, eml, req.body.host+" invited you to SharePay!", 
+			req.body.host+" wants to split the bill with you on "+req.body.vendor+
+			"\nAccess the SharePay: "+uri);
+	}
+	res.end();
+});
+
 app.post('/api/user/token', function(req, res){
 	var js = JSON.parse(req.body.data);
 	console.log(js);

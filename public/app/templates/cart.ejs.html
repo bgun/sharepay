@@ -1,7 +1,8 @@
 
 	<section class="group-cart">
-		Deadline: <span class="time-left"><%= timeLeft %></span>
+		Ordering Deadline: <span class="time-left"><%= timeLeft %></span>
 		
+		<!-- SHARED -->
 		<section class="item-list shared">
 			<h2>Shared Items</h2>
 			<form class="shared-item-form">
@@ -31,6 +32,10 @@
 			</div>
 		</section>
 
+
+
+
+		<!-- INDIVIDUAL -->
 		<% if (items.length) { %>
 			<section class="item-list individual">
 				<h2>Individual Items</h2>
@@ -81,9 +86,13 @@
 			</section>
 		<% } %>
 
+
+
+
+		<!-- SUMMARY -->
 		Total Cost: <%= App.Utils.formatCurrency(totalCost) %><br>
 		<% if (isHost && vendor) { %>
-			<!-- the calculation for this is sketchy at the moment
+			<!-- the calculation for this is sketchy at the moment, so commenting it out
 			Expected Contributions: <%= App.Utils.formatCurrency(totalContributions) %>
 			-->
 			<button class="send-order">Send Order</button>

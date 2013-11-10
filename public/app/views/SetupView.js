@@ -57,6 +57,15 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 				userEmails = inputText.split(',');
 
 			console.log(userEmails);
+			$.ajax({
+				type: 'POST',
+				url: '/api/invite',
+				data: {
+					emails: userEmails,
+					url : 'http://sharepay.herokuapp.com/#cart/'+that.model.get('_id')+'/email/',
+					host: App.user.get('email'), 
+					vendor:"Amazon"}
+			});
 
 			this.model.set('emails', userEmails);
 		}

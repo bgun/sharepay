@@ -162,7 +162,7 @@ app.post('/api/invite', function(req, res){
 		console.log(eml);
 		email.sendMail(null, eml, req.body.host+" invited you to SharePay!", 
 			req.body.host+" wants to split the bill with you on "+req.body.vendor+
-			"\nAccess the SharePay: "+uri);
+			"\n\nAccess the SharePay: "+(uri+eml));
 	}
 	res.end();
 });

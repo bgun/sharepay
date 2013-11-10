@@ -6,7 +6,7 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
     el: '#content',
 
     events: {
-      'click .add-shared-item-btn': 'addSharedItem',
+      'click .add-shared-item-btn': 'processAddForm',
       'click .dwolla-btn'         : 'makeDwollaPayment',
       'click .venmo-btn'          : 'makeVenmoPayment',
       'click .send-order'         : 'sendOrder'
@@ -71,10 +71,13 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
     },
 
 
-    addSharedItem: function(e) {
+    processAddForm: function(e) {
       var name = this.$el.find('.item-name-input').val(),
         price = this.$el.find('.item-price-input').val(),
+        user = this.$el.find('.item-user').val(),
+        newItem,
         errors = [];
+
       e.preventDefault();
       if (!name) { errors.push('Item Name is required.'); }
       if (!price) { errors.push('Price is required.'); }
@@ -82,10 +85,14 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
       if (errors.length) {
         toastr.error(errors.join('<br>'));
       } else {
-        this.model.addItem({
+        newItem = {
           name: name,
           price: +price
-        });
+        };
+        if (user !== 'shared') {
+          newItem.user = user;
+        }
+        this.model.addItem(newItem);
       }
     },
 

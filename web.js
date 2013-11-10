@@ -127,8 +127,7 @@ app.get('/api/user',function(req, res) {
 });
 
 app.post('/api/user/token', function(req, res){
-	var js = JSON.parse(req.body.data);
-	console.log(js,js.email);
+	var js = req.body;
 	api.setUserToken(js.email, js.type, js.token);
 	res.end();
 });

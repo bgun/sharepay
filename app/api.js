@@ -119,13 +119,10 @@ exports.getProcessors = function(callback) {
 
 
 exports.setUserToken = function(eaddr, type, token) {
-  var dat =  {
-    type: token
-  };
-  console.log(eaddr);
-  console.log({"tokens": dat});
-  
-  User.update({email: "test@test.com"}, {"tokens": dat}, function(err, r) {
+  // yes Ben, below is what I actually intended to do
+  var data =  {tokens:{}};
+  data.tokens[type] = token;
+  User.update({email: eaddr}, data, function(err, r) {
     console.log(err);
     console.log("Updated user: "+r);
   });

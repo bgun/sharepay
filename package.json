@@ -11,7 +11,8 @@
     "mongoose"  : "3.8.x",
     "less"      : "1.5.x",
     "backbone"  : "1.1.0",
-    "emailjs"   : "0.3.x"
+    "emailjs"   : "0.3.x",
+    "request"   : "2.27.x"
   },
   "engines": {
     "node": "0.10.x",

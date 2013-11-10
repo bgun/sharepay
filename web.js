@@ -4,8 +4,8 @@ var url      = require("url");
 var _        = require("underscore");
 
 // application
-var api   = require("./api.js");
-var email = require("./email.js");
+var api   = require("./app/api.js");
+var email = require("./app/email.js");
 
 // go
 var app   = express();

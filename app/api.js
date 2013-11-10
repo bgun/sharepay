@@ -1,7 +1,7 @@
 var _        = require("underscore");
 var url      = require("url");
-var orm      = require("./orm.js");
 
+var orm      = require("./orm.js");
 var email    = require("./email.js");
 
 var capitalize = function(word) {
@@ -78,6 +78,7 @@ module.exports = function(app) {
 
   app.get(apiRoot+'cart/:id',function(req, res) {
     orm.getCart(req.params.id,function(cart) {
+      console.log("GOT A CART",cart);
       res.set("Content-Type","text/json");
       res.set("Access-Control-Allow-Origin","*");
       res.send({

@@ -72,11 +72,14 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 
 
     processAddForm: function(e) {
+      console.log(this.$el);
       var name = this.$el.find('.item-name-input').val(),
         price = this.$el.find('.item-price-input').val(),
         user = this.$el.find('.item-user').val(),
         newItem,
         errors = [];
+
+      console.log(name);
 
       e.preventDefault();
       if (!name) { errors.push('Item Name is required.'); }

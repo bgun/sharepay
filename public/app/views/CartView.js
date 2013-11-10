@@ -95,17 +95,18 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 				console.log("make dwolla payment here... token "+tokens.dwolla);
 				var pin = prompt("Please enter your Dwolla pin:");
 				var url = 'http://sharepay.herokuapp.com';
+				//var url = 'http://localhost:5000';
 				$.ajax({
 					type: 'POST',
-					url: url+'/api/processor/dwolla',//'https://www.dwolla.com/oauth/rest/transactions/send',
-					data: {data: JSON.stringify({
+					url: url+'/api/processor/dwolla',
+					data: {
 						oauth_token: tokens.dwolla,
 						pin: pin,
 						destinationId: "reflector@dwolla.com",
 						destinationType: "Email",
 						amount: 0.01,
 						notes: "for blah blah blah"
-					})}
+					}
 				}).done(function(data){
 					console.log(data);
 				});

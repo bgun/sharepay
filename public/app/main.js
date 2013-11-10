@@ -4,8 +4,6 @@ App = new Backbone.Marionette.Application();
 $(function() {
 
   templateManager.loadTemplates();
-  // App.songs = new App.Collections.SongCollection();
-  // App.song = new App.Models.SongModel(); // change this to load all the songs
 
   // TODO instantiate this properly, either based on url or login
   App.user = new App.Models.UserModel();
@@ -14,30 +12,23 @@ $(function() {
 
     routes: {
       'cart/:cartId'                : 'cart',
-      'cart/:cartId/userid/:userId' : 'cart',
+      'cart/:cartId/email/:userEmail' : 'cart',
       '*path'                       : 'defaultRoute'
     },
 
-    // createSong: App.SongViewController.createSong,
-    // songLanding: App.SongViewController.showSongLandingView,
-    // songListen: App.SongViewController.showSongListenView,
-    // track: App.TrackViewController.showTrackView,
+    cart: function(cartId, userEmail) {
+      console.log('in cart: cartId', cartId, 'userEmail', userEmail);
 
-    // conductor: function(songId) {
-    //   console.log('conductor', songId);
-    // },
-
-    cart: function(cartId, userId) {
-      console.log('in cart: cartId', cartId, 'userId', userId);
-      // TODO: lookup cart from db
-      var d = new Date();
-      d.setTime(d.getTime() + (8 * 60 * 1000)); // for testing, set the deadline to 8 mins from now
-
-      App.cart = new App.Models.CartModel();
-      App.cart.url = 'http://sharepay.herokuapp.com/api/cart/' + cartId;
-      App.cart.fetch({success:function(){
-        var cartView = new App.Views.CartView({model:App.cart});
-        cartView.render();
+      // TODO: use $.when
+      App.user.set('currentUser', true);
+      App.user.url = 'http://sharepay.herokuapp.com/api/user?email=' + userEmail;
+      App.user.fetch({success:function(){
+        App.cart = new App.Models.CartModel();
+        App.cart.url = 'http://sharepay.herokuapp.com/api/cart/' + cartId;
+        App.cart.fetch({success:function(){
+          var cartView = new App.Views.CartView({model:App.cart});
+          cartView.render();
+        }});
       }});
     },
 

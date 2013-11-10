@@ -4,6 +4,10 @@ App.Models.UserModel = Backbone.Model.extend({
 		currentUser: null,
 		isHost: false
 	},
+
+	parse: function(response) {
+		return response.user;
+	},
 	
 	initialize: function(options) {
 		var that = this;

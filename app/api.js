@@ -29,6 +29,16 @@ exports.getUsers = function(callback) {
     callback.call(null, users);
   });
 };
+exports.updateUser = function(id, obj, callback) {
+  console.log("Updating user:",obj);
+  User.update({_id:id},_.omit(obj,"_id"),function(err, user) {
+    if(err) {
+      console.log(err);
+    }
+    console.log("Updated user:",user);
+    callback.call(null, obj);
+  });
+};
 exports.getOrCreateUser = function(eaddr,callback) {
   User.findOne({email: eaddr}, function(err, user) {
     if(user) {
@@ -51,8 +61,7 @@ exports.getOrCreateUser = function(eaddr,callback) {
 /* Item */
 var itemSchema = Schema({
   name: String,
-  price: Number,
-  user: String
+  price: Number
 });
 var Item = mongoose.model('Item', itemSchema);
 
@@ -62,7 +71,8 @@ var Item = mongoose.model('Item', itemSchema);
 var cartSchema = Schema({
   deadline: String,
   vendor: String,
-  items: [Item]
+  items: [],
+  users: []
 });
 var Cart = mongoose.model('Cart', cartSchema);
 exports.makeCart = function(obj, callback) {
@@ -82,12 +92,25 @@ exports.updateCart = function(id, obj, callback) {
     callback.call(null, obj);
   });
 };
+exports.addItemToCart = function(id, item) {
+  console.log("Adding item to cart:",id,item);
+  Cart.update({_id:id},{$push: {"items":item}},function(err, num) {
+    if(err) {
+      console.log(err);
+    }
+    console.log("Added item",item);
+  });
+};
 exports.getCart = function(id,callback) {
   console.log("getCart id: ",id);
-  var _id = mongoose.Types.ObjectId(id);
   Cart.findById(id,function(err, cart) {
-    console.log(err, cart);
+    console.log("GETTING CART",cart);
     callback.call(null, cart);
+  });
+};
+exports.getCarts = function(callback) {
+  Cart.find(function(err, carts) {
+    callback.call(null, carts);
   });
 };
 
@@ -106,13 +129,10 @@ exports.getProcessors = function(callback) {
 
 
 exports.setUserToken = function(eaddr, type, token) {
-  var dat =  {
-    type: token
-  };
-  console.log(eaddr);
-  console.log({"tokens": dat});
-  
-  User.update({email: "test@test.com"}, {"tokens": dat}, function(err, r) {
+  // yes Ben, below is what I actually intended to do
+  var data =  {tokens:{}};
+  data.tokens[type] = token;
+  User.update({email: eaddr}, data, function(err, r) {
     console.log(err);
     console.log("Updated user: "+r);
   });

@@ -23,6 +23,8 @@ App.module("Models", function(Mod, App, Backbone, Marionette, $, _) {
         console.log("FINGERPRINTS",cartItem.fingerprints);
         if(!_.contains(cartItem.fingerprints, App.clientId)) {
           that.addItem(cartItem.item);
+        } else {
+          console.log("STOPPD");
         }
       });
     },
@@ -48,7 +50,7 @@ App.module("Models", function(Mod, App, Backbone, Marionette, $, _) {
       console.log("Adding item: ",item);
       App.socket.emit('cart:item-add',{
         cartId: this.get('_id'),
-        fingerprints: _.union(item.fingerprints || [],[App.clientId]),
+        fingerprints: item.fingerprints ? _.union(item.fingerprints,App.clientId) : [App.clientId],
         item: item
       });
     }

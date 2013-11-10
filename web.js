@@ -29,10 +29,6 @@ io.sockets.on('connection', function(socket) {
 });
 
 
-app.get('/', function(request, response) {
-  response.send('<h1>SharePay</h1>');
-});
-
 // playing with querystrings
 app.get('/test',function(req, res) {
   var parts = url.parse(req.url, true);

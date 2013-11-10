@@ -2,16 +2,16 @@ App.module("Models", function(Mod, App, Backbone, Marionette, $, _) {
 	Mod.CartModel = Backbone.Model.extend({
 		defaults: {
 			vendor: null,
-			sharedItems: [],
+			groupedItems: [],
 			users: [],
 			processors: [],
 			deadline: null,
 		},
 		initialize: function(options) {
-			if (typeof options.deadline === 'string') {
+			if (options && typeof options.deadline === 'string') {
 				this.set('deadline', new Date(options.deadline));
 			}
-			if (options.items && options.items.length) {
+			if (options && options.items && options.items.length) {
 				this.groupItems();
 			}
 		}, 

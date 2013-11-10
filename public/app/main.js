@@ -13,8 +13,9 @@ $(function() {
   var AppRouter = Backbone.Router.extend({
 
     routes: {
-      'cart/:cartId'     : 'cart',
-      '*path'    : 'defaultRoute'
+      'cart/:cartId'                : 'cart',
+      'cart/:cartId/userid/:userId' : 'cart',
+      '*path'                       : 'defaultRoute'
     },
 
     // createSong: App.SongViewController.createSong,
@@ -26,32 +27,18 @@ $(function() {
     //   console.log('conductor', songId);
     // },
 
-    cart: function(cartId) {
-      console.log('in cart', cartId);
+    cart: function(cartId, userId) {
+      console.log('in cart: cartId', cartId, 'userId', userId);
       // TODO: lookup cart from db
       var d = new Date();
       d.setTime(d.getTime() + (8 * 60 * 1000)); // for testing, set the deadline to 8 mins from now
-      App.cart = new App.Models.CartModel({
-        vendor: 'Seamless',
-        items: [
-          {
-            name: 'Couch',
-            price: 1200
-          }, {
-            name: 'Frying pan',
-            price: 35
-          }, {
-            name: 'Thing',
-            price: 123,
-            user: 'ben'
-          }
-        ],
-        users: ['ben', 'greg'],
-        processors: ['dowalla','venmo'],
-        deadline: d.toJSON(),
-      });
-      var cartView = new App.Views.CartView({model:App.cart});
-      cartView.render();
+
+      App.cart = new App.Models.CartModel();
+      App.cart.url = 'http://sharepay.herokuapp.com/api/cart/' + cartId;
+      App.cart.fetch({success:function(){
+        var cartView = new App.Views.CartView({model:App.cart});
+        cartView.render();
+      }});
     },
 
     defaultRoute: function(path) {

@@ -7,9 +7,9 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 
     events: {
       'click .add-shared-item-btn': 'addSharedItem',
-      'click .dwolla-btn': 'makeDwollaPayment',
-      'click .venmo-btn': 'makeVenmoPayment',
-      'click .send-order': 'sendOrder'
+      'click .dwolla-btn'         : 'makeDwollaPayment',
+      'click .venmo-btn'          : 'makeVenmoPayment',
+      'click .send-order'         : 'sendOrder'
     },
 
     initialize: function(options) {

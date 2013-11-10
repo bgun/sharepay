@@ -41,3 +41,30 @@ img.wrinkles {
   font-size: 24px;
 }
 
+
+.main-view {
+  width: 480px;
+  margin: auto;
+}
+
+.main-view h2 {
+  margin:0;
+}
+.instruction {
+  margin:0;
+  color: #999;
+  margin-bottom: 5px;
+}
+
+.main-view .setup-section {
+  margin-bottom: 20px;
+}
+
+.main-view .vendor-container {
+  display: inline-block;
+}
+
+.main-view textarea {
+  width: 100%;
+  height: 50px;
+}

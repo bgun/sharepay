@@ -1,7 +1,21 @@
 <div class="main page">
-	<h3>Setup</h3>
-	<section id="vendorList"></section>
-	<section id="processorList"></section>
-	<input id="emailInput"></input>
+	<section class="setup-section">
+		<h2>Vendor</h2>
+		<p class="instruction">(optional)</p>
+		<div id="vendorList"></div>
+	</section>
+
+	<section class="setup-section">
+		<h2>Payment Processors</h2>
+		<p class="instruction">(at least one)</p>
+		<div id="processorList"></div>
+	</section>
+
+	<section class="setup-section">
+		<h2>Friends</h2>
+		<p class="instruction">(comma-separated emails)</p>
+		<textarea id="emailInput"></textarea>
+	</section>
+
 	<button class="main-submit">Submit</button>
 </div>

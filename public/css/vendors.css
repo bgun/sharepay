@@ -45,7 +45,12 @@
 }
 span.Dwolla,
 span.Venmo {
+	margin:10px;
 	display: inline-block;
+	cursor: pointer;
+}
+.user-payment{
+	
 }
 span.Dwolla {
 	background: url(https://www.dwolla.com/Content/images/svg/dwolla.svg?1382539872);

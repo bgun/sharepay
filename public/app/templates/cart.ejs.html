@@ -4,20 +4,22 @@
 		Ordering Deadline: <span class="time-left"><%= timeLeft %></span>
 		-->
 		
+		<!-- ADD FORM -->
+		<form class="shared-item-form">
+			<input class="item-name-input" placeholder="item name" />
+			<input class="item-price-input" placeholder="price" />
+			<select class="item-user">
+				<option value="shared">Shared</option>
+				<% _.each(users, function(user) { %>
+					<option value="<%= user._id %>"><%= user.name %></option>
+				<% }); %>
+			</select>
+			<button class="add-shared-item-btn">add</button>
+		</form>
+
 		<!-- SHARED -->
 		<section class="item-list shared">
 			<h2>Shared Items</h2>
-			<form class="shared-item-form">
-				<input class="item-name-input" placeholder="item name" />
-				<input class="item-price-input" placeholder="price" />
-				<select class="item-user">
-					<option value="shared">Shared</option>
-					<% _.each(users, function(user) { %>
-						<option value="<%= user._id %>"><%= user.name %></option>
-					<% }); %>
-				</select>
-				<button class="add-shared-item-btn">add</button>
-			</form>
 			<div class="item-group">
 				<table>
 					<tbody>

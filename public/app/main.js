@@ -2,7 +2,9 @@
 
 App = new Backbone.Marionette.Application();
 $(function() {
-
+  App.addRegions({
+    content: '#content'
+  });
   templateManager.loadTemplates();
   // App.songs = new App.Collections.SongCollection();
   // App.song = new App.Models.SongModel(); // change this to load all the songs
@@ -58,7 +60,7 @@ $(function() {
       if (path) {
         console.log('unkown path:', path);
       }
-      App.main = new App.Views.MainView({ el: '#content' });
+      App.content.show(new App.Views.MainView());
     }
 
   });
@@ -67,7 +69,7 @@ $(function() {
   Marionette.TemplateCache.prototype.loadTemplate = function(key){
     var template;
     if(key.indexOf('#') !== 0){
-      template = getTemplates[key];
+      template = templateManager.getTemplate(key);
     } else {
       template = defaultTemplateLoadingMechanism(val);
     }

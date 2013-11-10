@@ -2,9 +2,10 @@ App.Models.VendorModel = Backbone.Model.extend({
 	
 	defaults: {
 		name: null,
-		logoUrl: '',
+		logoUrl: null,
 		logoImgPath: null,
-		baseVendorUrl: new Backbone.Collection()
+		vendorUrl: null,
+		optionsView: null
 	},
 	
 	initialize: function(options) {

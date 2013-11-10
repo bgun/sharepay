@@ -11,6 +11,12 @@ module.exports = function(app){
 		appSecret: 'Jy5ZexkIFj4lNUnyJJtCzF8/VYoeTikMFwm7mtYK132PoLr7xA'
 	};
 	
+	app.get('/auth/venmo_challenge', function(req, res){
+		var url_parts = url.parse(req.url, true);
+		var query = url_parts.query;
+		res.send(query.venmo_challenge);
+	});
+	
 	app.get('/auth/venmo_callback', function(req, res){
 		var url_parts = url.parse(req.url, true);
 		var query = url_parts.query;

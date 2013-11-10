@@ -17,7 +17,7 @@
 						<span class="item-price"><%= item.price %></span>
 					</div>
 					<% }); %>
-					<% if (groupedItems.shared.length) { %>
+					<% if (groupedItems.shared && groupedItems.shared.length) { %>
 					<div class="total-row">
 						<b>Total</b>
 						<span class="shared-total"><%= sharedTotal %></span>
@@ -39,7 +39,7 @@
 									<span class="item-price"><%= item.price %></span>
 								</div>
 								<% }); %>
-								<% if (groupedItems.shared.length) { %>
+								<% if (groupedItems.shared && groupedItems.shared.length) { %>
 									<b>Share of Shared</b>
 									<span class="item-price"><%= sharedShare %></span>
 								<% } %>

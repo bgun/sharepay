@@ -23,26 +23,26 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
         console.log('received response: ',event.data);
         if(event.data.token != "undefined"){
         var url = 'http://sharepay.herokuapp.com';
-	        $.ajax({
-	          type: 'POST',
-	          url: url + '/api/user/token',
-	          data: {data: JSON.stringify({
-	            email: App.user.get('email'),
-	            type : event.data.type,
-	            token : event.data.token
-	          })}
-	        });
-	        var tokens = App.user.get('tokens');
-	        tokens = tokens || {};
-	        tokens[event.data.type] = event.data.token;
-	        App.user.set('tokens', tokens);
-	        if(event.data.type == "dwolla"){
-	          self.makeDwollaPayment();
-	        } else if(event.data.type == "venmo"){
-	          self.makeVenmoPayment();
-	        }
+            $.ajax({
+              type: 'POST',
+              url: url + '/api/user/token',
+              data: {data: JSON.stringify({
+                email: App.user.get('email'),
+                type : event.data.type,
+                token : event.data.token
+              })}
+            });
+            var tokens = App.user.get('tokens');
+            tokens = tokens || {};
+            tokens[event.data.type] = event.data.token;
+            App.user.set('tokens', tokens);
+            if(event.data.type == "dwolla"){
+              self.makeDwollaPayment();
+            } else if(event.data.type == "venmo"){
+              self.makeVenmoPayment();
+            }
         } else {
-        	alert("oauth error");
+            alert("oauth error");
         }
       },false);
       
@@ -56,9 +56,10 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
         html;
 
       obj.timeLeft = this.model.getTimeLeft();
-      obj.sharedTotal = App.Utils.hashSum(this.model.get('groupedItems').shared, 'price');
-      obj.sharedShare = obj.sharedTotal / this.model.get('users').length;
+      obj.sharedShare = this.model.getSharedShare();
       obj.currentUserId = App.user.get('_id');
+      obj.totalCost = this.model.getTotalCost();
+      obj.totalContributions = this.model.getTotalContribution();
       obj.isHost = App.user.get('isHost');
       html = templateFn(obj);
       this.$el.html(html);

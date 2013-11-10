@@ -26,7 +26,7 @@ require("./app/oauth/processors")(app);
 
 io.sockets.on('connection', function(socket) {
   socket.emit('news', { hello: 'world' });
-  socket.emit('identify', { client_id: socket.id });
+  socket.emit('identify', { clientId: socket.id });
   console.log("SOCKET ID:",socket.id);
   socket.on('cart:item-add', function (data) {
     console.log("ITEM RECEIVED",data);

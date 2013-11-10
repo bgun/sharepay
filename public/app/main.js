@@ -55,14 +55,10 @@ $(function() {
     App.router = new AppRouter();
     Backbone.history.start();
   });
-  App.start();
-
-  var socket = io.connect();
-  socket.on('identify', function(data) {
+  App.socket = io.connect();
+  App.socket.on('identify', function(data) {
     console.log(data);
-    App.client_id = data.client_id;
-  });
-  Backbone.Mediator.sub("cart:item-add",function(cartItem) {
-    socket.emit('cart:item-add',cartItem);
+    App.clientId = data.clientId;
+    App.start();
   });
 });

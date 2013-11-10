@@ -1,0 +1,855 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"N",
+				"META_NUMBERS"
+			],
+			[
+				"keys",
+				"keys_to_search"
+			],
+			[
+				"i",
+				"if	if"
+			],
+			[
+				"max",
+				"max_m"
+			],
+			[
+				"target",
+				"target_height"
+			],
+			[
+				"cur",
+				"current_height"
+			],
+			[
+				"tar",
+				"target_height"
+			],
+			[
+				"runtime",
+				"runtime_class"
+			],
+			[
+				"rn",
+				"runtime_class"
+			],
+			[
+				"runtim",
+				"runtime_class"
+			],
+			[
+				"answer",
+				"answer_class"
+			],
+			[
+				"run",
+				"runtime"
+			],
+			[
+				"sp",
+				"spanTitle"
+			],
+			[
+				"answ",
+				"answer_class"
+			],
+			[
+				"getE",
+				"getElementsByTagName"
+			],
+			[
+				"render_pr",
+				"render_progress_bar"
+			],
+			[
+				"at",
+				"addEventListener"
+			],
+			[
+				"an",
+				"answers"
+			],
+			[
+				"get",
+				"get_dl_max"
+			],
+			[
+				"re",
+				"refresh_datastore"
+			],
+			[
+				"res",
+				"responseText"
+			],
+			[
+				"prb",
+				"problemList"
+			],
+			[
+				"request",
+				"request_problem_data"
+			],
+			[
+				"prob",
+				"prob_data"
+			],
+			[
+				"probl",
+				"problemHandler"
+			],
+			[
+				"po",
+				"problems_at_runtime"
+			],
+			[
+				"pro",
+				"problems_run"
+			],
+			[
+				"entity",
+				"entity_array"
+			],
+			[
+				"ancesto",
+				"ancestor_key"
+			],
+			[
+				"anceso",
+				"ancestor_key"
+			],
+			[
+				"ancest",
+				"ancestor_key"
+			],
+			[
+				"anc",
+				"ancestor_key"
+			],
+			[
+				"json",
+				"objJSON"
+			],
+			[
+				"text-",
+				"text-transform"
+			],
+			[
+				"range",
+				"range_max"
+			],
+			[
+				"text",
+				"text-transform"
+			],
+			[
+				"get_",
+				"get_data"
+			],
+			[
+				"output",
+				"outputJson"
+			],
+			[
+				"problem",
+				"problem_id"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/Users/gwg/sharepay/public/index.html",
+			"settings":
+			{
+				"buffer_size": 1877,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "main.js",
+			"settings":
+			{
+				"buffer_size": 1556,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "views/MainView.js",
+			"settings":
+			{
+				"buffer_size": 741,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "views/VendorPickerView.js",
+			"settings":
+			{
+				"buffer_size": 420,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "templates/vendor.ejs.html",
+			"settings":
+			{
+				"buffer_size": 80,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "views/CartView.js",
+			"settings":
+			{
+				"buffer_size": 497,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "\n\n	<section class=\"group-cart\">\n		<span class=\"remaining-time\"><%= remainingTime %></span>\n		<section class=\"item-list\">\n			<% if (vendor) { %>\n				<section class=\"individual\">\n					<h3>Individual Items</h3>\n						[each contributor]\n							<div class=\"item-group\">\n								<div class=\"contributor-name\">[contributor]</div>\n								[each item]\n								<div class=\"item\">\n									<span class=\"item-name\">[item name]</span>\n									<span class=\"item-price\">[item price]</span>\n								</div>\n								[/each item]\n							</div>\n							[if !host]\n							<button class=\"venmo-btn\">Pay with Venmo</button>\n							[/if !host]\n						[/each contributor]\n				</section>\n			<% } %>\n\n			<section class=\"shared\">\n				<h3>Shared Items</h3>\n				<form class=\"shared-item-form\">\n					<input name=\"item-name\" placeholder=\"item\" />\n					<input name=\"item-price\" placeholder=\"price\" />\n					<button>add</button>\n				</form>\n				<div class=\"item-group\">\n					[each item]\n					<div class=\"item\">\n						<span class=\"item-name\">[item name]</span>\n						<span class=\"item-price\">[item price]</span>\n					</div>\n					[/each item]\n				</div>\n			</section>\n		</section>\n\n		[if host]\n		<button class=\"send-order\">Send Order</button>\n		[/if host]\n	</section>\n",
+			"file": "templates/cart.ejs.html",
+			"file_size": 1240,
+			"file_write_time": 1384039221000000,
+			"settings":
+			{
+				"buffer_size": 1230,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/gwg/sharepay/public/app/templateManager.js",
+		"/Users/gwg/sharepay/public/app/templates/main.ejs.html",
+		"/Users/gwg/sharepay/public/app/views/ProcessorPickerView.js",
+		"/Users/gwg/sharepay/public/app/templates/processor.ejs.html",
+		"/Users/gwg/sharepay/public/app/data/processor-list.js",
+		"/Users/gwg/sharepay/public/app/models/ProcessorModel.js",
+		"/Users/gwg/sharepay/public/app/collections/ProcessorCollection.js",
+		"/Users/gwg/sharepay/public/app/collections/VendorCollection.js",
+		"/Users/gwg/sharepay/public/app/models/VendorModel.js",
+		"/Users/gwg/sharepay/public/app/data/vendor-list.js",
+		"/Users/gwg/sharepay/public/app/views/PaymentOptionsView.js",
+		"/Users/gwg/sharepay/public/app/views/VendorPickerView.js",
+		"/Users/gwg/hello-backbone/hello-backbone.js",
+		"/Users/gwg/sharepay/public/app/controllers/SetupViewController.js",
+		"/Users/gwg/sharepay/public/css/styles.css",
+		"/Users/gwg/sharepay/web.js",
+		"/Users/gwg/sharepay/public/index.html",
+		"/Users/gwg/sharepay/package.json",
+		"/Users/gwg/sharepay/main.ejs.html",
+		"/Users/gwg/sharepay/main.js",
+		"/Users/gwg/sharepay/MainView.js",
+		"/Users/gwg/sharepay/public/models/VendorModel.js",
+		"/Users/gwg/sharepay/public/views/VendorSelectionView.js",
+		"/Users/gwg/sharepay/public/collections/VendorCollection.js",
+		"/Users/gwg/sharepay/public/static/js/main.js",
+		"/Users/gwg/sharepay/public/static/js/VendorCollection.js",
+		"/Users/gwg/sharepay/public/static/js/VendorSelectionView.js",
+		"/Users/gwg/sharepay/public/static/js/VendorModel.js",
+		"/Users/gwg/hello-backbone/index.html",
+		"/Users/gwg/Desktop/saved-path.txt",
+		"/Users/gwg/mongodb/bin/mongodb.config",
+		"/Users/gwg/hello-backbone/main.css",
+		"/Users/gwg/sharepay/README.md",
+		"/Users/gwg/mox/README.md",
+		"/Users/gwg/gunderscore.js/gunderscore.js",
+		"/Users/gwg/mox/mox-source.js",
+		"/Users/gwg/mox/mox-2.js",
+		"/Users/gwg/hello-backbone/README.md",
+		"/Users/gwg/gunderscore.js/lib/underscore.js",
+		"/Users/gwg/mox/index.html",
+		"/Users/gwg/Desktop/index.html",
+		"/Users/gwg/mox/mox.js",
+		"/Users/gwg/gunderscore.js/spec/GunderscoreUnitTests.html",
+		"/Users/gwg/gunderscore.js/README.md",
+		"/Users/gwg/gunderscore.js/src/gunderscore.js",
+		"/Users/gwg/gunderscore.js/GunderscoreUnitTests.html",
+		"/Users/gwg/gunderscore.js/spec/gunderscoreSpec.js",
+		"/Users/gwg/Desktop/main.css",
+		"/private/var/folders/02/pmrmprvs6ss0c4246cqq_l6m0000gn/T/fz3temp-1/index.html",
+		"/Users/gwg/mox/mox2.js",
+		"/Users/gwg/gunderscore.js/spec/specData.js",
+		"/Users/gwg/gunderscore.js/spec/PlayerSpec.js",
+		"/Users/gwg/gunderscore.js/src/Player.js",
+		"/Users/gwg/gunderscore.js/underscore.js",
+		"/Users/gwg/gunderscore.js/spec/SpecHelper.js",
+		"/Users/gwg/Downloads/jasmine-standalone-1.3.0/SpecRunner.html",
+		"/Users/gwg/Downloads/jasmine-standalone-1.3.0/src/Song.js",
+		"/Users/gwg/Downloads/jasmine-standalone-1.3.0/spec/SpecHelper.js",
+		"/Users/gwg/gunderscore.js/SpecRunner.html",
+		"/Users/gwg/.Trash/Gregory Gundersen.html",
+		"/Users/gwg/Desktop/Gregory Gundersen.html",
+		"/Users/gwg/gunderscore.js/gunderscore.html",
+		"/Users/gwg/Desktop/underscore.js",
+		"/Users/gwg/Desktop/underscore.html",
+		"/Users/gwg/odersky-scala/example2/src/main/scala/example/Main.scala",
+		"/Users/gwg/Desktop/scala",
+		"/Users/gregorygundersen/Gauss/templates/index.html",
+		"/Users/gregorygundersen/Gauss/static/js/main.js",
+		"/Users/gregorygundersen/gauss/README.md",
+		"/Users/gregorygundersen/Software/scala-2.10.2/examples/futures.scala",
+		"/Users/gregorygundersen/scala/README.md",
+		"/Users/gregorygundersen/Project-Euler/README.md",
+		"/Users/gregorygundersen/Gauss/README.md",
+		"/Users/gregorygundersen/Gauss/static/css/main.css",
+		"/Users/gregorygundersen/Gauss/handlers/problemHandler.py",
+		"/Users/gregorygundersen/Gauss/lib/gmath.py",
+		"/Users/gregorygundersen/Gauss/problems/pe25.py",
+		"/Users/gregorygundersen/Gauss/problems/pe18.py",
+		"/Users/gregorygundersen/Gauss/problems/pe13.py",
+		"/Users/gregorygundersen/Gauss/problems/pe11.py",
+		"/Users/gregorygundersen/Gauss/problems/pe24.py",
+		"/Users/gregorygundersen/Gauss/problems/pe67.py",
+		"/Users/gregorygundersen/Gauss/problems/pe31.py",
+		"/Users/gregorygundersen/Gauss/problems/pe62.py",
+		"/Users/gregorygundersen/Gauss/problems/pe52.py",
+		"/Users/gregorygundersen/Gauss/problems/pe50.py",
+		"/Users/gregorygundersen/Gauss/problems/pe49.py",
+		"/Users/gregorygundersen/Gauss/odb/odb.py",
+		"/Users/gregorygundersen/Gauss/problems/pe48.py",
+		"/Users/gregorygundersen/Gauss/problems/pe47.py",
+		"/Users/gregorygundersen/Gauss/problems/pe32.py",
+		"/Users/gregorygundersen/Gauss/problems/pe33.py",
+		"/Users/gregorygundersen/Gauss/problems/pe34.py",
+		"/Users/gregorygundersen/Gauss/problems/pe35.py",
+		"/Users/gregorygundersen/Gauss/problems/pe36.py",
+		"/Users/gregorygundersen/Gauss/problems/pe37.py",
+		"/Users/gregorygundersen/Gauss/problems/pe38.py",
+		"/Users/gregorygundersen/Gauss/problems/pe39.py",
+		"/Users/gregorygundersen/Gauss/problems/pe40.py",
+		"/Users/gregorygundersen/Gauss/problems/pe43.py",
+		"/Users/gregorygundersen/Gauss/problems/pe42.py",
+		"/Users/gregorygundersen/Gauss/problems/pe45.py",
+		"/Users/gregorygundersen/Gauss/problems/pe46.py",
+		"/Users/gregorygundersen/Gauss/problems/pe41.py",
+		"/Users/gregorygundersen/Gauss/problems/pe8.py",
+		"/Users/gregorygundersen/Gauss/lib/gutils.py",
+		"/Users/gregorygundersen/Gauss/templates/problems.html",
+		"/Users/gregorygundersen/Gauss/problems/pe12.py",
+		"/Users/gregorygundersen/Gauss/problems/pe12_.py",
+		"/Users/gregorygundersen/Gauss/main.py",
+		"/Users/gregorygundersen/Gauss/problems/pe1.py",
+		"/Users/gregorygundersen/Gauss/problems/timeout.py",
+		"/Users/gregorygundersen/Gauss/handlers/timeout.py",
+		"/Users/gregorygundersen/Gauss/handlers/adminPage.py",
+		"/Users/gregorygundersen/Gauss/templates/admin.html",
+		"/Users/gregorygundersen/Gauss/templates/problem.tpl.html",
+		"/Users/gregorygundersen/Gauss/app.yaml",
+		"/Users/gregorygundersen/Gauss/problems/PE32.py",
+		"/Users/gregorygundersen/Gauss/problems/pe30.py",
+		"/Users/gregorygundersen/Gauss/problems/pe29.py",
+		"/Users/gregorygundersen/Gauss/problems/pe28.py",
+		"/Users/gregorygundersen/Gauss/problems/pe26.py",
+		"/Users/gregorygundersen/Gauss/problems/pe27.py",
+		"/Users/gregorygundersen/Gauss/handlers/__init__.py",
+		"/Users/gregorygundersen/Gauss/handlers/testHandler.py",
+		"/Users/gregorygundersen/Gauss/orm/orm.py",
+		"/Users/gregorygundersen/Gauss/orm/problemModel.py",
+		"/Users/gregorygundersen/Gauss/handlers/refreshPage.py"
+	],
+	"find":
+	{
+		"height": 88.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			"hello-backbone.js",
+			"index.html",
+			"mox.js",
+			"specData.js",
+			"gunderscoreSpec.js",
+			"gunderscoreSpec",
+			"",
+			"collection",
+			"",
+			"'",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"contribut",
+			"templ",
+			"main.",
+			"main.ej",
+			");\n",
+			"vendor-list-container",
+			"center",
+			"<li",
+			"ul",
+			"span",
+			"change",
+			"unrender",
+			"part2",
+			"part1",
+			"additem",
+			"\"",
+			"bind",
+			"curry",
+			"first",
+			"pipelin",
+			"extend",
+			".call",
+			"call",
+			"extend",
+			"console",
+			"cosole",
+			"extend",
+			"tail",
+			"extend",
+			"consol",
+			"tail",
+			"consol",
+			"slice",
+			"tail",
+			"g_.ext",
+			"g_.each",
+			"g_.e",
+			"isTruthy",
+			"];\n",
+			"OBJECT_SIZE",
+			"ARRAY_LENGTH",
+			"STRING_LENGTH",
+			"NUMBER_LIMIT",
+			"UND",
+			"und",
+			"gettype",
+			"1",
+			"conso",
+			"gettype",
+			"type",
+			"console",
+			"consol",
+			"border",
+			"istype",
+			"		}",
+			"console",
+			"result",
+			"getRandType",
+			"randBool",
+			"randStr",
+			"randNum",
+			"max",
+			"randPred",
+			"randnum",
+			"spex",
+			"_wrapped",
+			"return _(",
+			"return _",
+			"tostring",
+			"todo",
+			"cons",
+			"select",
+			"root",
+			"isex",
+			"isarray",
+			"result",
+			"clone",
+			"return un",
+			"copy",
+			"isequal",
+			"max",
+			"value",
+			"values",
+			"map",
+			"\"",
+			"g_",
+			"invert",
+			"_wrapped",
+			"_wrapped = ",
+			"_wrapp",
+			"g_",
+			"collection",
+			"iterable",
+			"library",
+			"indention",
+			"])",
+			"gen_triangle_number",
+			"',\n",
+			"has_even_digit",
+			"has_even",
+			"rotate_di",
+			"is_circul",
+			"test",
+			"6px",
+			"list-style",
+			"has_passed",
+			"render_progress_bar",
+			"has_timedout",
+			"console",
+			"render_progress_bar",
+			"\"",
+			"meta",
+			"is_quad",
+			"get_ndb_problems",
+			"get_stor",
+			"get_ndb",
+			"console",
+			"console.log",
+			"left",
+			"40",
+			"runAllProblems",
+			"runtimeClass",
+			"answerClass",
+			"callAjax",
+			"json",
+			"mask",
+			"maxprod",
+			"\""
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"'",
+			"getRandBool",
+			"getRandStr",
+			"getRandNum",
+			"randBool",
+			"mox",
+			"'",
+			"g",
+			"collection",
+			"module",
+			"ind",
+			"'",
+			"run_all_problems",
+			"runtime_class",
+			"answer_class",
+			"get",
+			"'",
+			"person",
+			"highlightMember",
+			"buildLightbox",
+			"navigateSlideshow",
+			"toggleSlideshow",
+			"removeLightbox",
+			".lightbox",
+			"",
+			"description",
+			"lightbox",
+			"name",
+			"<br>",
+			"'",
+			"team",
+			"requestObj",
+			"jsonResp",
+			"jsonResp222",
+			"jsonResp",
+			"user_input",
+			"'",
+			"JINJA_ENV",
+			"o",
+			"logo",
+			"phoneNumber",
+			"text"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/Users/gwg/sharepay/public/index.html",
+					"settings":
+					{
+						"buffer_size": 1877,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								381,
+								381
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "main.js",
+					"settings":
+					{
+						"buffer_size": 1556,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								800,
+								800
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 264.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "views/MainView.js",
+					"settings":
+					{
+						"buffer_size": 741,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								293,
+								293
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "views/VendorPickerView.js",
+					"settings":
+					{
+						"buffer_size": 420,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								298,
+								298
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "templates/vendor.ejs.html",
+					"settings":
+					{
+						"buffer_size": 80,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								59,
+								59
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "views/CartView.js",
+					"settings":
+					{
+						"buffer_size": 497,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								43,
+								43
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "templates/cart.ejs.html",
+					"settings":
+					{
+						"buffer_size": 1230,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								264,
+								264
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 100.0
+	},
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"",
+				"/Users/gregorygundersen/Gauss/lib/gmath.py"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true
+}

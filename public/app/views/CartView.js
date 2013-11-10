@@ -51,9 +51,10 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 				html;
 
 			obj.timeLeft = this.model.getTimeLeft();
-			obj.sharedTotal = App.Utils.hashSum(this.model.get('groupedItems').shared, 'price');
-			obj.sharedShare = obj.sharedTotal / this.model.get('users').length;
+			obj.sharedShare = this.model.getSharedShare();
 			obj.currentUserId = App.user.get('_id');
+			obj.totalCost = this.model.getTotalCost();
+			obj.totalContributions = this.model.getTotalContribution();
 			obj.isHost = App.user.get('isHost');
 			html = templateFn(obj);
 			this.$el.html(html);

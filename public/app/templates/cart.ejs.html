@@ -11,18 +11,22 @@
 			</form>
 			<div class="item-group">
 				<table>
-				<% _.each(groupedItems.shared, function(item) { %>
-				<tr class="item">
-					<th><%= item.name %></th>
-					<td class="item-price"><%= App.Utils.formatCurrency(item.price) %></td>
-				</tr>
-				<% }); %>
-				<% if (groupedItems.shared && groupedItems.shared.length) { %>
-				<tr class="item total-row">
-					<th>Total</th>
-					<td class="shared-total"><%= App.Utils.formatCurrency(groupedItems.shared.totalCost) %></td>
-				</tr>
-				<% } %>
+					<tbody>
+						<% _.each(groupedItems.shared, function(item) { %>
+						<tr class="item">
+							<th><%= item.name %></th>
+							<td class="item-price"><%= App.Utils.formatCurrency(item.price) %></td>
+						</tr>
+						<% }); %>
+					</tbody>
+					<tfoot>
+						<% if (groupedItems.shared && groupedItems.shared.length) { %>
+						<tr class="item total-row">
+							<th>Total</th>
+							<td class="shared-total"><%= App.Utils.formatCurrency(groupedItems.shared.totalCost) %></td>
+						</tr>
+						<% } %>
+					</tfoot>
 				</table>
 			</div>
 		</section>
@@ -35,23 +39,35 @@
 						<div class="item-group <%= user._id === currentUserId ? 'mine' : '' %>">
 							<h3><%= user.name %></h3>
 							<table>
-							<% _.each(groupItems, function(item){ %>
-							<tr class="item">
-								<th><%= item.name %></th>
-								<td class="item-price"><%= App.Utils.formatCurrency(item.price) %></td>
-							</tr>
-							<% }); %>
-							<% if (groupedItems.shared && groupedItems.shared.length) { %>
+							<tbody>
+								<% _.each(groupItems, function(item){ %>
 								<tr class="item">
-									<th>Share of Shared</th>
-									<td class="item-price"><%= App.Utils.formatCurrency(sharedShare) %></td>
+									<th><%= item.name %></th>
+									<td class="item-price"><%= App.Utils.formatCurrency(item.price) %></td>
 								</tr>
-							<% } %>
+								<% }); %>
+							</tbody>
 
-							<tr class="item total-row">
-								<th>Total</th>
-								<td class="shared-total"><%= groupItems ? App.Utils.formatCurrency(groupItems.totalCost + sharedShare) : App.Utils.formatCurrency(sharedShare) %></td>
-							</tr>
+							<tfoot>
+								<% if (groupItems && groupItems.totalCost) { %>
+									<tr class="item">
+										<th><%= user.name %>'s Total</th>
+										<td class="item-price"><%= App.Utils.formatCurrency(groupItems.totalCost) %></td>
+									</tr>
+								<% } %>
+
+								<% if (groupedItems.shared && groupedItems.shared.length) { %>
+									<tr class="item">
+										<th>Share of Shared</th>
+										<td class="item-price"><%= App.Utils.formatCurrency(sharedShare) %></td>
+									</tr>
+								<% } %>
+
+								<tr class="item total-row">
+									<th>Total</th>
+									<td class="shared-total"><%= groupItems ? App.Utils.formatCurrency(groupItems.totalCost + sharedShare) : App.Utils.formatCurrency(sharedShare) %></td>
+								</tr>
+							</tfoot>
 							</table>
 							<% if (user._id === currentUserId && !isHost) { %>
 							<div class="user-payment">
@@ -65,7 +81,11 @@
 			</section>
 		<% } %>
 
-		<% if (isHost) { %>
+		Total Cost: <%= App.Utils.formatCurrency(totalCost) %><br>
+		<% if (isHost && vendor) { %>
+			<!-- the calculation for this is sketchy at the moment
+			Expected Contributions: <%= App.Utils.formatCurrency(totalContributions) %>
+			-->
 			<button class="send-order">Send Order</button>
 		<% } %>
 	</section>

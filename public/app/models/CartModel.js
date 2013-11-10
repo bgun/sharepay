@@ -31,11 +31,30 @@ App.module("Models", function(Mod, App, Backbone, Marionette, $, _) {
         friendly = moment(this.get('deadline')).fromNow();
       return friendly;
     },
+    getSharedTotal: function() {
+        return App.Utils.hashSum(this.get('groupedItems').shared, 'price');
+    },
+    getSharedShare: function() {
+        return this.getSharedTotal() / this.get('users').length;
+    },
+    getTotalCost: function() {
+        return App.Utils.hashSum(this.get('groupedItems'), 'totalCost');
+        // var groupCosts = _(this.get('groupedItems').pluck('totalCost');
+        // return App.Utils
+    },
+    getTotalContribution: function(userCode) {
+        var total = this.getTotalCost(),
+            myItems = this.get('groupedItems')[App.user.get('_id')],
+            myItemsCost = App.Utils.hashSum(myItems, 'price'),
+            result = total - myItemsCost;
+        return result;
+    },
     groupItems: function() {
       var grouped = _(this.get('items')).groupBy(function(item){
         var result = item.user || 'shared';
         return result;
       });
+
       _(grouped).each(function(group, key){
         grouped[key].totalCost = App.Utils.hashSum(group, 'price');
       });

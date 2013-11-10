@@ -67,21 +67,21 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 			window.addEventListener('message', function(event) {
 				console.log('received response: ',event.data);
 				var url = 'http://sharepay.herokuapp.com';
-				var evData = JSON.parse(event.data);
 				$.ajax({
 					type: 'POST',
 					url: url + '/api/user/token',
+					processData: false,
 					data: {
 						"email": "test@test.com",
-						"type" : evData.type,
-						"token" : evData.token
+						"type" : event.data.type,
+						"token" : event.data.token
 					}
 				});
 			},false);
 			window.open("https://www.dwolla.com/oauth/v2/authenticate"+
 				"?redirect_uri="+encodeURIComponent("http://sharepay.herokuapp.com/auth/dwolla_callback")+
 				"&client_id=hpNV9Yq75n5EwQiRcT4zlX2imU82tR44OSNlzbzU2X9JnptjQo"+
-				"&response_type=code&scope=send|request","_blank");
+				"&response_type=code&scope=send%7Crequest","_blank");
 		},
 
 		makeVenmoPayment: function() {

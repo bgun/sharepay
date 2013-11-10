@@ -17,7 +17,7 @@ module.exports = function(app){
 		var url_parts = url.parse(req.url, true);
 		var query = url_parts.query;
 		console.log('got code'+query.code);
-		var redirectUri = encodeURIComponent("http://www.sharepay.herokuapp.com/auth/dwolla_callback");
+		var redirectUri = encodeURIComponent("http://sharepay.herokuapp.com/auth/dwolla_callback");
 		var surl = "https://www.dwolla.com/oauth/v2/token?client_id="+dwolla.appId+"&client_secret="+
 			dwolla.appSecret+"&grant_type=authorization_code&redirect_uri="+redirectUri+"&code="+query.code;
 		console.log('oauth url: '+surl);

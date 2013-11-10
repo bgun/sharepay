@@ -15,6 +15,9 @@ App.module("Models", function(Mod, App, Backbone, Marionette, $, _) {
 				this.groupItems();
 			}
 		}, 
+		parse: function(r) {
+			return r.cart;
+		},
 		getTimeLeft: function() {
 			var millis = this.get('deadline') - new Date(),
 				friendly = moment(this.get('deadline')).fromNow();
@@ -25,11 +28,15 @@ App.module("Models", function(Mod, App, Backbone, Marionette, $, _) {
 		groupItems: function() {
 			var grouped = _(this.get('items')).groupBy(function(item){ return item.user || 'shared'; });
 			this.set('groupedItems', grouped);
-		},
+			},
 		addItem: function(item) {
 			this.get('items').push(item);
 			this.groupItems();
 			this.trigger('change');
+			Backbone.Mediator.pub("cart:item-add",{
+				cartId: this.get('_id'),
+				item: item
+			});
 		}
-	});
+  });
 });

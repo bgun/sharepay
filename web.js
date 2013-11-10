@@ -1,24 +1,39 @@
 var express  = require("express");
+var app      = express();
+var server   = require('http').createServer(app);
+// start listening on port 5000
+var port = process.env.PORT || 5000;
 var fs       = require("fs");
 var url      = require("url");
 var _        = require("underscore");
+var io       = require("socket.io").listen(server, { port: port });
 
-// application
-var api   = require("./app/api.js");
-var email = require("./app/email.js");
-
-// go
-var app   = express();
+server.listen(port);
 
 app.use(express.logger());
 app.use(express.static(__dirname + "/public"));
 app.use(express.bodyParser());
 
+// application
+var api      = require("./app/api.js");
+var email    = require("./app/email.js");
+
 require("./app/oauth/processors")(app);
 
-app.get('/', function(request, response) {
-  response.send('<h1>SharePay</h1>');
+
+
+
+
+io.sockets.on('connection', function(socket) {
+  socket.emit('news', { hello: 'world' });
+  socket.on('items:add', function (data) {
+    console.log("ITEM RECEIVED",data);
+  });
 });
+
+
+
+
 
 // playing with querystrings
 app.get('/test',function(req, res) {
@@ -111,15 +126,8 @@ app.get('/api/user',function(req, res) {
 });
 
 app.post('/api/user/token', function(req, res){
-	var js = (req.body);
+	var js = JSON.parse(req.body.data);
+	console.log(js,js.email);
 	api.setUserToken(js.email, js.type, js.token);
 	res.end();
-});
-
-
-// start listening on port 5000
-
-var port = process.env.PORT || 5000;
-app.listen(port, function() {
-  console.log("Listening on " + port);
 });

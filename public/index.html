@@ -9,8 +9,6 @@
   <!-- this should be the only CSS file. others should be injected by the views that need them -->
   <link href='http://fonts.googleapis.com/css?family=Rochester' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="css/styles.css" />
-  <link rel="stylesheet" href="css/vendors.css" />
-  <link rel="stylesheet" href="css/grid.css" />
 </head>
 <body>
   <h1>
@@ -25,9 +23,10 @@
   <script src='//cdnjs.cloudflare.com/ajax/libs/backbone.marionette/1.0.4-bundled/backbone.marionette.min.js'></script>
   
   <script src='app/lib/moment.min.js'></script>
+  <script src='app/lib/backbone-mediator.js'></script>
   <script src='app/lib/toastr/toastr.min.js'></script>
+  <script src='/socket.io/socket.io.js'></script>
   <link rel="stylesheet" href="app/lib/toastr/toastr.min.css" />
-
 
   <!-- main & helpers -->
   <script src='app/templateManager.js'></script>
@@ -40,7 +39,6 @@
   <script src='app/views/VendorView.js'></script>
   <script src='app/collections/VendorCollection.js'></script>
   <script src='app/views/VendorPickerView.js'></script>
-  <script src='app/data/vendor-list.js'></script>
 
   <!-- cart -->
   <script src='app/models/CartModel.js'></script>
@@ -50,11 +48,10 @@
   <script src='app/models/ProcessorModel.js'></script>
   <script src='app/collections/ProcessorCollection.js'></script>
   <script src='app/views/ProcessorPickerView.js'></script>
-  <script src='app/data/processor-list.js'></script>
 
-  <!-- controllers -->
-  <script src="app/controllers/SetupViewController.js"></script>
+  <!-- user -->
+  <script src='app/models/UserModel.js'></script>
 
-  <!-- data -->
+
 </body>
 </html>

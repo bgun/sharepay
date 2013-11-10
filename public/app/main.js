@@ -12,10 +12,12 @@ $(function() {
 
   templateManager.loadTemplates();
 
+  // TODO instantiate this properly, either based on url or login
+  App.user = new App.UserModel();
+
   var AppRouter = Backbone.Router.extend({
 
     routes: {
-      //'/vendors' : 'vendorRender',
       'cart/:cartId'     : 'cart',
       '*path'    : 'defaultRoute'
     },

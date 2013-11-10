@@ -142,7 +142,7 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 				});*/
 			} else {
 				window.open("https://api.venmo.com/oauth/authorize"+
-					"?client_id=  [ CLIENT ID !!!]"+
+					"?client_id=ErheST43pgbsELXRagREYdhAq7E25tyj"+
 					"&response_type=code&scope=make_payments","_blank");
 			}
 

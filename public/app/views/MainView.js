@@ -58,8 +58,8 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 			  return {
 			    name: email.split('@')[0],
 			    email: email
-			  }
-			});
+			  };
+			}));
 		}
 	});
 });

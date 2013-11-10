@@ -11,7 +11,6 @@ App.Views.CartView = Backbone.View.extend({
 		var self = this;
 		this.model = options.model;
 		this.model.on('change', function(){
-			// debugger;
 			self.render();
 		});
 	},
@@ -24,7 +23,8 @@ App.Views.CartView = Backbone.View.extend({
 			html;
 
 		obj.timeLeft = this.model.getTimeLeft();
-		obj.sharedTotal = App.Utils.hashSum(this.model.get('sharedItems'), 'price');
+		obj.sharedTotal = App.Utils.hashSum(this.model.get('groupedItems').shared, 'price');
+		obj.sharedShare = (obj.sharedTotal / this.model.get('users').length).toFixed(2);
 		html = templateFn(obj);
 		this.$el.html(html);
 
@@ -49,8 +49,10 @@ App.Views.CartView = Backbone.View.extend({
 		if (errors.length) {
 			toastr.error(errors.join('<br>'));
 		} else {
-			this.model.get('sharedItems').push({name: name, price: +price});
-			this.model.set('numSharedItems', this.model.get('sharedItems').length);
+			this.model.addItem({
+				name: name,
+				price: +price
+			});
 		}
 	},
 
@@ -62,7 +64,20 @@ App.Views.CartView = Backbone.View.extend({
 	
 
 	makeVenmoPayment: function() {
-		console.log('venmo!');
+		console.log('dwolla!');
+		window.addEventListener('message', function(event) {
+			console.log('received response: ',event.data);
+			var url = 'http://sharepay.herokuapp.com';
+			$.ajax({
+				type: 'POST',
+				url: url + '/api/user/token',
+				data: {
+					"email": "test@test.com",
+					"type" : "dwolla",
+					"token" : event.data
+				}
+			});
+		},false);
 		window.open("https://www.dwolla.com/oauth/v2/authenticate?client_id="+
 			"hpNV9Yq75n5EwQiRcT4zlX2imU82tR44OSNlzbzU2X9JnptjQo&response_type=code&scope=send|request","_blank");
 	}

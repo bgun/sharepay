@@ -62,7 +62,8 @@ var Item = mongoose.model('Item', itemSchema);
 var cartSchema = Schema({
   deadline: String,
   vendor: String,
-  items: [Item]
+  items: [Item],
+  users: [User]
 });
 var Cart = mongoose.model('Cart', cartSchema);
 exports.makeCart = function(obj, callback) {
@@ -83,9 +84,8 @@ exports.updateCart = function(id, obj, callback) {
   });
 };
 exports.addItemToCart = function(id, item) {
-  var _id = mongoose.Types.ObjectId(id);
-  console.log("Adding item to cart:",item);
-  Cart.update({_id:_id},{$push: {"items":item}},function(err, num) {
+  console.log("Adding item to cart:",id,item);
+  Cart.update({_id:id},{$push: {"items":item}},function(err, num) {
     if(err) {
       console.log(err);
     }

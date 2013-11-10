@@ -1,66 +1,69 @@
 
 	<section class="group-cart">
 		Deadline: <span class="time-left"><%= timeLeft %></span>
-		<section class="item-list">
-
-			<section class="shared">
-				<h2>Shared Items</h2>
-				<form class="shared-item-form">
-					<input class="item-name-input" placeholder="item name" />
-					<input class="item-price-input" placeholder="price" />
-					<button class="add-shared-item-btn">add</button>
-				</form>
-				<div class="item-group">
-					<% _.each(groupedItems.shared, function(item) { %>
-					<div class="item">
-						<b><%= item.name %></b>
-						<span class="item-price"><%= App.Utils.formatCurrency(item.price) %></span>
-					</div>
-					<% }); %>
-					<% if (groupedItems.shared && groupedItems.shared.length) { %>
-					<div class="total-row">
-						<b>Total</b>
-						<span class="shared-total"><%= App.Utils.formatCurrency(groupedItems.shared.totalCost) %></span>
-					</div>
-					<% } %>
-				</div>
-			</section>
-
-			<% if (items.length) { %>
-				<section class="individual">
-					<h2>Individual Items</h2>
-						<% _.each(users, function(user) { %>
-							<% var groupItems = groupedItems[user._id]; %>
-							<div class="item-group">
-								<h3><%= user.name %></h3>
-								<% _.each(groupItems, function(item){ %>
-								<div class="item">
-									<b><%= item.name %></b>
-									<span class="item-price"><%= App.Utils.formatCurrency(item.price) %></span>
-								</div>
-								<% }); %>
-								<% if (groupedItems.shared && groupedItems.shared.length) { %>
-									<b>Share of Shared</b>
-									<span class="item-price"><%= App.Utils.formatCurrency(sharedShare) %></span>
-								<% } %>
-
-								<div class="total-row">
-									<b>Total</b>
-									<span class="shared-total"><%= groupItems ? App.Utils.formatCurrency(groupItems.totalCost + sharedShare) : sharedShare %></span>
-								</div>
-
-							</div>
-							<% if (user._id === currentUserId && !isHost) { %>
-							Pay with:
-							<button class="dwolla-btn">Dwolla</button>
-							<button class="venmo-btn">Venmo</button>
-							<% } %>
-						<% }); %>
-				</section>
-			<% } %>
+		
+		<section class="item-list shared">
+			<h2>Shared Items</h2>
+			<form class="shared-item-form">
+				<input class="item-name-input" placeholder="item name" />
+				<input class="item-price-input" placeholder="price" />
+				<button class="add-shared-item-btn">add</button>
+			</form>
+			<div class="item-group">
+				<table>
+				<% _.each(groupedItems.shared, function(item) { %>
+				<tr class="item">
+					<th><%= item.name %></th>
+					<td class="item-price"><%= App.Utils.formatCurrency(item.price) %></td>
+				</tr>
+				<% }); %>
+				<% if (groupedItems.shared && groupedItems.shared.length) { %>
+				<tr class="item total-row">
+					<th>Total</th>
+					<td class="shared-total"><%= App.Utils.formatCurrency(groupedItems.shared.totalCost) %></td>
+				</tr>
+				<% } %>
+				</table>
+			</div>
 		</section>
 
-		<section class="summary">
+		<% if (items.length) { %>
+			<section class="item-list individual">
+				<h2>Individual Items</h2>
+					<% _.each(users, function(user) { %>
+						<% var groupItems = groupedItems[user._id]; %>
+						<div class="item-group">
+							<h3><%= user.name %></h3>
+							<table>
+							<% _.each(groupItems, function(item){ %>
+							<tr class="item">
+								<th><%= item.name %></th>
+								<td class="item-price"><%= App.Utils.formatCurrency(item.price) %></td>
+							</tr>
+							<% }); %>
+							<% if (groupedItems.shared && groupedItems.shared.length) { %>
+								<tr class="item">
+									<th>Share of Shared</th>
+									<td class="item-price"><%= App.Utils.formatCurrency(sharedShare) %></td>
+								</tr>
+							<% } %>
+
+							<tr class="item total-row">
+								<th>Total</th>
+								<td class="shared-total"><%= groupItems ? App.Utils.formatCurrency(groupItems.totalCost + sharedShare) : App.Utils.formatCurrency(sharedShare) %></td>
+							</tr>
+							</table>
+						</div>
+						<% if (user._id === currentUserId && !isHost) { %>
+						Pay with:
+						<button class="dwolla-btn">Dwolla</button>
+						<button class="venmo-btn">Venmo</button>
+						<% } %>
+					<% }); %>
+			</section>
+		<% } %>
+
+		<section class="item-list summary">
 			<h2>Summary</h2>
 			<% if (isHost) { %>
 			<button class="send-order">Send Order</button>

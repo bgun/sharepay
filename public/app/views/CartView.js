@@ -6,7 +6,8 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 		events: {
 			'click .add-shared-item-btn': 'addSharedItem',
 			'click .dwolla-btn': 'makeDwollaPayment',
-			'click .venmo-btn': 'makeVenmoPayment'
+			'click .venmo-btn': 'makeVenmoPayment',
+			'click .send-order': 'sendOrder'
 		},
 
 
@@ -102,6 +103,10 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 
 		makeVenmoPayment: function() {
 			console.log('venmo!...?');
+		},
+
+		sendOrder: function() {
+			console.log('sending');
 		}
 	});
 });

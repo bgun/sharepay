@@ -46,7 +46,7 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 			this.processEmails();
 			
 			this.model.save().done(function() {
-				Backbone.router.navigate('cart/' + that.model.id + '/email/' + 'ben@bengundersen.com', {trigger: true, replace: true});
+				App.router.navigate('cart/' + that.model.get('id') + '/email/' + 'ben@bengundersen.com', {trigger: true, replace: true});
 			});	
 		},
 		processEmails: function() {

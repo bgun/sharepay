@@ -10,13 +10,23 @@ App.Views.CartView = Backbone.View.extend({
 	// },
 
 	render: function() {
+		var self = this,
+			COUNTDOWN_INTERVAL = 1000*1, // 1 min
+			templateFn = _.template(templateManager.getTemplate('cart')),
+			obj = this.model.toJSON(),
+			html;
 
-		var templateFn = _.template(templateManager.getTemplate('cart'));
-		var obj = this.model.toJSON();
-		obj.remainingTime = moment(this.model.get('deadline')).fromNow();
-		var html = templateFn(obj);
+		obj.timeLeft = this.model.getTimeLeft();
+		html = templateFn(obj);
 		this.$el.html(html);
+		this.intervalId = setInterval(function(){
+			self.updateCountdown();
+		}, COUNTDOWN_INTERVAL);
 		return this;
+	},
+
+	updateCountdown: function() {
+		this.$el.find('.time-left').html(this.model.getTimeLeft());
 	},
 
 

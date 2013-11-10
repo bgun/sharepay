@@ -1,14 +1,14 @@
 
 
 	<section class="group-cart">
-		Deadline: <span class="remaining-time"><%= remainingTime %></span>
+		Deadline: <span class="time-left"><%= timeLeft %></span>
 		<section class="item-list">
 			<% if (vendor) { %>
 				<section class="individual">
 					<h3>Individual Items</h3>
-						[each contributor]
+						<% _.each(users, function(user) { %>
 							<div class="item-group">
-								<div class="contributor-name">[contributor]</div>
+								<div class="contributor-name"><%= user %></div>
 								[each item]
 								<div class="item">
 									<span class="item-name">[item name]</span>
@@ -19,7 +19,7 @@
 							[if !host]
 							<button class="venmo-btn">Pay with Venmo</button>
 							[/if !host]
-						[/each contributor]
+						<% }); %>
 				</section>
 			<% } %>
 

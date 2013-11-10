@@ -3,11 +3,18 @@ App.Views.CartView = Backbone.View.extend({
 	el: '#content',
 
 	events: {
+		'click .add-shared-item-btn': 'addSharedItem',
 		'click .venmo-btn': 'makeVenmoPayment'
 	},
 
-	// initialize: function(options) {
-	// },
+	initialize: function(options) {
+		var self = this;
+		this.model = options.model;
+		this.model.on('change', function(){
+			// debugger;
+			self.render();
+		});
+	},
 
 	render: function() {
 		var self = this,
@@ -17,12 +24,34 @@ App.Views.CartView = Backbone.View.extend({
 			html;
 
 		obj.timeLeft = this.model.getTimeLeft();
+		obj.sharedTotal = App.Utils.hashSum(this.model.get('sharedItems'), 'price');
 		html = templateFn(obj);
 		this.$el.html(html);
+
+		this.delegateEvents();
+
 		this.intervalId = setInterval(function(){
 			self.updateCountdown();
 		}, COUNTDOWN_INTERVAL);
 		return this;
+	},
+
+	addSharedItem: function(e) {
+		var name = this.$el.find('.item-name-input').val(),
+			price = this.$el.find('.item-price-input').val(),
+			errors = [],
+			newItem;
+
+		e.preventDefault();
+		if (!name) { errors.push('Item Name is required.'); }
+		if (!price) { errors.push('Price is required.'); }
+		if (!App.Utils.isNumber(price) && price > 0) { errors.push('Price must be a positive number.'); }
+		if (errors.length) {
+			toastr.error(errors.join('<br>'));
+		} else {
+			this.model.get('sharedItems').push({name: name, price: +price});
+			this.model.set('numSharedItems', this.model.get('sharedItems').length);
+		}
 	},
 
 	updateCountdown: function() {

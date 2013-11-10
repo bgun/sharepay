@@ -6,20 +6,19 @@ App.Views.VendorPickerView = Backbone.View.extend({
 
 	initialize: function(options) {
 		this.options = options;
+		this.parentEl = this.options.parentView.$el;
 	},
 
+	// `render` renders the HTML container, `vendor-list-container`.
 	render: function() {
 		var that = this,
-			templateFn = _.template(templateManager.getTemplate('vendor'));
+			templateFn = _.template(templateManager.getTemplate('vendors'));
 
-    	_.each(this.collection.models, function(vendorView) {
-    		var obj = vendorView.toJSON(),
-    			html = templateFn(obj);
-
-			that.options.parentView.$el.append(html);
+		var html = templateFn({
+			vendors: this.collection.models
 		});
 
-		return this;
+		this.parentEl.append(html);
 	}
 
 });

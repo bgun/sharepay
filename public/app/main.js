@@ -40,8 +40,20 @@ $(function() {
       d.setTime(d.getTime() + (8 * 60 * 1000)); // for testing, set the deadline to 8 mins from now
       var myCart = new App.Models.CartModel({
         vendor: 'Seamless',
-        items: new Backbone.Collection(),
-        users: ['ben', 'greg', 'raj', 'pavel', 'micah', 'moshe'],
+        items: [
+          {
+            name: 'Couch',
+            price: 1200
+          }, {
+            name: 'Frying pan',
+            price: 35
+          }, {
+            name: 'Thing',
+            price: 123,
+            user: 'ben'
+          }
+        ],
+        users: ['ben', 'greg'],
         processors: ['dowalla','venmo'],
         deadline: d.toJSON(),
       });

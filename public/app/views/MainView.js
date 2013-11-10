@@ -32,7 +32,7 @@ App.Views.MainView = Backbone.View.extend({
 				collection: new App.Collections.ProcessorCollection( processors[0].processors )
 			}));
 			that.render();
-		});		
+		});
 	},
 
 	render: function() {

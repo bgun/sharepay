@@ -65,7 +65,11 @@ exports.getProcessors = function(callback) {
 
 var userSchema = new Schema({
   name: String,
-  email: String
+  email: String,
+  tokens: {
+    venmo: String,
+    dwolla: String
+  }
 });
 var User = mongoose.model('User', userSchema);
 exports.getUsers = function(callback) {

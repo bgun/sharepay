@@ -1,0 +1,11 @@
+<div class="vendor-list-container">
+	<h2>Choose a Vendor</h2>
+	<% _.each(vendors, function(vendor) { var v = vendor.attributes; %>
+		<div class="vendor-container">
+			<a href="">
+				<img src="<%= v.vendorUrl %>">
+				<span><%= v.name %></span>
+			</a>
+		</div>
+	<% }); %>
+</div>

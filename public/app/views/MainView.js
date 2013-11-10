@@ -11,16 +11,15 @@ App.Views.MainView = Backbone.View.extend({
 	initialize: function(options) {
 		this.childViews = [];
 		this.childViews.push(new App.Views.VendorPickerView({
-			model: new App.Models.VendorModel({
+			/*model: new App.Models.VendorModel({
 				name: 'Seamless',
 				logoUrl: 'http://www.seamless.com/',
 				logoImgPath: 'http://www.seamless.com/img/logo.png?3d8fd5'
-			}),
+			}),*/
 			parentView: this,
 			collection: App.vendors
 		}));
 		this.childViews.push(new App.Views.ProcessorsPickerView({
-			model: new App.Models.ProcessorModel(),
 			parentView: this,
 			collection: App.processors
 		}));

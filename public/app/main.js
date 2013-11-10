@@ -50,7 +50,6 @@ $(function() {
     },
 
     defaultRoute: function(path) {
-      console.log('main');
       if (path) {
         console.log('unkown path:', path);
       }

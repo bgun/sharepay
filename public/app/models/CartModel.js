@@ -1,14 +1,20 @@
 App.Models.CartModel = Backbone.Model.extend({
 	defaults: {
 		vendor: null,
-		items: new Backbone.Collection(),
-		users: new Backbone.Collection(),
-		processors: new Backbone.Collection(),
+		sharedItems: [],
+		users: [],
+		processors: [],
 		deadline: null,
 	},
 	initialize: function(options) {
 		if (typeof options.deadline === 'string') {
 			this.set('deadline', new Date(options.deadline));
+		}
+		if (options.items && options.items.length) {
+			var shared = _(options.items).filter(function(item) {
+				return !item.user;
+			});
+			this.set('sharedItems', shared);
 		}
 	}, 
 	getTimeLeft: function() {

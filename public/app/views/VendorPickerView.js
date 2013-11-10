@@ -4,6 +4,7 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 	});
 	Mod.VendorPickerCollectionView = Marionette.CollectionView.extend({
 		tagName: 'section',
+		className: 'vendor',
 		itemView: VendorPicker
 	});
 });

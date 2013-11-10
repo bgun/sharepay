@@ -7,7 +7,7 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 		},
 		className: 'main-view',
 		events: {
-			'click .invite-btn': 'sendInvites'
+			'click .vendor': 'updateVendor'
 		},
 		onRender: function(options) {
 			var that = this,
@@ -27,10 +27,9 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 					collection: processorColl
 				}));
 			});
-
 		},
 		updateVendor: function(evt) {
-
+			console.log(evt);
 		}
 	});
 });

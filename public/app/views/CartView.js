@@ -95,7 +95,7 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
         if (user !== 'shared') {
           newItem.user = user;
         }
-        this.model.addItem(newItem);
+        this.model.addItem(newItem,true);
       }
     },
 

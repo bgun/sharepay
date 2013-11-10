@@ -92,24 +92,24 @@ exports.getOrCreateUser = function(eaddr,callback) {
 };
 
 exports.setUserToken = function(eaddr, type, token) {
-  var dat =  {};
-  dat[type] = token;
+  var dat =  {
+    type: token
+  };
   console.log(eaddr);
   console.log({"tokens": dat});
   
-  User.update({email: eaddr}, {$set: {"tokens": dat} }, function(err, r) {
-	if(err) {
-	   console.log(err);
-	 }
+  User.update({email: "test@test.com"}, {"tokens": dat}, function(err, r) {
+    console.log(err);
     console.log("Updated user: "+r);
-    }
-  );
+  });
 };
 
 /* Vendor */
 
 var vendorSchema = new Schema({
-  name: String
+  name: String,
+  logoCode: String,
+  vendorUrl: String
 });
 var Vendor = mongoose.model('Vendor', vendorSchema);
 exports.getVendors = function(callback) {

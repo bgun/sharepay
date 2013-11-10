@@ -4,8 +4,9 @@ var url      = require("url");
 var _        = require("underscore");
 
 // application
-var api   = require("./app/api.js");
-var email = require("./app/email.js");
+var api      = require("./app/api.js");
+var email    = require("./app/email.js");
+var mediator = require("./app/mediator.js");
 
 // go
 var app   = express();
@@ -111,7 +112,8 @@ app.get('/api/user',function(req, res) {
 });
 
 app.post('/api/user/token', function(req, res){
-	var js = (req.body);
+	var js = JSON.parse(req.body.data);
+	console.log(js,js.email);
 	api.setUserToken(js.email, js.type, js.token);
 	res.end();
 });

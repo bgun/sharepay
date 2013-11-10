@@ -61,4 +61,11 @@ $(function() {
   App.router = new AppRouter();
   Backbone.history.start();
 
+  var socket = io.connect('http://localhost');
+  Backbone.Mediator.sub("model:item-add",function(data) {
+    socket.on('news', function (data) {
+      console.log(data);
+      socket.emit('my other event', { my: 'data' });
+    });
+  });
 });

@@ -1,6 +1,7 @@
 App.Models.UserModel = Backbone.Model.extend({
 	
 	defaults: {
+		currentUser: null
 	},
 	
 	initialize: function(options) {

@@ -8,22 +8,14 @@ App.vendors = new App.Collections.VendorCollection([
 	{
 		name: 'Seamless',
 		logoCode: 'seamless',
+		logoImgPath: 'http://www.seamless.com/img/logo.png?3d8fd5',
 		vendorUrl: 'seamless.com',
 		optionsView: App.Models.RestaurantPickerView
 	},
 	{
 		name: 'Fresh Direct',
 		logoCode: 'freshdirect',
+		logoImgPath: 'https://www.freshdirect.com/media/images/navigation/global_nav/fd_logo_on.gif',
 		vendorUrl: 'freshdirect.com'
-	},
-	{
-		name: 'Drugstore.com',
-		logoCode: 'drugstore',
-		vendorUrl: 'drugstore.com'
-	},
-	{
-		name: 'Best Buy',
-		logoCode: 'bestbuy',
-		vendorUrl: 'bestbuy.com'
 	}
 ]);

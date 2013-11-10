@@ -71,13 +71,22 @@ makeReadApis(["carts","processors","users","vendors"]);
 app.post('/api/cart',function(req, res) {
   console.log(req.body);
   var obj = JSON.parse(req.body.model);
+  var newusers = [];
   console.log("NEW CART",obj);
-  api.makeCart(obj,function(cart) {
-    res.set("Content-Type","application/json");
-    res.set("Access-Control-Allow-Origin","*");
-    res.send({
-      success: true,
-      cart: cart
+  _.each(obj.emails,function(em) {
+    api.getOrCreateUser(em,function(newuser) {
+      newusers.push(newuser);
+      if(newusers.length == obj.emails.length) {
+        obj.users = newusers;
+        api.makeCart(obj,function(cart) {
+          res.set("Content-Type","application/json");
+          res.set("Access-Control-Allow-Origin","*");
+          res.send({
+            success: true,
+            cart: cart
+          });
+        });
+      }
     });
   });
 });
@@ -152,7 +161,8 @@ app.post('/api/invite', function(req, res){
 		var eml = req.body.emails[i];
 		console.log(eml);
 		email.sendMail(null, eml, req.body.host+" invited you to SharePay!", 
-			"Access your SharePay: "+uri);
+			req.body.host+" wants to split the bill with you on "+req.body.vendor+
+			"\nAccess the SharePay: "+uri);
 	}
 	res.end();
 });

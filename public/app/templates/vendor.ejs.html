@@ -1,5 +1,12 @@
-	<section class="vendor">
-		<div class="">
-			<img src=""/>
-		</div>
-	</section>
+<section class="vendor">
+	<div class="">
+		<a href="<%= logoUrl %>">
+			<% if (logoImgPath) { %>
+				<img src="<%= logoImgPath %>"/>
+			<% } %>
+		</a>
+	</div>
+	<span>
+		<a href="<%= logoUrl %>"><%= name %></a>
+	</span>
+</section>

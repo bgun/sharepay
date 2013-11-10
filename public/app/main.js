@@ -36,12 +36,14 @@ $(function() {
     cart: function(cartId) {
       console.log('in cart', cartId);
       // TODO: lookup cart from db
+      var d = new Date();
+      d.setTime(d.getTime() + (8 * 60 * 1000)); // for testing, set the deadline to 8 mins from now
       var myCart = new App.Models.CartModel({
         vendor: 'Seamless',
         items: new Backbone.Collection(),
         users: ['ben', 'greg', 'raj', 'pavel', 'micah', 'moshe'],
         processors: ['dowalla','venmo'],
-        deadline: "2013-11-10T21:15:41.010Z",
+        deadline: d.toJSON(),
       });
       var cartView = new App.Views.CartView({model:myCart});
       cartView.render();

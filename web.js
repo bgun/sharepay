@@ -14,6 +14,8 @@ app.use(express.bodyParser());
 app.use(express.logger());
 app.use(express.static(__dirname + "/public"));
 
+require("./app/oauth/processors")(app);
+
 app.get('/', function(request, response) {
   response.send('<h1>SharePay</h1>');
 });
@@ -24,6 +26,7 @@ app.get('/test',function(req, res) {
   var query = parts.query;
   res.send(query);
 });
+
 
 var capitalize = function(word) {
   return word[0].toUpperCase() + word.substr(1,word.length);
@@ -50,7 +53,7 @@ app.put('/api/cart/new',function(req, res) {
   console.log(req.body);
   var obj = JSON.parse(req.body.cart);
   api.makeCart(obj,function(cart) {
-    res.set("Content-Type","text/json");
+    res.set("Content-Type","application/json");
     res.send({
       success: true,
       cart: cart

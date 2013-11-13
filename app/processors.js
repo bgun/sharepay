@@ -96,13 +96,23 @@ module.exports = function(app){
     });
   });
   
+  
+  
   app.post('/api/processor/zipmark', function(req,resp){
     var js = {
-      "disbursement": req.body
-    };
+	  "disbursement": {
+		    "amount_cents": 100,
+		    "customer_name": "Pavel Shub",
+		    "customer_type": "individual",
+		    "memo": "Disbursement Memo",
+		    "user_email": "pavel.987@gmail.com"
+		  }
+	};
     
     js.disbursement.customer_id = crypto.createHash('md5').update(req.body.user_email).digest("hex");
-    console.log(js);
+    console.log("the output",js);
+    resp.end();
+    /*
     request({
       method:"POST",
       uri: "https://sandbox.zipmark.com/disbursements",
@@ -114,10 +124,11 @@ module.exports = function(app){
       }
     }, function(err, r, body){
       console.log(err);
-      console.log(r);
+      console.log(r.headers);
       console.log(body);
       resp.send(body);
     });
+    */
   });
 
   app.get('/api/processor/zipmark/:id', function(req,resp) {

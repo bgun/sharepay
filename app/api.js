@@ -1,5 +1,6 @@
 var _        = require("underscore");
 var url      = require("url");
+var fs       = require("fs");
 
 var orm      = require("./orm.js");
 var email    = require("./email.js");
@@ -41,26 +42,38 @@ module.exports = function(app) {
       */
     _.each(obj.emails,function(em) {
       orm.getOrCreateUser(em,function(newuser) {
+        // TODO: hacky mchackathon
         newusers.push(newuser);
         if(newusers.length == obj.emails.length) {
-          obj.users = newusers;
+          // now we've created users for everyone and can make the cart
           orm.makeCart(obj,function(cart) {
-            res.set("Content-Type","application/json");
-            res.set("Access-Control-Allow-Origin","*");
-            res.send({
-              success: true,
-              cart: cart
-            });
-            _.each(obj.emails,function(em) {
-            	var subj = obj.host.name+ " invited you to SharePay!";
-                var body = obj.host.name+" wants to split the bill with you on "+obj.vendor.name+
-                	"\n\nAccess the SharePay: http://sharepay.herokuapp.com/#cart/"+cart._id+"/email/"+em;
-                email.sendMail(null, em, subj,body);
-            });
-          });
-          
-        }
-      });
+            // email template
+            var tmplString = fs.readFile(__dirname + "/templates/email.erb.html","utf-8",function(err, str) {
+              if(err) {
+                throw err;
+              }
+              _.each(obj.emails,function(em) {
+                var subject = obj.host.name + " invited you to SharePay!";
+                var params = {
+                  name: "Someone",
+                  vendor: obj.vendor.name,
+                  sp_link: "http://sharepay.herokuapp.com/#cart/"+cart._id+"/email/"+em
+                };
+                var body = _.template(str, params);
+                email.sendMail(null, em, subject, body);
+              }); // end each
+
+              // finally send response
+              res.set("Content-Type","application/json");
+              res.set("Access-Control-Allow-Origin","*");
+              res.send({
+                success: true,
+                cart: cart
+              });
+            }); // end readFile
+          }); // end makeCart
+        } // end if
+      }); // end getOrCreateUser
     });
   });
 
@@ -113,7 +126,6 @@ module.exports = function(app) {
   });
 
   app.put(apiRoot+'user/:id',function(req, res) {
-    console.log(req.body);
     var id = req.params.id;
     var obj = JSON.parse(req.body.user);
     console.log("UPDATING CART TO:",obj);

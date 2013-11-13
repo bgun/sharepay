@@ -11,12 +11,16 @@ var server  = email.server.connect({
 exports.sendMail = function(toName, toEmail, subject, body) {
   var to = toEmail;
   if(toName){
-	  to += " <"+toName+">";
+    to += " <"+toName+">";
   }
   server.send({
-    text:    body, 
-    from:    "SharePay <sharepay1@gmail.com>", 
-    to:      to,
-    subject: subject
+    type   : "text/html",
+    from   : "SharePay <sharepay1@gmail.com>", 
+    to     : to,
+    subject: subject,
+    text   : body,
+    attachment: [
+      { data: body, alternative: true }
+    ]
   }, function(err, message) { console.log(err || message); });
 };

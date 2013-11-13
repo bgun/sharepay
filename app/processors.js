@@ -164,6 +164,36 @@ module.exports = function(app){
     });
   });
 
+  app.post('/api/processor/zipmark-ben', function(req,resp){
+    var js = {
+      "disbursement": req.body
+    };
+    js.disbursement.customer_id = crypto.createHash('md5').update(req.body.user_email).digest("hex");
+
+    var user = "Yzk1OTE3NTMtZGI3NC00NjAxLTkzZjYtNWE5YjNmMjk2MTBm";
+    var pass = "be6a6e5440cc162c3544659dc12cd34513a238149ac9bfcb45ff7d638ac15ce22938f8f1278686e9fdd1a76adf44da7445de3d19ca579f2963212670ccff7ad9";
+
+    var digest = require('http-digest-client').createDigestClient(user,pass);
+    digest.request({
+      host: 'sandbox.zipmark.com',
+      path: '/disbursements',
+      port: 443,
+      headers: {
+        //"Content-Type": "application/vnd.com.zipmark.v2+json"
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      method: 'GET'
+    }, function(res) {
+      res.on('data', function (data) {
+        console.log(data.toString());
+      });
+      res.on('error', function (err) {
+        console.log('oh noes');
+      });
+    });
+
+  });
+
   app.get('/api/processor/zipmark/:id', function(req,resp) {
     var id = req.params.id;
     request({

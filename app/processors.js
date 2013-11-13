@@ -1,5 +1,6 @@
 var url = require('url');
 var request = require('request');
+var crypto = require('crypto');
 
 module.exports = function(app){
 	var dwolla = {
@@ -91,6 +92,30 @@ module.exports = function(app){
 			console.log("body", body);
       resp.set("Content-Type","text/json");
       resp.set("Access-Control-Allow-Origin","*");
+			resp.send(body);
+		});
+	});
+	
+	app.post('/api/processor/zipmark', function(req,resp){
+		var js = {
+			"disbursement": req.body
+			};
+		
+		js.disbursement.customer_id = crypto.createHash('md5').update(req.body.user_email).digest("hex");
+		console.log(js);
+		request({
+			method:"POST",
+			uri: "https://sandbox.zipmark.com/disbursements",
+			body: JSON.stringify(js),
+			auth : {
+			    'user': 'Yzk1OTE3NTMtZGI3NC00NjAxLTkzZjYtNWE5YjNmMjk2MTBm',
+			    'pass': 'be6a6e5440cc162c3544659dc12cd34513a238149ac9bfcb45ff7d638ac15ce22938f8f1278686e9fdd1a76adf44da7445de3d19ca579f2963212670ccff7ad9',
+			    'sendImmediately': false
+			}
+		}, function(err, r, body){
+			console.log(err);
+			console.log(r);
+			console.log(body);
 			resp.send(body);
 		});
 	});

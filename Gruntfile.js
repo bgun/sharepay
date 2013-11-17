@@ -11,9 +11,9 @@ module.exports = function(grunt) {
         },
         // target name
         files: {
-          "public/css/vendors.css" : "public/css/vendors.less",
-          "public/css/styles.css"  : "public/css/styles.less",
-          "public/css/cart.css"    : "public/css/cart.less"
+          "public/css/setup.css"  : "public/css/setup.less",
+          "public/css/styles.css" : "public/css/styles.less",
+          "public/css/cart.css"   : "public/css/cart.less"
         }
       }
     },

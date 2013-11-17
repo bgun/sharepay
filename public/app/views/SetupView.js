@@ -5,12 +5,12 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 			vendors:'#vendorList',
 			processors:'#processorList'
 		},
-		className: 'main-view',
+		className: 'mainView',
 		events: {
 			'click button.main-submit': 'saveCart'
 		},
 		onRender: function(options) {
-			window.testMainView =  this;
+			window.testMainView = this;
 			var that = this,
 				vendorColl,
 				processorColl;

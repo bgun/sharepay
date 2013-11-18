@@ -5,7 +5,8 @@ App.module("Models", function(Mod, App, Backbone, Marionette, $, _) {
 			logoUrl: null,
 			logoImgPath: null,
 			vendorUrl: null,
-			optionsView: null
+			optionsView: null,
+			selected: false
 		}
 	});
 });

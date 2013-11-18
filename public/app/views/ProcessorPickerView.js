@@ -8,9 +8,8 @@ App.module('Views', function(Mod, App, Backbone, Marionette, $, _) {
 			'click img' : 'updateProcessor'
 		},
 		updateProcessor: function(evt) {
-			//console.log(this.model);
 			this.trigger('processorSelected', this.model);
-			this.$el.toggleClass('selected');
+			this.$el.addClass('selected');
 		}
 	});
 

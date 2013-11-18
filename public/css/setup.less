@@ -36,15 +36,17 @@
 
     img {
       width: 100%;
-      border: 1px solid #ccc;
+      border: 2px solid #ccc;
+
+      &.selected {
+        opacity: .8;
+        border: 2px solid #000;
+      }
     }
     .name {
       font-weight: 700;
       margin: 0 auto;
       text-align: center;
-    }
-    &.selected {
-      opacity: .7;
     }
   }
   .processorContainer {

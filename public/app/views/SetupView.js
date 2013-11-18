@@ -22,7 +22,7 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 				});
 				that.vendors.show(pickerView);
 				pickerView.on('itemview:vendorSelected', function(view, selectedVendorModel) {
-					if (that.model.get('vendor') === selectedVendorModel) {
+					if (selectedVendorModel.get('selected')) {
 						that.model.unset('vendor', selectedVendorModel);
 					} else {
 						that.model.set('vendor', selectedVendorModel);

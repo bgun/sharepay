@@ -9,7 +9,19 @@ App.module('Views', function(Mod, App, Backbone, Marionette, $, _) {
 		},
 		updateVendor: function() {
 			this.trigger('vendorSelected', this.model);
-			this.$el.toggleClass('selected');
+
+			// Update `selected` attribute
+			if (this.model.get('selected')) {
+				this.model.set('selected', false);
+			} else {
+				this.model.set('selected', true);
+			}
+
+			// Render vendor
+			$('.vendorContainer').find('img').removeClass('selected');
+			if (this.model.get('selected')) {
+				this.$el.find('img').addClass('selected');
+			}
 		}
 	});
 

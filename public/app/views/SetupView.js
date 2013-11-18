@@ -23,9 +23,9 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 				that.vendors.show(pickerView);
 				pickerView.on('itemview:vendorSelected', function(view, selectedVendorModel) {
 					if (selectedVendorModel.get('selected')) {
-						that.model.unset('vendor', selectedVendorModel);
-					} else {
 						that.model.set('vendor', selectedVendorModel);
+					} else {
+						that.model.unset('vendor', selectedVendorModel);
 					}
 				});
 			});
@@ -38,6 +38,13 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 				that.processors.show(pickerView);
 				pickerView.on('itemview:processorSelected', function(view, selectedProcessorModel) {
 					that.model.set('processors', selectedProcessorModel);
+
+					if (selectedProcessorModel.get('selected') === false) {
+						that.model.unset('vendor', selectedProcessorModel);
+					} else {
+						that.model.set('vendor', selectedProcessorModel);
+					}
+
 				});
 			});
 		},

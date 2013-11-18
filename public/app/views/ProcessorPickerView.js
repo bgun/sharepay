@@ -8,14 +8,15 @@ App.module('Views', function(Mod, App, Backbone, Marionette, $, _) {
 			'click img' : 'updateProcessor'
 		},
 		updateProcessor: function(evt) {
-			this.trigger('processorSelected', this.model);
-
 			// Update `selected` attribute
 			if (this.model.get('selected')) {
 				this.model.set('selected', false);
 			} else {
 				this.model.set('selected', true);
 			}
+
+			// Trigger event _after_ setting `selected`
+			this.trigger('processorSelected', this.model);
 
 			// Render processor
 			if (this.model.get('selected')) {

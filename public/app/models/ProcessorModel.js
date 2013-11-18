@@ -3,8 +3,6 @@ App.module("Models", function(Mod, App, Backbone, Marionette, $, _) {
 		defaults: {
 			name: null,
 			logoUrl: null
-		},
-		initialize: function(options) {
 		}
 	});
 });

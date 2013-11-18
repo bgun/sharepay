@@ -9,7 +9,21 @@ App.module('Views', function(Mod, App, Backbone, Marionette, $, _) {
 		},
 		updateProcessor: function(evt) {
 			this.trigger('processorSelected', this.model);
-			this.$el.addClass('selected');
+
+			// Update `selected` attribute
+			if (this.model.get('selected')) {
+				this.model.set('selected', false);
+			} else {
+				this.model.set('selected', true);
+			}
+
+			// Render processor
+			if (this.model.get('selected')) {
+				this.$el.find('img').addClass('selected');
+			} else {
+				this.$el.find('img').removeClass('selected');
+			}
+
 		}
 	});
 

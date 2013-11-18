@@ -45,8 +45,11 @@ module.exports = function(app) {
         // TODO: hacky mchackathon
         newusers.push(newuser);
         if(newusers.length == obj.emails.length) {
+          obj.users = newusers;
           // now we've created users for everyone and can make the cart
+          console.log("BEFORE",obj);
           orm.makeCart(obj,function(cart) {
+            console.log("AFTER",cart);
             // email template
             var tmplString = fs.readFile(__dirname + "/templates/email.erb.html","utf-8",function(err, str) {
               if(err) {

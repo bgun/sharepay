@@ -45,7 +45,7 @@ exports.getOrCreateUser = function(eaddr,callback) {
       callback.call(null,user);
     } else {
       var u = new User({
-        name: "",
+        name: eaddr.split("@")[0],
         email: eaddr
       });
       u.save(function(err, newuser) {
@@ -68,11 +68,11 @@ var Item = mongoose.model('Item', itemSchema);
 
 var cartSchema = Schema({
   deadline: String,
-  host: {},
-  items: [],
+  host: Object,
+  items: Array,
   processors: Array,
   vendor: Object,
-  users: []
+  users: Array
 });
 var Cart = mongoose.model('Cart', cartSchema);
 exports.makeCart = function(obj, callback) {

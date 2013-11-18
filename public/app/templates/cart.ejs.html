@@ -46,55 +46,56 @@
 
 
 		<!-- INDIVIDUAL -->
-		<% if (items.length) { %>
-			<section class="item-list individual">
-				<h2>Individual Items</h2>
-					<% _.each(users, function(user) { %>
-						<% var groupItems = groupedItems[user._id]; %>
-						<div class="item-group <%= user._id === currentUserId ? 'mine' : '' %>">
-							<h3><%= user.name %></h3>
-							<table>
-							<tbody>
-								<% _.each(groupItems, function(item){ %>
-								<tr class="item">
-									<th><%= item.name %></th>
-									<td class="item-price"><%= App.Utils.formatCurrency(item.price) %></td>
-								</tr>
-								<% }); %>
-							</tbody>
+    <section class="item-list individual">
+      <h2>Individual Items</h2>
+        <% _.each(users, function(user) { %>
+          <% var groupItems = groupedItems[user._id]; %>
+          <div class="item-group <%= user._id === currentUserId ? 'mine' : '' %>">
+            <h3><%= user.name %> (<%= user.email%>)</h3>
+            <table>
+            <tbody>
+              <% if(!groupItems || groupItems.length === 0) { %>
+              <p class="no-items">No items</p>
+              <% } %>
+              <% _.each(groupItems, function(item){ %>
+              <tr class="item">
+                <th><%= item.name %></th>
+                <td class="item-price"><%= App.Utils.formatCurrency(item.price) %></td>
+              </tr>
+              <% }); %>
+            </tbody>
 
-							<tfoot>
-								<% if (groupItems && groupItems.totalCost) { %>
-									<tr class="item">
-										<th><%= user.name %>'s Total</th>
-										<td class="item-price"><%= App.Utils.formatCurrency(groupItems.totalCost) %></td>
-									</tr>
-								<% } %>
+            <tfoot>
+              <% if (groupItems && groupItems.totalCost) { %>
+                <tr class="item">
+                  <th><%= user.name %>'s Total</th>
+                  <td class="item-price"><%= App.Utils.formatCurrency(groupItems.totalCost) %></td>
+                </tr>
+              <% } %>
 
-								<% if (groupedItems.shared && groupedItems.shared.length) { %>
-									<tr class="item">
-										<th>Share of Shared</th>
-										<td class="item-price"><%= App.Utils.formatCurrency(sharedShare) %></td>
-									</tr>
-								<% } %>
+              <% if (groupedItems.shared && groupedItems.shared.length) { %>
+                <tr class="item">
+                  <th>Share of Shared</th>
+                  <td class="item-price"><%= App.Utils.formatCurrency(sharedShare) %></td>
+                </tr>
+              <% } %>
 
-								<tr class="item total-row">
-									<th>Total</th>
-									<td class="shared-total"><%= groupItems ? App.Utils.formatCurrency(groupItems.totalCost + sharedShare) : App.Utils.formatCurrency(sharedShare) %></td>
-								</tr>
-							</tfoot>
-							</table>
-							<% if (user._id === currentUserId && !isHost) { %>
-							<div class="user-payment">
-								<div>Pay with:</div>
-								<span class="Dwolla dwolla-btn"></span>
-								<span class="Venmo venmo-btn"></span>
-							</div>
-							<% } %>
-						</div>
-					<% }); %>
-			</section>
-		<% } %>
+              <tr class="item total-row">
+                <th>Total</th>
+                <td class="shared-total"><%= groupItems ? App.Utils.formatCurrency(groupItems.totalCost + sharedShare) : App.Utils.formatCurrency(sharedShare) %></td>
+              </tr>
+            </tfoot>
+            </table>
+            <% if (user._id === currentUserId && !isHost) { %>
+            <div class="user-payment">
+              <div>Pay with:</div>
+              <span class="Dwolla dwolla-btn"></span>
+              <span class="Venmo venmo-btn"></span>
+            </div>
+            <% } %>
+          </div>
+        <% }); %>
+    </section>
 
 
 

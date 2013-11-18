@@ -7,7 +7,7 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 		},
 		className: 'mainView',
 		events: {
-			'click button.main-submit': 'saveCart'
+			'click button.mainSubmit': 'saveCart'
 		},
 		onRender: function(options) {
 			window.testMainView = this;
@@ -32,19 +32,20 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 
 			processorColl = new App.Collections.ProcessorCollection();
 			processorColl.fetch().done(function() {
+        var obj;
 				var pickerView = new App.Views.ProcessorPickerCollectionView({
 					collection: processorColl
 				});
 				that.processors.show(pickerView);
 				pickerView.on('itemview:processorSelected', function(view, selectedProcessorModel) {
 					if (selectedProcessorModel.get('selected')) {
-						var obj = that.model.get('processors');
+						obj = that.model.get('processors');
 						obj[selectedProcessorModel.get('name')] = selectedProcessorModel;
-						that.model.set(obj);
+						that.model.set("processors",obj);
 					} else {
-						var obj = that.model.get('processors');
+						obj = that.model.get('processors');
 						delete obj[selectedProcessorModel.get('name')];
-						that.model.set(obj);
+						that.model.set("processors",obj);
 					}
 				});
 			});

@@ -21,7 +21,7 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 					collection: vendorColl
 				});
 				that.vendors.show(pickerView);
-				pickerView.on('itemview:vendorselected', function(view,selectedVendorModel) {
+				pickerView.on('itemview:vendorselected', function(view, selectedVendorModel) {
 					that.model.set('vendor', selectedVendorModel);
 				});
 			});
@@ -32,12 +32,12 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 					collection: processorColl
 				});
 				that.processors.show(pickerView);
-				pickerView.on('itemview:addprocessor', function(view,selectedProcessorModel) {
-					that.model.get('processors').add(selectedProcessorModel);
+				pickerView.on('itemview:processorselector', function(view, selectedProcessorModel) {
+					that.model.get('processor', selectedProcessorModel);
 				});
-				pickerView.on('itemview:removeprocessor', function(view,selectedProcessorModel) {
-					that.model.get('processors').remove(selectedProcessorModel);
-				});
+				//pickerView.on('itemview:removeprocessor', function(view,selectedProcessorModel) {
+				//	that.model.get('processors').remove(selectedProcessorModel);
+				//});
 			});
 		},
 		saveCart: function() {

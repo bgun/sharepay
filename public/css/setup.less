@@ -27,7 +27,46 @@
     }
   }
   .vendorContainer {
+    cursor: pointer;
     display: inline-block;
+    height: 90px;
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 80px;
+
+    img {
+      width: 100%;
+      border: 1px solid #ccc;
+    }
+    .name {
+      font-weight: 700;
+      margin: 0 auto;
+      text-align: center;
+    }
+    &.selected {
+      opacity: .7;
+    }
+  }
+  .processorContainer {
+    cursor: pointer;
+    display: inline-block;
+    height: 90px;
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 80px;
+
+    img {
+      width: 100%;
+      border: 1px solid #ccc;
+    }
+    .name {
+      font-weight: 700;
+      margin: 0 auto;
+      text-align: center;
+    }
+    &.selected {
+      opacity: .7;
+    }
   }
   textarea {
     width: 100%;
@@ -36,27 +75,7 @@
 }
 
 
-.vendorContainer {
-  cursor: pointer;
-  display: inline-block;
-  height: 120px;
-  margin-left: 5px;
-  margin-right: 5px;
-  width: 80px;
 
-  img {
-  	width: 100%;
-    border: 1px solid #ccc;
-  }
-  .name {
-  	font-weight: 700;
-  	margin: 0 auto;
-    text-align: center;
-  }
-  &.selected {
-    opacity: .7;
-  }
-}
 .vendorLogo {
   width: 200px;
 }

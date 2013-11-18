@@ -1,21 +1,19 @@
 App.module('Views', function(Mod, App, Backbone, Marionette, $, _) {
+
 	var ProcessorPicker = Marionette.ItemView.extend({
+		tagName: 'div',
+		className: 'processorContainer',
 		template: 'processor',
 		events: {
-			'click input':'updateProcessor',
-			'click label':'updateProcessor'
+			'click input' : 'updateProcessor',
+			'click label' : 'updateProcessor'
 		},
-		updateProcessor:function(evt){
-			var isChecked = this.$el.find('input').is(':checked');
-			if (isChecked) {
-				this.trigger('addprocessor', this.model);
-			} else {
-				this.trigger('removeprocessor', åthis.model);
-			}
+		updateProcessor: function(evt) {
+			this.trigger('processorselected', this.model);
+			this.$el.toggleClass('selected');
 		}
 	});
 	Mod.ProcessorPickerCollectionView = Marionette.CollectionView.extend({
-		tagName: 'section',
 		itemView: ProcessorPicker
 	});
 });

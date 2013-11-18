@@ -5,7 +5,7 @@ App.module('Views', function(Mod, App, Backbone, Marionette, $, _) {
 		className: 'vendorContainer',
 		template: 'vendor',
 		events: {
-			'click img' : 'updateVendor',
+			'click img'   : 'updateVendor',
 			'click .name' : 'updateVendor'
 		},
 		updateVendor: function() {

@@ -21,8 +21,12 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 					collection: vendorColl
 				});
 				that.vendors.show(pickerView);
-				pickerView.on('itemview:vendorselected', function(view, selectedVendorModel) {
-					that.model.set('vendor', selectedVendorModel);
+				pickerView.on('itemview:vendorSelected', function(view, selectedVendorModel) {
+					if (that.model.get('vendor') === selectedVendorModel) {
+						that.model.unset('vendor', selectedVendorModel);
+					} else {
+						that.model.set('vendor', selectedVendorModel);
+					}
 				});
 			});
 
@@ -32,23 +36,20 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 					collection: processorColl
 				});
 				that.processors.show(pickerView);
-				pickerView.on('itemview:processorselector', function(view, selectedProcessorModel) {
-					that.model.get('processor', selectedProcessorModel);
+				pickerView.on('itemview:processorSelected', function(view, selectedProcessorModel) {
+					that.model.set('processors', selectedProcessorModel);
 				});
-				//pickerView.on('itemview:removeprocessor', function(view,selectedProcessorModel) {
-				//	that.model.get('processors').remove(selectedProcessorModel);
-				//});
 			});
 		},
 		saveCart: function() {
-			var that = this;
+			var that = this,
+				deadline = new Date();
 			this.processEmails();
-			this.model.set('host',App.user.toJSON());
-			var deadline = new Date();
-			deadline.setHours(deadline.getHours()+1);
-			this.model.set('deadline',deadline);
-			this.model.save().done(function(){
-				App.router.navigate('cart/'+that.model.get('_id')+'/email/'+App.user.get('email'), {trigger: true, replace: true});
+			this.model.set('host', App.user.toJSON());
+			deadline.setHours(deadline.getHours() + 1);
+			this.model.set('deadline', deadline);
+			this.model.save().done(function() {
+				App.router.navigate('cart/' + that.model.get('_id') + '/email/' + App.user.get('email'), {trigger: true, replace: true});
 			});
 		},
 		processEmails: function() {

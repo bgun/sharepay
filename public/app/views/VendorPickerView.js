@@ -5,11 +5,10 @@ App.module('Views', function(Mod, App, Backbone, Marionette, $, _) {
 		className: 'vendorContainer',
 		template: 'vendor',
 		events: {
-			'click img'   : 'updateVendor',
-			'click .name' : 'updateVendor'
+			'click img' : 'updateVendor'
 		},
 		updateVendor: function() {
-			this.trigger('vendorselected', this.model);
+			this.trigger('vendorSelected', this.model);
 			this.$el.toggleClass('selected');
 		}
 	});
@@ -17,4 +16,5 @@ App.module('Views', function(Mod, App, Backbone, Marionette, $, _) {
 	Mod.VendorPickerCollectionView = Marionette.CollectionView.extend({
 		itemView: VendorPicker
 	});
+
 });

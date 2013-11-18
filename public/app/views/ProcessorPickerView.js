@@ -5,15 +5,17 @@ App.module('Views', function(Mod, App, Backbone, Marionette, $, _) {
 		className: 'processorContainer',
 		template: 'processor',
 		events: {
-			'click input' : 'updateProcessor',
-			'click label' : 'updateProcessor'
+			'click img' : 'updateProcessor'
 		},
 		updateProcessor: function(evt) {
-			this.trigger('processorselected', this.model);
+			//console.log(this.model);
+			this.trigger('processorSelected', this.model);
 			this.$el.toggleClass('selected');
 		}
 	});
+
 	Mod.ProcessorPickerCollectionView = Marionette.CollectionView.extend({
 		itemView: ProcessorPicker
 	});
+
 });

@@ -8,23 +8,14 @@ App.module('Views', function(Mod, App, Backbone, Marionette, $, _) {
 			'click img' : 'updateProcessor'
 		},
 		updateProcessor: function(evt) {
-			// Update `selected` attribute
 			if (this.model.get('selected')) {
 				this.model.set('selected', false);
+				this.$el.find('img').removeClass('selected');
 			} else {
 				this.model.set('selected', true);
-			}
-
-			// Trigger event _after_ setting `selected`
-			this.trigger('processorSelected', this.model);
-
-			// Render processor
-			if (this.model.get('selected')) {
 				this.$el.find('img').addClass('selected');
-			} else {
-				this.$el.find('img').removeClass('selected');
 			}
-
+			this.trigger('processorSelected', this.model);
 		}
 	});
 

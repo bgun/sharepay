@@ -38,11 +38,10 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 				that.processors.show(pickerView);
 				pickerView.on('itemview:processorSelected', function(view, selectedProcessorModel) {
 					that.model.set('processors', selectedProcessorModel);
-
-					if (selectedProcessorModel.get('selected') === false) {
-						that.model.unset('vendor', selectedProcessorModel);
+					if (selectedProcessorModel.get('selected')) {
+						that.model.set('processors', selectedProcessorModel);
 					} else {
-						that.model.set('vendor', selectedProcessorModel);
+						that.model.set('processors', selectedProcessorModel);
 					}
 
 				});

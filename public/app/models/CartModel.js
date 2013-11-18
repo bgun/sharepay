@@ -6,7 +6,7 @@ App.module("Models", function(Mod, App, Backbone, Marionette, $, _) {
 			items: [],
 			groupedItems: [],
 			users: [],
-			processors: new App.Collections.ProcessorCollection(),
+			processors: {}, //new App.Collections.ProcessorCollection(),
 			deadline: null,
 		},
 		url:'/api/cart',

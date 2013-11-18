@@ -37,13 +37,15 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
 				});
 				that.processors.show(pickerView);
 				pickerView.on('itemview:processorSelected', function(view, selectedProcessorModel) {
-					that.model.set('processors', selectedProcessorModel);
 					if (selectedProcessorModel.get('selected')) {
-						that.model.set('processors', selectedProcessorModel);
+						var obj = that.model.get('processors');
+						obj[selectedProcessorModel.get('name')] = selectedProcessorModel;
+						that.model.set(obj);
 					} else {
-						that.model.set('processors', selectedProcessorModel);
+						var obj = that.model.get('processors');
+						delete obj[selectedProcessorModel.get('name')];
+						that.model.set(obj);
 					}
-
 				});
 			});
 		},

@@ -9,6 +9,7 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
       'click .add-shared-item-btn': 'processAddForm',
       'click .dwolla-btn'         : 'makeDwollaPayment',
       'click .venmo-btn'          : 'makeVenmoPayment',
+      'click .zipmark-btn'        : 'makeZipMarkPayment',
       'click .send-order'         : 'sendOrder'
     },
 
@@ -103,6 +104,25 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
       this.$el.find('.time-left').html(this.model.getTimeLeft());
     },
 
+    makeZipMarkPayment: function() {
+    	var that = this;
+    	var url = 'http://sharepay.herokuapp.com';
+    	//var url = 'http://localhost:5000';
+    	$.ajax({
+            type: 'POST',
+            url: url+'/api/processor/zipmark',
+            data: {
+              user_email: that.model.get('host').email,
+              customer_name: that.model.get('host').name,
+              amount_cents: 1, // <--- change this to contribution amount
+              memo: "SharePay Purchase " // <--- change this to description
+            }
+          }).done(function(data){
+            console.log(data);
+            toastr.success('Thanks for the cash, bro.');
+          });
+    },
+    
     makeDwollaPayment: function() {
       var that = this;
       console.log('dwolla!');

@@ -107,21 +107,18 @@ module.exports = function(app){
   
   app.post('/api/processor/zipmark', function(req,resp){
     var js = {
-	  "disbursement": {
-		    "amount_cents": 500,
-		    "customer_name": "Pavel Shub",
-		    "customer_type": "individual",
-		    "memo": "Disbursement Memo2",
-		    "user_email": "pavel.987@gmail.com"
-		  }
+	  "disbursement": req.body
 	};
     
     js.disbursement.customer_id = md5(req.body.user_email);
+    js.disbursement.customer_type = "individual";
     console.log("the output",js);
+    
+    var disbursementsURI = "/disbursements";
     
     request({
     	method: "POST",
-    	uri: "https://sandbox.zipmark.com/disbursements",
+    	uri: "https://sandbox.zipmark.com"+disbursementsURI,
     	body: JSON.stringify(js)
     }, function(err, r, body){
     	var oHeaders = r.headers;
@@ -138,20 +135,21 @@ module.exports = function(app){
 		          challenge[key] = quotedValue.substring(1, quotedValue.length - 1);
 		        }
     		console.log(challenge);
+    		var cnonce = "abcd123";
     		var ha1 = md5(zipmark.appId+':'+challenge['realm']+':'+zipmark.appSecret);
-    		var ha2 = md5("POST:/disbursements");
-    		var response = md5(ha1+':'+challenge["nonce"]+":00000000:abcdef123:auth:"+ha2);
+    		var ha2 = md5("POST:"+disbursementsURI);
+    		var response = md5(ha1+':'+challenge["nonce"]+":00000000:"+cnonce+":auth:"+ha2);
     		var headers = {
     			"Authorization": "Digest username=\""+zipmark.appId+"\", "+
-    				"realm=\""+challenge['realm']+"\", qop=auth, uri=\"/disbursements\", "+
-    				"nonce=\""+challenge['nonce']+"\", nc=00000000, cnonce=\"abcdef123\", "+
+    				"realm=\""+challenge['realm']+"\", qop=auth, uri=\""+disbursementsURI+"\", "+
+    				"nonce=\""+challenge['nonce']+"\", nc=00000000, cnonce=\""+cnonce+"\", "+
     				"response=\""+response+"\", opaque=\""+challenge['opaque']+"\"",
     			"Content-Type":	"application/vnd.com.zipmark.v2+json",
     			"Accept": "application/vnd.com.zipmark.v2+json"
     		};
     		request({
     			method: "POST",
-    	    	uri: "https://sandbox.zipmark.com/disbursements",
+    	    	uri: "https://sandbox.zipmark.com"+disbursementsURI,
     	    	body: JSON.stringify(js),
     	    	headers: headers
     		}, function(err2, r2, body2){

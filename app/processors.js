@@ -109,7 +109,10 @@ module.exports = function(app){
     var js = { "disbursement": req.body };
     
     js.disbursement.customer_id = md5(req.body.user_email);
+    js.disbursement.customer_type = "individual";
     console.log("the output",js);
+    
+    var disbursementsURI = "/disbursements";
     
     request({
       method: "POST",

@@ -151,6 +151,7 @@ module.exports = function(app){
             headers: headers
         }, function(err2, r2, body2){
           console.log(err2, r2, body2);
+          resp.set("Access-Control-Allow-Origin","*");
           resp.send(body2);
         });
       } else {

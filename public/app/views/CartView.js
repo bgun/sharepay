@@ -109,18 +109,18 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
       var url = 'http://sharepay.herokuapp.com';
       //var url = 'http://localhost:5000';
       $.ajax({
-            type: 'POST',
-            url: url+'/api/processor/zipmark',
-            data: {
-              user_email: that.model.get('host').email,
-              customer_name: that.model.get('host').name,
-              amount_cents: 1, // <--- change this to contribution amount
-              memo: "SharePay Purchase " // <--- change this to description
-            }
-          }).done(function(data){
-            console.log(data);
-            toastr.success('Thanks for the cash, bro.');
-          });
+        type: 'POST',
+        url: url+'/api/processor/zipmark',
+        data: {
+          user_email: that.model.get('host').email,
+          customer_name: that.model.get('host').name,
+          amount_cents: 1, // <--- change this to contribution amount
+          memo: "SharePay Purchase " // <--- change this to description
+        }
+      }).done(function(data){
+        console.log(data);
+        toastr.success('Thanks for the cash, bro.');
+      });
     },
     
     makeDwollaPayment: function() {
@@ -183,34 +183,6 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
         window.open("https://api.venmo.com/oauth/authorize"+
           "?client_id=1488"+
           "&response_type=code&scope=make_payments","_blank");
-      }
-    },
-
-    makeZipmarkPayment: function() {
-      var that = this;
-      console.log('go go gadget zipmark');
-      var tokens = App.user.get('tokens') || {};
-      if(typeof tokens.zipmark != "undefined"){
-        console.log("make Zipmark payment here... token "+tokens.venmo);
-        var url = 'http://sharepay.herokuapp.com';
-        //var url = 'http://localhost:5000';
-        $.ajax({
-          type: 'POST',
-          dataType: 'json',
-          url: url+'/api/processor/zipmark',
-          data: {
-            "amount_cents": 1,
-            "customer_name": App.user.get('name') || "Sharepay User",
-            "customer_type": "individual",
-            "memo": "SharePay Purchase #"+that.getInvoiceNumber(),
-            "user_email": App.user.get('email')
-          }
-        }).done(function(data){
-          console.log(data);
-          toastr.success('Congratulations! Your Zipmark payment went through');
-        });
-      } else {
-        alert("You need a Zipmark vendor account!");
       }
     },
 

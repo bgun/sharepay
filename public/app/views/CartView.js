@@ -9,6 +9,7 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
       'click .add-shared-item-btn': 'processAddForm',
       'click .dwolla-btn'         : 'makeDwollaPayment',
       'click .venmo-btn'          : 'makeVenmoPayment',
+      'click .zipmark-btn'        : 'makeZipmarkPayment',
       'click .send-order'         : 'sendOrder'
     },
 
@@ -116,17 +117,18 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
         $.ajax({
           type: 'POST',
           url: url+'/api/processor/dwolla',
+          dataType: 'json',
           data: {
             oauth_token: tokens.dwolla,
             pin: pin,
             destinationId: that.model.get('host').email,
             destinationType: "Email",
             amount: 0.01, // <--- change this to contribution amount
-            notes: "SharePay Purchase "+Math.random() // <--- change this to description
+            notes: "SharePay Purchase #"+that.getInvoiceNumber() // <--- change this to description
           }
         }).done(function(data){
           console.log(data);
-          toastr.success('Thanks for the dough, dude.');
+          toastr.success('Thanks for the Dwollas, dude!');
         });
       } else {
         window.open("https://www.dwolla.com/oauth/v2/authenticate"+
@@ -141,29 +143,61 @@ App.module("Views", function(Mod, App, Backbone, Marionette, $, _) {
       console.log('venmo!...?');
       var tokens = App.user.get('tokens') || {};
       if(typeof tokens.venmo != "undefined"){
-        // make dwolla payment here
         console.log("make venmo payment here... token "+tokens.venmo);
         var url = 'http://sharepay.herokuapp.com';
         //var url = 'http://localhost:5000';
         $.ajax({
           type: 'POST',
           url: url+'/api/processor/venmo',
+          dataType: 'json',
           data: {
             access_token: tokens.venmo,
             email: that.model.get('host').email, // <--- change this to host email
-            note: "SharePay Purchase "+Math.random(), // <--- change this to description
+            note: "SharePay Purchase #"+that.getInvoiceNumber(), // <--- change this to description
             amount: 0.01, // <--- change this to contribution amount
           }
         }).done(function(data){
           console.log(data);
-          toastr.success('Congratulations! Your payment went through');
+          toastr.success('Congratulations! Your Venmo payment went through');
         });
       } else {
         window.open("https://api.venmo.com/oauth/authorize"+
           "?client_id=1488"+
           "&response_type=code&scope=make_payments","_blank");
       }
+    },
 
+    makeZipmarkPayment: function() {
+      var that = this;
+      console.log('go go gadget zipmark');
+      var tokens = App.user.get('tokens') || {};
+      if(typeof tokens.zipmark != "undefined"){
+        console.log("make Zipmark payment here... token "+tokens.venmo);
+        var url = 'http://sharepay.herokuapp.com';
+        //var url = 'http://localhost:5000';
+        $.ajax({
+          type: 'POST',
+          dataType: 'json',
+          url: url+'/api/processor/zipmark',
+          data: {
+            "amount_cents": 1,
+            "customer_name": App.user.get('name') || "Sharepay User",
+            "customer_type": "individual",
+            "memo": "SharePay Purchase #"+that.getInvoiceNumber(),
+            "user_email": App.user.get('email')
+          }
+        }).done(function(data){
+          console.log(data);
+          toastr.success('Congratulations! Your Zipmark payment went through');
+        });
+      } else {
+        alert("You need a Zipmark vendor account!");
+      }
+    },
+
+    getInvoiceNumber: function() {
+      // return a random string
+      return (Math.random()+"").substr(2,7);
     },
 
     sendOrder: function() {

@@ -12,8 +12,8 @@ module.exports = function(app){
     appSecret: 'U5DkVMPQYHmpZj7SNxWdHqRb65d4ApNK'
   };
   var zipmark = {
-	  appId: 'Yzk1OTE3NTMtZGI3NC00NjAxLTkzZjYtNWE5YjNmMjk2MTBm',
-	  appSecret: 'be6a6e5440cc162c3544659dc12cd34513a238149ac9bfcb45ff7d638ac15ce22938f8f1278686e9fdd1a76adf44da7445de3d19ca579f2963212670ccff7ad9'
+    appId: 'Yzk1OTE3NTMtZGI3NC00NjAxLTkzZjYtNWE5YjNmMjk2MTBm',
+    appSecret: 'be6a6e5440cc162c3544659dc12cd34513a238149ac9bfcb45ff7d638ac15ce22938f8f1278686e9fdd1a76adf44da7445de3d19ca579f2963212670ccff7ad9'
   };
   
   app.get('/auth/venmo_challenge', function(req, res){
@@ -102,65 +102,57 @@ module.exports = function(app){
   
   
   var md5 = function(s){
-	  return crypto.createHash('md5').update(s).digest("hex");
+    return crypto.createHash('md5').update(s).digest("hex");
   };
   
   app.post('/api/processor/zipmark', function(req,resp){
-    var js = {
-	  "disbursement": {
-		    "amount_cents": 500,
-		    "customer_name": "Pavel Shub",
-		    "customer_type": "individual",
-		    "memo": "Disbursement Memo2",
-		    "user_email": "pavel.987@gmail.com"
-		  }
-	};
+    var js = { "disbursement": req.body };
     
     js.disbursement.customer_id = md5(req.body.user_email);
     console.log("the output",js);
     
     request({
-    	method: "POST",
-    	uri: "https://sandbox.zipmark.com/disbursements",
-    	body: JSON.stringify(js)
+      method: "POST",
+      uri: "https://sandbox.zipmark.com/disbursements",
+      body: JSON.stringify(js)
     }, function(err, r, body){
-    	var oHeaders = r.headers;
-    	if(typeof oHeaders['www-authenticate'] != "undefined"){
-    		console.log(oHeaders);
-    		
-    		 var matches = oHeaders['www-authenticate'].match(/([a-z0-9_-]+)="([^"]+)"/gi);
-		        var challenge = {};
-	
-		        for (var i = 0; i < matches.length; i++) {
-		          var eqPos = matches[i].indexOf('=');
-		          var key = matches[i].substring(0, eqPos);
-		          var quotedValue = matches[i].substring(eqPos + 1);
-		          challenge[key] = quotedValue.substring(1, quotedValue.length - 1);
-		        }
-    		console.log(challenge);
-    		var ha1 = md5(zipmark.appId+':'+challenge['realm']+':'+zipmark.appSecret);
-    		var ha2 = md5("POST:/disbursements");
-    		var response = md5(ha1+':'+challenge["nonce"]+":00000000:abcdef123:auth:"+ha2);
-    		var headers = {
-    			"Authorization": "Digest username=\""+zipmark.appId+"\", "+
-    				"realm=\""+challenge['realm']+"\", qop=auth, uri=\"/disbursements\", "+
-    				"nonce=\""+challenge['nonce']+"\", nc=00000000, cnonce=\"abcdef123\", "+
-    				"response=\""+response+"\", opaque=\""+challenge['opaque']+"\"",
-    			"Content-Type":	"application/vnd.com.zipmark.v2+json",
-    			"Accept": "application/vnd.com.zipmark.v2+json"
-    		};
-    		request({
-    			method: "POST",
-    	    	uri: "https://sandbox.zipmark.com/disbursements",
-    	    	body: JSON.stringify(js),
-    	    	headers: headers
-    		}, function(err2, r2, body2){
-    			console.log(err2, r2, body2);
-    			resp.send(body2);
-    		});
-    	} else {
-    		resp.send("lol wut?");
-    	}
+      var oHeaders = r.headers;
+      if(typeof oHeaders['www-authenticate'] != "undefined"){
+        console.log(oHeaders);
+        
+         var matches = oHeaders['www-authenticate'].match(/([a-z0-9_-]+)="([^"]+)"/gi);
+            var challenge = {};
+  
+            for (var i = 0; i < matches.length; i++) {
+              var eqPos = matches[i].indexOf('=');
+              var key = matches[i].substring(0, eqPos);
+              var quotedValue = matches[i].substring(eqPos + 1);
+              challenge[key] = quotedValue.substring(1, quotedValue.length - 1);
+            }
+        console.log(challenge);
+        var ha1 = md5(zipmark.appId+':'+challenge.realm+':'+zipmark.appSecret);
+        var ha2 = md5("POST:/disbursements");
+        var response = md5(ha1+':'+challenge.nonce+":00000000:abcdef123:auth:"+ha2);
+        var headers = {
+          "Authorization": "Digest username=\""+zipmark.appId+"\", "+
+            "realm=\""+challenge.realm+"\", qop=auth, uri=\"/disbursements\", "+
+            "nonce=\""+challenge.nonce+"\", nc=00000000, cnonce=\"abcdef123\", "+
+            "response=\""+response+"\", opaque=\""+challenge.opaque+"\"",
+          "Content-Type": "application/vnd.com.zipmark.v2+json",
+          "Accept": "application/vnd.com.zipmark.v2+json"
+        };
+        request({
+          method: "POST",
+            uri: "https://sandbox.zipmark.com/disbursements",
+            body: JSON.stringify(js),
+            headers: headers
+        }, function(err2, r2, body2){
+          console.log(err2, r2, body2);
+          resp.send(body2);
+        });
+      } else {
+        resp.send("lol wut?");
+      }
     });
   });
 
